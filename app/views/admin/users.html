@@ -1,0 +1,139 @@
+<!--Double Navigation-->
+ <header class="headerAdmin">
+
+        <!-- Sidebar navigation -->
+        <ul id="slide-out" class="side-nav admin-nav fixed custom-scrollbar">
+
+            <!-- Logo -->
+            <li>
+                <div class="avatarArea logo-wrapper waves-light sn-avatar-wrapper">
+                    <a href="#">
+                        <img src="images/admin/avatar-admin.png" class="img-circle">
+                    </a>
+                    <a href="" class="nameUser">{{user.nome}}</a>
+                </div>
+            </li>
+            <!--/. Logo -->
+            <!-- Side navigation links -->
+            <li>
+                <ul class="collapsible collapsible-accordion">
+                    <li><a href="#/users" class="waves-effect arrow-r"><i class="fa fa-users" aria-hidden="true"></i> Usuários</a></li>
+                    <li><a href="#/edit" class="waves-effect arrow-r"><i class="fa fa-pencil" aria-hidden="true"></i> Editar Perfil</a></li>
+                    <li><a ng-click="manutencao()" class="waves-effect arrow-r"><i class="fa fa-cogs" aria-hidden="true"></i> Manutenção</a></li>
+                </ul>
+            </li>
+            <!--/. Side navigation links -->
+        </ul>
+        <!--/. Sidebar navigation -->
+
+        <!--Navbar-->
+        <nav class="navbar navbar-fixed-top scrolling-navbar double-nav">
+
+            <!-- SideNav slide-out button -->
+            <div class="pull-left">
+                <a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
+            </div>
+
+            <!-- Breadcrumb-->
+            <div class="breadcrumb-dn">
+                <p ng-bind="$root.title">Início</p>
+            </div>
+
+
+            <ul class="nav navbar-nav pull-right">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Perfil</a>
+                    <div class="dropdown-menu dropdown-primary dd-right totalRight" aria-labelledby="dropdownMenu1" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                        <a ng-click="logout();" class="dropdown-item" href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a>
+                    </div>
+                </li>
+            </ul>
+
+        </nav>
+        <!--/.Navbar-->
+
+    </header>
+<input type="hidden" id="idAdmin" value="{{user.id}}">
+<!--Main layout-->
+<main class="">
+<div class="container-fluid" style="height: 800px;">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<!--Right-->
+			<div class="md-form input-group adminSearchArea">
+			    <input type="text" class="form-control" ng-keyup="pesquisar();" id="userSearch" placeholder="Procurar...">
+			</div>
+  			<div ng-include="'views/modals/userAdminModal.html'"></div>
+			<div class="body-table">
+				<table class="table table-users text-xs-center">
+					<thead class="thead-inverse">
+						<tr>
+							<th>#</th>
+							<th>Nome</th>
+							<th>Usuário</th></th>
+							<th>Email</th>
+							<th>Data do Cadastro</th>
+							<th>Estado</th>
+							<th>Função</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>	
+					</tbody>
+				</table>
+				<div class="preloaderBody hide-element">
+					<div ng-include="'views/preloader.html'"></div>
+				</div>
+			</div>
+			<div class="buttons-action">
+				<button ng-click="openCreateUser();" class="btn btn-default btn-lg waves-light waves-effect"><i class="fa fa-user-plus left"></i> Novo usuário</button>
+			</div>
+			<form class="formNewUser">
+				<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+					<h3>Cadastrar novo usuário</h3>
+				</div>
+                <div class='form-group col-xs-12 col-sm-12 col-md-4 col-lg-4'>
+					<input type='text' class='form-control inputRequired' id='newNameUser' placeholder='Nome'>
+					<label class="blankLabel hide-element">Campo obrigatório</label>
+				</div>
+				<div class='form-group col-xs-12 col-sm-12 col-md-4 col-lg-4'>
+					<input type='email' class='form-control inputRequired' id='newEmailUser' placeholder='E-mail'>
+					<label class="blankLabel hide-element">Campo obrigatório</label>
+					<label class="useremailExistent hide-element">E-mail já em uso</label>
+				</div>
+				<div class='form-group col-xs-12 col-sm-12 col-md-4 col-lg-4'>
+					<input type='text' class='form-control inputRequired' id='newUsuarioUser' placeholder='Usuário'>
+					<label class="blankLabel hide-element">Campo obrigatório</label>
+					<label class="usernameExistent hide-element">Nome de Usuário já em uso</label>
+				</div>
+				<div class='form-group col-xs-12 col-sm-12 col-md-4 col-lg-4'>
+					<input type='password' class='form-control inputRequired' id='newPasswordUser' placeholder="Senha">
+					<label class="blankLabel hide-element">Campo obrigatório</label>
+				</div>
+				<div class='form-group col-xs-12 col-sm-12 col-md-4 col-lg-4'>
+					<input type='text' class='form-control inputRequired cpfMask' id='newCpfUser' placeholder='CPF'>
+					<label class="blankLabel hide-element">Campo obrigatório</label>
+					<label class="labelCpfValid hide-element">CPF Válido</label>
+					<label class="labelCpfInvalid hide-element">CPF Inválido</label>
+					<label class="cpfExistent hide-element">CPF já em uso</label>
+				</div>
+				<div class='form-group col-xs-12 col-sm-12 col-md-4 col-lg-4'>
+					<select id="newRoleUser" class='mdb-select inputRequired'>
+						<option disabled value='0' selected>Tipo de Usuário</option>
+						<option value='1' data-icon='http://mdbootstrap.com/wp-content/uploads/2015/10/avatar-1.jpg' class='img-circle'>Administrador</option>
+						<option value='2' data-icon='http://mdbootstrap.com/wp-content/uploads/2015/10/avatar-2.jpg' class='img-circle'>Suporte</option>
+						<option value='3' data-icon='http://mdbootstrap.com/wp-content/uploads/2015/10/avatar-3.jpg' class='img-circle'>Usuário</option>
+					</select>
+					<label class="blankLabel hide-element">Campo obrigatório</label>
+				</div>
+				<div class='form-group col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+					<button ng-click="novoUsuario();" class="btn btn-default btn-lg waves-light waves-effect"><i class="fa fa-plus left"></i> Cadastrar Usuário</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</main>
+<!--/Main layout-->
+
+

@@ -1,0 +1,1260 @@
+@import url(https://fonts.googleapis.com/css?family=Exo:400,900italic,900,800italic,800,700italic,700,400italic,500,500italic,600,600italic,300italic,300,200italic,200,100italic,100);
+/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+/**
+ * 1. Set default font family to sans-serif.
+ * 2. Prevent iOS and IE text size adjust after device orientation change,
+ *    without disabling user zoom.
+ */
+html {
+  font-family: sans-serif;
+  /* 1 */
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */ }
+
+/**
+ * Remove default margin.
+ */
+* {
+  transition: all 0.4s ease-in;
+  -webkit-transition: all 0.4s ease-in;
+  -moz-transition: all 0.4s ease-in;
+  -o-transition: all 0.4s ease-in;
+  -ms-transition: all 0.4s ease-in;
+  font-family: "Exo", sans-serif; }
+
+body {
+  margin: 0;
+  position: relative;
+}
+/* HTML5 display definitions
+   ========================================================================== */
+/**
+ * Correct `block` display not defined for any HTML5 element in IE 8/9.
+ * Correct `block` display not defined for `details` or `summary` in IE 10/11
+ * and Firefox.
+ * Correct `block` display not defined for `main` in IE 11.
+ */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block; }
+
+/**
+ * 1. Correct `inline-block` display not defined in IE 8/9.
+ * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+ */
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  /* 1 */
+  vertical-align: baseline;
+  /* 2 */ }
+
+/**
+ * Prevent modern browsers from displaying `audio` without controls.
+ * Remove excess height in iOS 5 devices.
+ */
+audio:not([controls]) {
+  display: none;
+  height: 0; }
+
+/**
+ * Address `[hidden]` styling not present in IE 8/9/10.
+ * Hide the `template` element in IE 8/9/10/11, Safari, and Firefox < 22.
+ */
+[hidden],
+template {
+  display: none; }
+
+/* Links
+   ========================================================================== */
+/**
+ * Remove the gray background color from active links in IE 10.
+ */
+a {
+  background-color: transparent; }
+
+/**
+ * Improve readability of focused elements when they are also in an
+ * active/hover state.
+ */
+a:active,
+a:hover {
+  outline: 0; }
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Address styling not present in IE 8/9/10/11, Safari, and Chrome.
+ */
+abbr[title] {
+  border-bottom: 1px dotted; }
+
+/**
+ * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.
+ */
+b,
+strong {
+  font-weight: bold; }
+
+/**
+ * Address styling not present in Safari and Chrome.
+ */
+dfn {
+  font-style: italic; }
+
+/**
+ * Address variable `h1` font-size and margin within `section` and `article`
+ * contexts in Firefox 4+, Safari, and Chrome.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0; }
+
+/**
+ * Address styling not present in IE 8/9.
+ */
+mark {
+  background: #ff0;
+  color: #000; }
+
+/**
+ * Address inconsistent and variable font size in all browsers.
+ */
+small {
+  font-size: 80%; }
+
+/**
+ * Prevent `sub` and `sup` affecting `line-height` in all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sup {
+  top: -0.5em; }
+
+sub {
+  bottom: -0.25em; }
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove border when inside `a` element in IE 8/9/10.
+ */
+img {
+  border: 0; }
+
+/**
+ * Correct overflow not hidden in IE 9/10/11.
+ */
+svg:not(:root) {
+  overflow: hidden; }
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * Address margin not present in IE 8/9 and Safari.
+ */
+figure {
+  margin: 1em 40px; }
+
+/**
+ * Address differences between Firefox and other browsers.
+ */
+hr {
+  box-sizing: content-box;
+  height: 0; }
+
+/**
+ * Contain overflow in all browsers.
+ */
+pre {
+  overflow: auto; }
+
+/**
+ * Address odd `em`-unit font size rendering in all browsers.
+ */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em; }
+
+/* Forms
+   ========================================================================== */
+/**
+ * Known limitation: by default, Chrome and Safari on OS X allow very limited
+ * styling of `select`, unless a `border` property is set.
+ */
+/**
+ * 1. Correct color not being inherited.
+ *    Known issue: affects color of disabled elements.
+ * 2. Correct font properties not being inherited.
+ * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+  margin: 0;
+  /* 3 */ }
+
+/**
+ * Address `overflow` set to `hidden` in IE 8/9/10/11.
+ */
+button {
+  overflow: visible; }
+
+/**
+ * Address inconsistent `text-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `text-transform` values.
+ * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.
+ * Correct `select` style inheritance in Firefox.
+ */
+button,
+select {
+  text-transform: none; }
+
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others.
+ */
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */
+  cursor: pointer;
+  /* 3 */ }
+
+/**
+ * Re-set default cursor for disabled elements.
+ */
+button[disabled],
+html input[disabled] {
+  cursor: default; }
+
+/**
+ * Remove inner padding and border in Firefox 4+.
+ */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
+/**
+ * Address Firefox 4+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet.
+ */
+input {
+  line-height: normal; }
+
+/**
+ * It's recommended that you don't attempt to style these elements.
+ * Firefox's implementation doesn't respect box-sizing, padding, or width.
+ *
+ * 1. Address box sizing set to `content-box` in IE 8/9/10.
+ * 2. Remove excess padding in IE 8/9/10.
+ */
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Fix the cursor style for Chrome's increment/decrement buttons. For certain
+ * `font-size` values of the `input`, it causes the cursor style of the
+ * decrement button to change from `default` to `text`.
+ */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto; }
+
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari and Chrome.
+ */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  box-sizing: content-box;
+  /* 2 */ }
+
+/**
+ * Remove inner padding and search cancel button in Safari and Chrome on OS X.
+ * Safari (but not Chrome) clips the cancel button when the search input has
+ * padding (and `textfield` appearance).
+ */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+/**
+ * Define consistent border, margin, and padding.
+ */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em; }
+
+/**
+ * 1. Correct `color` not being inherited in IE 8/9/10/11.
+ * 2. Remove padding so people aren't caught out if they zero out fieldsets.
+ */
+legend {
+  border: 0;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Remove default vertical scrollbar in IE 8/9/10/11.
+ */
+textarea {
+  overflow: auto; }
+
+/**
+ * Don't inherit the `font-weight` (applied by a rule above).
+ * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
+ */
+optgroup {
+  font-weight: bold; }
+
+/* Tables
+   ========================================================================== */
+/**
+ * Remove most spacing between table cells.
+ */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+td,
+th {
+  padding: 0; }
+
+.side_nav {
+  background-color: #f9f9f9;
+  border-right: 1px solid #cecece; }
+  .side_nav .nav-content .nav-body {
+    height: 100vh; }
+
+.panel_area .panel_header {
+  padding: 0.625em 0;
+  background-color: #f9f9f9; }
+.panel_area .user_not {
+  float: right;
+  margin-top: 0.375em; }
+  .panel_area .user_not button {
+    height: 2.5em;
+    border-radius: 0;
+    border: none;
+    box-shadow: 0px 0px 0px transparent !important;
+    background-color: transparent !important; }
+    .panel_area .user_not button:active, .panel_area .user_not button:visited {
+      background-color: transparent; }
+  .panel_area .user_not .dropdown-menu {
+    right: 0 !important;
+    left: inherit;
+    border-radius: 0; }
+.panel_area .panel_nav {
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd; }
+  .panel_area .panel_nav ul.horizontal_menu {
+    width: 100%;
+    display: block;
+    padding-left: 0px; }
+    .panel_area .panel_nav ul.horizontal_menu li {
+      display: inline-block;
+      float: left;
+      line-height: 2.875em; }
+      .panel_area .panel_nav ul.horizontal_menu li a {
+        transition: all 0.2s ease-out;
+        display: block;
+        padding: 0 1.875em;
+        color: #666;
+        font-size: 1em;
+        border-bottom: 0.25em solid transparent; }
+        .panel_area .panel_nav ul.horizontal_menu li a:hover {
+          color: #FF6D3D;
+          border-bottom: 0.25em solid #FF6D3D;
+          text-decoration: none; }
+          .panel_area .panel_nav ul.horizontal_menu li a:hover i {
+            color: #FF6D3D; }
+        .panel_area .panel_nav ul.horizontal_menu li a i {
+          color: #666; }
+
+.search_area {
+  margin-top: 0.375em; }
+  .search_area .input-group {
+    width: 100%; }
+    .search_area .input-group .btn-group.area-search {
+      padding: 0; }
+      .search_area .input-group .btn-group.area-search button {
+        width: 100%;
+        border-radius: 0;
+        height: 2.5em; }
+      .search_area .input-group .btn-group.area-search .dropdown-menu {
+        width: 100%;
+        border-radius: 0;
+        margin-top: 0; }
+      .search_area .input-group .btn-group.area-search input {
+        height: 2.5em; }
+
+.user_area {
+  width: 100%; }
+  .user_area button {
+    border: none;
+    width: 100%;
+    background-color: transparent;
+    height: auto;
+    padding: 0px;
+    overflow: hidden; }
+    .user_area button:hover, .user_area button:focus, .user_area button:active {
+      box-shadow: 0px 0px 0px transparent !important;
+      background-color: transparent !important; }
+    .user_area button .image-profile {
+      float: left;
+      border: 2px solid #ddd;
+      padding: 2px;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: block;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center; }
+    .user_area button .info-profile {
+      padding-left: 10px;
+      padding-top: 10px;
+      float: left;
+      width: auto;
+      height: 50px;
+      display: block;
+      text-align: left;
+      text-align: left; }
+      .user_area button .info-profile h3 {
+        margin: 0;
+        font-size: 1.125em; }
+      .user_area button .info-profile h4 {
+        margin-top: 5px;
+        margin-left: 0;
+        margin-bottom: 0;
+        margin-right: 0;
+        font-size: 0.875em; }
+  .user_area .dropdown-menu {
+    border-radius: 0; }
+
+.bgPanel {
+  background-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%), url("https://www.meistertask.com/images/wallpapers/132533219.jpg");
+  -webkit-animation-name: bgAnimation; /* Chrome, Safari, Opera */
+  -webkit-animation-duration: 30s; /* Chrome, Safari, Opera */
+  animation-name: bgAnimation;
+  animation-duration: 30s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  background-color: #fff;
+  padding-left: 4.375em;
+  padding-top: 70px;
+  background-attachment: fixed;
+}
+a.backButton {
+  float: left;
+  position: relative;
+  font-size: 1.4rem;
+  margin-right: 20px;
+  margin-left: 10px;
+  color: #fff;
+}
+.titlePage {
+  font-weight: 700;
+  display: none;
+  float: left;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  margin-bottom: 0;
+  margin-left: 20px;
+  line-height: 24px;
+}
+#mobile-menu .logo-wrapper{
+  background-image: url('http://tiagoluizweb.com.br/tcc/app/images/user/sidenav-wallpaper.png');
+}
+#mobile-menu .logo-wrapper .rgba-stylish-strong {
+    padding: 0 18px;
+    min-height: 100px;
+}
+.navBarUser .side-nav > li > a{
+  padding-left: 10px;
+  position: relative;
+}
+.navBarUser .side-nav > li:last-child a, .navBarUser .side-nav > li:last-child a:visited{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #2196F3;
+  color: #fff;
+}
+.navBarUser .side-nav > li:last-child a:hover, .navBarUser .side-nav > li:last-child a:active{
+  background-color: #fff;
+  color: #2196F3;
+}
+.navBarUser .side-nav > li > a > span{
+  padding-left: 3px;
+  padding-right: 3px;
+  width: 100%;
+  text-align: left;
+  display: inline-block;
+  margin-top: -10px;
+  position: absolute;
+  top: 10px;
+}
+.navBarUser .side-nav > li > a > .material-icons{
+  padding-left: 3px;
+  padding-right: 3px;
+  height: 100%;
+  line-height: 56px;
+  width: 40px;
+  text-align: center;
+}
+.nav-tabs > li > a {
+  cursor: pointer; }
+
+.sideMenu {
+  width: 70px;
+  background: #333;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 998; }
+  .sideMenu .nav li a, .sideMenu .nav li:visited {
+    border-left: 3px solid transparent;
+    border-right: 6px solid transparent;
+    display: block;
+    width: 100%;
+    padding: 0;
+    color: #5d5d5d;
+    text-align: center;
+    background-color: #333; }
+    .sideMenu .nav li a .menuOpened, .sideMenu .nav li:visited .menuOpened {
+      display: none; }
+    .sideMenu .nav li a:hover, .sideMenu .nav li a:active, .sideMenu .nav li:visited:hover, .sideMenu .nav li:visited:active {
+      color: #fff;
+      background-color: #333;
+      border-left: 3px solid #FF6D3D; }
+    .sideMenu .nav li a i, .sideMenu .nav li:visited i {
+      font-size: 2em;
+      line-height: 70px;
+    }
+    .sideMenu .nav li:last-child a, .sideMenu .nav li:last-child a:visited{
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background-color: #2196F3;
+      color: #fff;
+    }
+    .sideMenu .nav li:last-child a:active, .sideMenu .nav li:last-child a:hover{
+      border-color: transparent;
+      color: #2196F3;
+      background-color: #fff;
+    }
+  .sideMenu .nav li .activeMenu {
+    color: #fff;
+    border-left: 3px solid #FF6D3D; }
+
+.card {
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
+  .card h1 {
+    margin: 0;
+    color: #fff;
+    font-weight: 300; }
+
+.blue-card {
+  background-color: #00acc1 !important; }
+.black-card {
+  background-color: #333 !important; }
+
+.topBar {
+  padding: 0.938em 0.625em;
+  height: 50px;
+  background-color: transparent; }
+  .topBar h1 {
+    margin: 0;
+    font-size: 1.6em;
+    margin-left: 10px;
+    float: left; }
+  .topBar .areaIcon {
+    float: left;
+    font-size: 1.6em;
+    line-height: 0; }
+
+.clock {
+  color: #fff;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+  font-size: 2.3em;
+  bottom: 30px;
+  left: 100px;
+  position: absolute; }
+
+.userSearchArea {
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 0;
+}
+.userSearchArea input {
+    width: 100%;
+    background-color: #fff;
+}
+.formNewClient {
+  display: none;
+  margin-top: 1.25em;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 1.875em 0 0 0;
+  min-height: 20em;
+}
+.formNewClient .form-group {
+    min-height: 5em;
+    margin-bottom: 0;
+}
+.formNewClient input[type=text], .formNewClient input[type=email], .formNewClient input[type=password] {
+    text-indent: 10px;
+    padding: 0;
+    height: 44px;
+    border: 1px solid #cecece;
+    color: #969696 !important;
+    background: #fff;
+    padding-left: 0;
+    box-shadow: 0px 0px 0px rgba(206, 206, 206, 0);
+    font-size: 1.125em;
+    margin-bottom: 0;
+}
+.userTopBar{
+  border-radius: 0;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  padding-left: 90px;
+  top: 0;
+  max-height: 50px;
+  z-index: 997;
+}
+#sidenav-overlay{
+  z-index: 996;
+}
+.areaRelative{
+  position: relative;
+}
+#projectModal .modal-body {
+    position: relative;
+    padding: 15px;
+    height: 100%;
+    display: inline-block;
+    width: 100%;
+}
+.resultClientsProject {
+    max-height: 200px;
+    overflow: auto;
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    left: 0;
+    top: 49px;
+}
+.resultClientsProject .clientProject{
+  border-radius: 0;
+}
+.resultClientsProject .clientProject:hover{
+    z-index: 2;
+    color: #fff;
+    text-decoration: none;
+    background-color: #0275d8;
+    border-color: #0275d8;
+    cursor: pointer;
+}
+.cardProjectBody{
+  background-image: url('http://tiagoluizweb.com.br/tcc/app/images/user/project-wallpaper2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  margin-bottom: 15px;
+  height: 397px;
+}
+.clockTopBar{
+    display: none;
+    float: left;
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    margin-bottom: 0;
+    line-height: 24px;
+}
+.buttonSidenavUser{
+    display: inline-block;
+    margin-left: 20px !important;
+    float: left;
+}
+.navBarUser .side-nav{
+  background: #333;
+}
+.bodyNewProject {
+  position: relative;
+  width: 100%;
+  min-height: 46px;
+}
+.bodyNewProject input {
+  position: absolute;
+}
+#projectDate, #projectTime{
+  text-indent: 30px !important;
+}
+.bodyNewProject i {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    margin-top: -6px;
+    left: 10px;
+    color: #a2a2a2;
+}
+.sideMenu .nav li a.menu-active{
+    color: #fff;
+    background-color: #333;
+    border-left: 3px solid #FF6D3D;
+}
+.buttonSideRight{
+    background: transparent;
+    border: none;
+}
+.buttonSideRight:after{
+	border: none;
+}
+.mobileNav{
+	display: inherit !important;
+}
+.buttonSideRight i {
+    font-size: 2em;
+}
+form.editProject h3 {
+    display: inline-block;
+}
+form.editProject button{
+  line-height: 42px;
+  margin: 0;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+#schenduleDateIn,#schenduleTimeIn,#schenduleDateOut,#schenduleTimeOut{
+	text-indent: 30px !important;
+}
+#editSchenduleDateIn,#editSchenduleTimeIn,#editSchenduleDateOut,#editSchenduleTimeOut{
+	text-indent: 30px !important;
+}
+.bodyNewEvent {
+		margin-top: 20px;
+    position: relative;
+    width: 100%;
+    min-height: 46px;
+}
+.bodyNewEvent i {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    margin-top: -6px;
+    left: 10px;
+    color: #a2a2a2;
+}
+h4.card-title.ng-binding {
+    font-size: .9em;
+}
+p.card-text.ng-binding {
+    font-size: .8em;
+}
+.bodyNewEvent input {
+    position: absolute;
+}
+label.labelEdit.active, label.labelEdit{
+    top: 10px !important;
+    font-size: 1em !important;
+}
+.participantBody{
+	z-index: 999;
+  position: fixed;
+  top: 0;
+  right: -300px;
+  padding: 70px 15px 0;
+  width: 300px;
+  height: 100vh;
+  background-color: rgba(51,51,51, 0.7);
+}
+.participantBodyShow{
+  right: 0 !important;
+}
+.participantBody .buttonParticipant {
+  width: 50px;
+  height: 50px;
+  color: #fff;
+  position: absolute;
+  left: -50px;
+  top: 200px;
+  border: none;
+}
+
+.participantBody .buttonParticipantOpen {
+  background-color: #2196F3;
+}
+
+.participantBody .buttonParticipantClose {
+  background-color: #db0000;
+}
+button.btn.btn-md.btn-warning.waves-light.waves-effect.buttonAddUserProject {
+    width: 100%;
+    margin: 10px 0 0 0;
+}
+warning.waves-light.waves-effect.buttonAddUserProject {
+    width: 100%;
+    margin: 10px 0 0 0;
+}
+.participantMenu input[type="text"] {
+    color: #fff;
+}
+.chip {
+    display: inline-block;
+    height: 32px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.6);
+    line-height: 32px;
+    padding: 0 12px;
+    border-radius: 16px;
+    background-color: #e4e4e4;
+    text-indent: initial;
+}
+.chip i.material-icons {
+    cursor: pointer;
+    float: right;
+    font-size: 16px;
+    line-height: 32px;
+    padding-left: 8px;
+}
+.bodyinputTag{
+  position: relative;
+}
+.bodyinputTag i.material-icons.info {
+    position: absolute;
+    color: #fff;
+    line-height: 39px;
+    left: 0;
+    cursor: help;
+}
+.materialize-tags {
+    line-height: 40px !important;
+    text-indent: 30px;
+}
+.bodyParticipantsActives{
+  overflow: scroll;
+  max-height: 200px;
+}
+.bodyParticipantsActives button{
+  display: inline-block;
+  padding: .25em .4em;
+  font-size: 75%;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  vertical-align: baseline;
+  margin: 0;
+}
+.list-group-item{
+	color: #000;
+}
+.btnSolicitacao{
+	margin: 0;
+}
+.dropdown-menu.dropdown-primary.dd-right {
+    max-width: 350px;
+    left: -230px;
+    padding: 0;
+    border: none;
+    margin: 0;
+		top: 42px;	
+}
+.button-notify{
+	display: inline-block;
+}
+.text-notify{
+	display: inline-block;
+}
+.text-notify p{
+	white-space: initial;
+}
+.navbar .nav-item .nav-link i {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+ul.list-group.updateUl li:hover {
+    background: transparent !important;
+}
+.dropdown .dropdown-menu .dropdown-item:hover {
+    color: #000 !important;
+}
+.reloadButton{
+	float: right;
+}
+/*Animations*/
+/* Chrome, Safari, Opera */
+/* @-webkit-keyframes bgAnimation {
+    0%   {background-image: background-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%), url("https://www.meistertask.com/images/wallpapers/132533219.jpg");}
+    49%  {background-image: background-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%), url("https://www.meistertask.com/images/wallpapers/132533219.jpg");}
+    50%  {background-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%), url("http://cdn.wallpapersafari.com/1/21/LoeljH.jpg");}
+    100% {background-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%), url("http://cdn.wallpapersafari.com/1/21/LoeljH.jpg");}
+}
+/* Standard syntax
+@keyframes bgAnimation {
+  0%   {background-image: background-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%), url("https://www.meistertask.com/images/wallpapers/132533219.jpg");}
+  49%  {background-image: background-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%), url("https://www.meistertask.com/images/wallpapers/132533219.jpg");}
+  50%  {background-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%), url("http://cdn.wallpapersafari.com/1/21/LoeljH.jpg");}
+  100% {background-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%), url("http://cdn.wallpapersafari.com/1/21/LoeljH.jpg");}
+} */
+/*# sourceMappingURL=style.css.map */
+img#profile_add {
+	display: block;
+	text-align: center;
+	width: 100px;
+	height: 100px;
+	background: #fff;
+/* 	border-radius: 100%; */
+	position: relative;
+	margin: 0 auto 20px;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+ul.list-group.updateUl h6 {
+    display: none;
+}
+.text-shadow{
+	color: #fff;
+	text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+	-webkit-text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+	-moz-text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+	-ms-text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+	-o-text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+.bodyReport{
+	padding: 30px;
+}
+.configReport {
+	background: rgba(0, 0, 0, 0.7);
+}
+.reportDate{
+	text-indent: 30px !important;
+	background-color: #fff !important;
+	height: 45px !important;
+	padding-bottom: 0px;
+	line-height: 45px !important;
+	padding-top: 0;
+}
+.reportButton{
+	margin: 2px 0 0 0;
+	height: 45px;
+	line-height: 32.5px !important;
+	width: 100%;
+	border-radius: 0;
+}
+.configReport:nth-child(1), .configReport:nth-child(4) {
+	padding-left: 40px;
+	padding-right: 40px;
+}
+.hide-elements{
+	display: none !important;
+}
+.configSelect{
+	padding-left: 0;
+	padding-right: 40px;
+	padding-bottom: 20px;
+}
+.configReport > canvas{
+	padding: 30px;
+}
+.configReport > span{
+	padding-top: 30px;
+	display: inline-block;
+	width: 100%;
+}
+.configReport > span > h3{
+	color: #fff;
+}
+.configReport > span{
+	padding-top: 30px;
+	display: inline-block;
+	width: 100%;
+}
+.configReport > span > h4{
+	color: #fff;
+}
+.configSelectReport{
+	padding-left: 0;
+	padding-bottom: 20px;
+}
+.configSelectReport > canvas{
+	padding: 30px;
+}
+.configSelectReport > span{
+	padding-top: 30px;
+	display: inline-block;
+	width: 100%;
+}
+.configSelectReport > span > h3{
+	color: #fff;
+}
+.configSelectReport > span{
+	padding-top: 30px;
+	display: inline-block;
+	width: 100%;
+}
+.configSelectReport > span > h4{
+	color: #fff;
+}
+.list-group.listRepost{
+	margin-bottom: 40px;
+}
+.list-group.listRepost li{
+	position: relative;
+}
+.list-group.listRepost .legend-actives{
+	color: #fff;
+	background-color: rgba(255,255,255, 0.2);
+}
+.list-group.listRepost .legend-inactives{
+	color: #fff;
+	background-color: rgba(255,109,61, 0.2);
+}
+.list-group.listRepost .legend-totais{
+	color: #fff;
+	background-color: rgba(33,150,243, 0.2);
+}
+.configReport h4{
+	color: #fff;
+}
+.sideTotal{
+	position: absolute;
+	right: 20px;
+}
+#todoPeriodo[type=checkbox] + label{
+	color: #fff;
+}
+#todoPeriodo[type=checkbox].filled-in:not(:checked)+label:after {
+    border: 2px solid #fff;
+}
+#todoPeriodo[type=checkbox].filled-in:checked+label:after {
+    border: 2px solid #154771;
+    background-color: #154771;
+}
+#taskbuttonBody {
+    right: 160px;
+    bottom: 28px;
+}
+#taskButton{
+	width: 45px;
+	height: 45px;
+}
+#taskButton i{
+	line-height: 45px !important;
+	font-size: 1.2em;
+}
+#taskDate, #taskTime {
+    text-indent: 30px !important;
+}
+.removeBorder{
+	border: none;
+}
+.taskSelect .btn-group.bootstrap-select.show-tick{
+    width: 100% !important;
+}
+.taskSelect .dropdown-menu.open {
+    padding-top: 40px;
+}
+.taskSelect .dropdown-menu.open .bs-searchbox input {
+    top: -3px;
+    height: 35px;
+    left: 0;
+}
+.taskSelect{
+	margin-top: 30px;
+	border: 1px solid #cecece;
+}
+.cardNoPadding{
+	padding: 0;
+}
+.buttonLarge{
+	width: 100%;
+	margin: 0;
+}
+.bodyTasks{
+	overflow: auto;
+	max-height: 75vh;
+}
+.taskSelect button {
+		margin-bottom: 0 !important;
+		max-height: 30px !important;
+    line-height: 30px !important;
+    padding: 0 1.3em !important;
+    text-align: center !important;
+		width: 100% !important;
+}
+.taskSelect li.selected {
+    padding: 0 10px !important;
+}
+.taskSelect .hidden {
+    display: none!important;
+}
+.taskSelect .bootstrap-select.btn-group.show-tick .dropdown-menu li.selected a span.check-mark {
+    position: absolute;
+    display: inline-block;
+    right: 15px;
+    margin-top: 5px;
+    color: #000;
+    font-size: 1em;
+    z-index: 1005;
+    background-image: url(http://image.flaticon.com/icons/png/128/74/74414.png);
+    width: 10px;
+    height: 10px;
+    background-size: contain;
+}
+.taskSelect [type=checkbox]+label{
+    padding-left: 22px !important;
+    margin-right: 15px !important;
+}
+form.editProject label{
+	color: #fff !important;
+}
+.floatLavel {
+    float: left;
+}
+.statusProject {
+    display: inline;
+}
+form.editProject .marginTop{
+	margin-top: 20px;
+}
+form.editProject textarea{
+	resize: none;
+	height: 150px;
+	color: #fff;
+}
+form.editProject input{
+	background-color: #fff !important;
+}
+form.editProject {
+    background-color: rgba(0, 0, 0, 0.6);
+    height: auto;
+    display: inline-block;
+    padding: 20px 10px
+}
+@media screen and (max-width: 992px) {
+}
+@media screen and (min-width: 768px) {
+  .areaDesktop {
+    padding-left: 70px;
+    padding-right: 0;
+  }
+  .areaDesktop {
+    position: relative;
+    height: 100vh;
+  }
+  .buttonSidenavUser{
+    display: none !important;
+  }
+  .mobileNav{
+  	display: inherit !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .navbar-dark .navbar-brand{
+    display: none;
+  }
+  .login-area .login-item .body_login form {
+    padding: 0;
+  }
+  .sideMenu{
+    display: none;
+  }
+  .bgPanel{
+    padding-left: inherit;
+  }
+  .clock{
+    display: none;
+  }
+  .clockTopBar{
+    display: inline-block;
+  }
+  .titlePage{
+    display: inline-block;
+  }
+  .buttonSidenavUser{
+    display: inherit !important;
+  }
+  .userTopBar{
+    padding-left: inherit;
+  }
+}
+@media screen and (max-width: 500px) {
+  .login-area .body_login form {
+    padding: 0 3em 1.875em;
+  }
+}
+@media screen and (max-width: 370px) {
+  .login-area .body_login form {
+    padding: 0 1.875em 1.875em;
+  }
+  .login-area .body_login form .facebook_button {
+    width: 100%;
+  }
+  .login-area .body_login form .google_button {
+    width: 100%;
+    margin-top: 0.875em;
+  }
+  .login-area .body_login form .button_social_login {
+    text-align: center;
+  }
+}

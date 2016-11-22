@@ -1,0 +1,80 @@
+*{
+  transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+}
+html,
+body,
+header,
+.view {
+    height: 100%;
+}
+/* Navigation*/
+
+.navbar {
+    background-color: transparent;
+}
+
+.top-nav-collapse {
+    background-color: #2E2E2E;
+}
+
+@media only screen and (max-width: 768px) {
+    .navbar {
+        background-color: #2E2E2E;
+    }
+}
+/*Intro*/
+
+.view {
+    background: url("http://tiagoluizweb.com.br/tcc/site/images/bg.jpg")no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+@media (max-width: 768px) {
+    .full-bg-img,
+    .view {
+        height: auto;
+        position: relative;
+    }
+}
+
+.description {
+    padding-top: 25%;
+    padding-bottom: 3rem;
+    color: #fff
+}
+
+@media (max-width: 992px) {
+    .description {
+        padding-top: 7rem;
+        text-align: center;
+    }
+    .navbar .navbar-nav .nav-item {
+      text-align: center;
+    }
+    a.navbar-brand.waves-effect.waves-light .logo-main{
+      max-height: 50px;
+    }
+    .navbar-brand>img{
+      display: inline-block !important;
+    }
+  .text-align{
+    padding: 0 50px;
+    text-align: left;
+  }
+}
+.navbar .navbar-nav .nav-item {
+    margin-left: 0;
+    line-height: 57px;
+}
+.logo-main{
+  height: 100%;
+  width: auto;
+  max-height: 57px;
+}

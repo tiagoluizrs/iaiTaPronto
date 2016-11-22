@@ -1,0 +1,92 @@
+<div class="sideMenu">
+	<ul class="nav">
+	   <li ng-repeat="item in menu">
+	   		<a onclick="addActive(this);" href="./#/{{item.href}}" data-toggle="tooltip" data-placement="right" title="{{item.title}}">
+	   			<i class="material-icons">{{item.icon}}</i>
+	   			<span class="menuOpened">{{item.shortTitle}}</span>
+	   		</a>
+	   </li>		
+	   <li>
+		   <a href="#" ng-click="logout();" data-toggle="tooltip" data-placement="right" title="Sair do Sistema">
+			   	<i class="material-icons">exit_to_app</i>
+			   	<span class="menuOpened">Sair do Sistema</span>
+		   </a>
+	   </li>
+	</ul>
+</div>
+<!--Navbar-->
+<nav class="navbar navbar-dark bg-primary black-card userTopBar">
+    <!--Collapse button-->
+    <a href="#" data-activates="mobile-menu" class="button-collapse buttonSidenavUser"><i class="fa fa-bars white-text"></i></a>
+    <a href=""  data-toggle="tooltip" data-placement="bottom" title="Voltar à página anterior" class="backButton" ng-click='$back()'><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+    <h6 class="titlePage">{{$root.title}}</h6>
+    <!-- <h6 class="clockTopBar">{{ clock  | date:'EEE': '-0300' | capitalize}} {{ clock  | date:'dd': '-0300' :lowercase}} <span>de</span>     {{ clock  | date:'MMM': '-0300' }} {{ clock  | date:'yyyy': '-0300' }} {{ clock  | date:'HH:mm': '-0300' }}</h6> -->
+
+    <!--Content for large and medium screens-->
+    <div class="navbar-desktop mobileNav">
+        <!--Navbar Brand-->
+        <a class="navbar-brand" href="#" class="salutationTop">{{$root.title}}</a>
+        <ul class="nav navbar-nav pull-xs-right">
+					<li class="nav-item dropdown open updateItem">
+							<a class="nav-link dropdown-toggle waves-effect waves-light" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="material-icons">update</i></a>
+						<div class="dropdown-menu dropdown-primary dd-right" aria-labelledby="dropdownMenu1" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+								<ul class="list-group updateUl">
+									<h6 style="color: #000">Convite projetos</h6>
+									<li ng-repeat="solicitacao in solicitacaoCheck.listarConvites()" class="list-group-item dropdown-item waves-effect waves-light">
+										<span class="col-xs-5 col-sm-5 col-md-5 col-lg-5 button-notify label-pill pull-xs-right">
+												<button ng-click="aceitarProjeto(solicitacao.projeto_id)" class="tag btn-success btn waves-effect label-pill pull-xs-right"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+										<button ng-click="rejeitarProjeto(solicitacao.projeto_id)" class="tag btn-danger btn waves-effect label-pill pull-xs-right"><i class="fa fa-ban" aria-hidden="true"></i></button> 
+										</span>
+										<span class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-notify">
+											<p>
+											Convite para projeto "<strong>{{solicitacao.titulo}}</strong>"
+											</p>
+										</span>
+									</li>
+							</ul>
+						</div>
+					</li>
+        </ul>
+    </div>
+		
+		<button type="button" ng-click="reloadUpdates();" class="btn btn-floating btn-small blue reloadButton waves-effect waves-light"><i class="fa fa-refresh"></i></button>
+    <!-- Content for mobile devices-->
+    <div class="navbar-mobile navBarUser">
+        <ul class="side-nav" id="mobile-menu">
+            <li>
+                <div class="logo-wrapper sn-ad-avatar-wrapper">
+                    <div class="rgba-stylish-strong">
+                        <p class="user white-text">{{user.nomeUsuario}}<br>{{user.email}}</p>
+                    </div>
+                </div>
+            </li>
+            <li ng-repeat="item in menu" class="nav-item active">
+                <a class="nav-link waves-effect" href="./#/{{item.href}}"><i class="material-icons">{{item.icon}}</i><span>{{item.title}}</span></a></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-effect" ng-click="logout();"><i class="material-icons">exit_to_app</i><span>Sair</span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid removePadding">
+	<div class="col-md-12" style="color: #fff; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);">
+		<h2>Seja Bem-vindo {{user.nomeUsuario}}</h2>	
+	</div>
+	<div class="clock" ng-controller="mainController">
+			{{ clock  | date:'EEEE': '-0300' | capitalize}}
+			<br>
+			{{ clock  | date:'dd': '-0300' :lowercase}}
+			<span>de</span>
+			{{ clock  | date:'MMM': '-0300' }}
+			<span>de</span>
+			{{ clock  | date:'yyyy': '-0300' }}
+			<br>
+			{{ clock  | date:'HH:mm:ss': '-0300' }}
+	</div>
+</div>
+<!--/.Navbar-->
+<div class="fixed-action-btn bodyFloatButton" ng-controller="mainController">
+	<a class="btn btn-floating btn-large blue waves-effect" data-toggle="modal" data-target="#projectModal"><i class="fa fa-plus"></i></a>
+</div>

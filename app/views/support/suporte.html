@@ -1,0 +1,128 @@
+<!--Double Navigation-->
+ <header class="headerAdmin">
+
+        <!-- Sidebar navigation -->
+        <ul id="slide-out" class="side-nav admin-nav fixed custom-scrollbar">
+
+            <!-- Logo -->
+            <li>
+                <div class="avatarArea logo-wrapper waves-light sn-avatar-wrapper">
+                    <a href="#">
+                        <img src="images/admin/avatar-admin.png" class="img-circle">
+                    </a>
+                    <a href="" class="nameUser">{{user.nome}}</a>
+                </div>
+            </li>
+            <!--/. Logo -->
+            <!-- Side navigation links -->
+            <li>
+                <ul class="collapsible collapsible-accordion">
+                    <li><a href="#/support" class="waves-effect arrow-r"><i class="fa fa-users" aria-hidden="true"></i> Principal</a></li>
+                    <li><a href="#/editSupport" class="waves-effect arrow-r"><i class="fa fa-pencil" aria-hidden="true"></i> Editar Perfil</a></li>
+                </ul>
+            </li>
+            <!--/. Side navigation links -->
+        </ul>
+        <!--/. Sidebar navigation -->
+
+        <!--Navbar-->
+        <nav class="navbar navbar-fixed-top scrolling-navbar double-nav">
+
+            <!-- SideNav slide-out button -->
+            <div class="pull-left">
+                <a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
+            </div>
+
+            <!-- Breadcrumb-->
+            <div class="breadcrumb-dn">
+                <p ng-bind="$root.title">Início</p>
+            </div>
+
+
+            <ul class="nav navbar-nav pull-right">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position: relative;"><i class="fa fa-globe" aria-hidden="true"></i><h6 style="position: absolute; top: -2px; left: -3px;"><!--span class="tag red">1</span--></h6>
+</a>
+                    <div class="dropdown-menu dropdown-primary dd-right totalRight" aria-labelledby="dropdownMenu1" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                        <a class="dropdown-item" href="#/support" class="waves-effect arrow-r">Nova mensagem enviada do usuário Tiago</a>
+                    </div>
+                </li>
+							<li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
+                    <div class="dropdown-menu dropdown-primary dd-right totalRight" aria-labelledby="dropdownMenu1" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                        <a ng-click="logout();" class="dropdown-item" href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a>
+                    </div>
+                </li>
+            </ul>
+
+        </nav>
+        <!--/.Navbar-->
+
+    </header>
+<input type="hidden" id="idAdmin" value="{{user.id}}">
+<!--Main layout-->
+<main class="">
+	<div class="participantBody">
+			<div class="preloaderuser">
+			<div class="preloader-wrapper big active">
+						<div class="spinner-layer spinner-blue">
+							<div class="circle-clipper left">
+								<div class="circle"></div>
+							</div><div class="gap-patch">
+								<div class="circle"></div>
+							</div><div class="circle-clipper right">
+								<div class="circle"></div>
+							</div>
+						</div>
+
+						<div class="spinner-layer spinner-red">
+							<div class="circle-clipper left">
+								<div class="circle"></div>
+							</div><div class="gap-patch">
+								<div class="circle"></div>
+							</div><div class="circle-clipper right">
+								<div class="circle"></div>
+							</div>
+						</div>
+
+						<div class="spinner-layer spinner-yellow">
+							<div class="circle-clipper left">
+								<div class="circle"></div>
+							</div><div class="gap-patch">
+								<div class="circle"></div>
+							</div><div class="circle-clipper right">
+								<div class="circle"></div>
+							</div>
+						</div>
+
+						<div class="spinner-layer spinner-green">
+							<div class="circle-clipper left">
+								<div class="circle"></div>
+							</div><div class="gap-patch">
+								<div class="circle"></div>
+							</div><div class="circle-clipper right">
+								<div class="circle"></div>
+							</div>
+						</div>
+					</div>    
+					<h6 style="color: #fff">Carregando...</h6>
+			</div>
+			<button class="buttonParticipant buttonParticipantOpen" onclick="showParticipants();"><i class="fa fa-comments" aria-hidden="true"></i></button>
+			<button class="buttonParticipant buttonParticipantClose hide-element" onclick="hideParticipants();"><i class="fa fa-times" aria-hidden="true"></i></button>
+			<div class="participantMenu">
+				<br>
+				<h6 style="color: #fff" class="hide-element userTitleChat">Usuários no chat</h6>
+				<ul class="bodyUsuariosChat list-group">
+					<li ng-repeat="usuarioResult in solicitacaoCheck.listarUsuariosChat()" class="list-group-item">
+						{{usuarioResult.nomeUsuario}}
+						<button ng-click="abrirChat(usuarioResult.usuario_id)" class="tag btn-info btn waves-effect label-pill pull-xs-right">
+						<i class="fa fa-commenting" aria-hidden="true"></i></button>
+					</li>
+				</ul>
+				<br>
+			</div>
+	</div>
+</main>
+<!--/Main layout-->
+
+

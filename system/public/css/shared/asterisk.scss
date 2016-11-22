@@ -1,0 +1,24 @@
+@mixin asterisk($properties, $values, $prefixed: false, $glue: ", ") {
+    @each $property in $properties {
+        $value: "";
+        @if list-separator($values) == comma {
+            $value: nth($values, 1);
+            @for $j from 2 through length($values) {}
+            $value: $value + $glue + nth($values, $j);
+        }
+        @else {
+            $value: $values;
+        }
+        #{$property}: #{$value};
+        @if $prefixed {
+            -webkit-#{$property}: #{$value};
+            -moz-#{$property}: #{$value};
+            -o-#{$property}: #{$value};
+            -ms-#{$property}: #{$value};
+        }
+    }
+}
+
+@mixin sk($properties, $values, $prefixed: false, $glue: ", ") {
+    @include asterisk($properties, $values, $prefixed: false, $glue: ", ");
+}

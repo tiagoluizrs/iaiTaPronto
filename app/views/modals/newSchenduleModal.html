@@ -1,0 +1,77 @@
+<!-- Modal -->
+<div ng-controller="mainController" class="modal fade" id="schenduleModal" tabindex="-1" role="dialog" aria-labelledby="schenduleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="schenduleModalLabel">Novo Evento</h4>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+        <div class="modalPreloaderBody hide-element">
+          <div ng-include="'views/preloader.html'"></div>
+          <h3>Aguarde um instante...</h3>
+        </div>
+        <form class="formUser formNewSchendule">
+          <div class='form-group col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div class="bodyNewEvent ">
+              <input type='text' class='form-control' id='schenduleTitle' placeholder='Nome do Projeto'>
+              <input type='hidden' id='userId' value='{{user.id}}'>
+            </div>
+          </div>
+          <div class='form-group md-form col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+            <div class="bodyNewEvent ">
+							<label class="labelEdit">Data de Início</label>
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <input placeholder="Data de início" type="text" id="schenduleDateIn" class="form-control datepicker">
+            </div>
+          </div>
+          <div class='form-group md-form col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+            <div class="bodyNewEvent ">
+							<label class="labelEdit">Hora de Início</label>
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              <input placeholder="Horário de início" type="text" id="schenduleTimeIn" class="form-control timepicker">
+            </div>
+          </div>
+					<div class='form-group md-form col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+            <div class="bodyNewEvent ">
+							<label class="labelEdit">Data de Término</label>
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <input placeholder="Data de término" type="text" id="schenduleDateOut" class="form-control datepicker">
+            </div>
+          </div>
+          <div class='form-group md-form col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+            <div class="bodyNewEvent ">
+							<label class="labelEdit">Hora de Término</label>
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              <input placeholder="Horário de término" type="text" id="schenduleTimeOut" class="form-control timepicker">
+            </div>
+          </div>
+					<div class='form-group md-form col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div class="bodyNewEvent ">
+              <select id="selectColor">
+									<option value="" disabled selected>Selecione uma cor</option>
+									<option value="#33b5e5">Azul</option>
+									<option value="#ff4444">Vermelho</option>
+									<option value="#2BBBAD">Verde</option>
+									<option value="#ffbb33">Amarelo</option>
+									<option value="#2E2E2E">Preto</option>
+							</select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar Janela</button>
+        <button ng-click="createNewEvent();" type="button" class="btn btn-primary">Criar Evento</button>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!-- /.Live preview-->

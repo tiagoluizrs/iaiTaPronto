@@ -1,0 +1,418 @@
+.login-area{
+  text-align: center;
+  .body_logo{
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding:{
+      top: $_20px;
+      bottom: $_20px;
+    };
+    a{
+      display: inline-block;
+      img{
+        max-width: 200px;
+      }
+    }
+  }
+  .body_login{
+    width: 100%;
+    display: inline-block;
+    max-width: 500px;
+    border:{
+      radius: 5px;
+      top: 4px solid $main;
+    };
+    background:{
+      color: $bg_gray;
+    };
+    @include sk(box-shadow, 1px 1px 3px rgba($gray, 0.8), true);
+    h1{
+      color: $heading_color;
+      margin:{
+        top: $_14px;
+        bottom: $_14px;
+      };
+      font:{
+        weight: $light;
+      };
+    }
+    form{
+      padding: 0 ($_100px + $_20px) $_30px;
+      .login-form{
+        border: 1px solid $light_gray;
+        border-radius: 5px;
+        width: 100%;
+        @include sk(box-shadow, 1px 2px 1px rgba($light_gray, 1), true);
+        margin:{
+          bottom: $_20px;
+        };
+        .icon-form{
+          background-color: #fff;
+          border: none;
+          width: 44px;
+          height: 44px;
+          text-align: center;
+          line-height: 22px;
+          border-radius: 0;
+          border-radius: 5px 0 0 5px;
+          font-size: 1.2em;
+          i{
+            color: $light_gray;
+          }
+        }
+        input{
+          &[type='text'], &[type='email'], &[type='password']{
+            height: 44px;
+            border: none;
+            color: $light_gray;
+            border-radius: 0;
+            background: #fff;
+            padding-left: 0;
+            border-radius: 0 5px 5px 0;
+            @include sk(box-shadow, 0px 0px 0px rgba($light_gray, 0), true);
+            font:{
+              size: $_18px;
+            };
+            &:focus{
+              boder: none;
+              @include sk(box-shadow, 0px 0px 0px rgba($light_gray, 0), true);
+            }
+          }
+        }
+        ::-webkit-input-placeholder {
+           color: $light_gray;
+        }
+
+        :-moz-placeholder {
+           color: $light_gray;
+        }
+
+        ::-moz-placeholder {
+           color: $light_gray;
+        }
+
+        :-ms-input-placeholder {
+           color: $light_gray;
+        }
+      }
+      .link_form{
+        color: $main;
+        display: block;
+        text:{
+          align: left;
+          decoration: underline;
+        };
+        margin:{
+          bottom: $_20px;
+        };
+        font:{
+          size: $_14px;
+        };
+        &:hover{
+          color: $secondary;
+        }
+        a, &:visited{
+          color: $main;
+          &:hover, &:active{
+            color: darken($main, 10%);
+          }
+        }
+      }
+      .button_login{
+        width: 100%;
+        height: 50px;
+        line-height: 25px;
+        border-radius: 7px;
+        color: $white;
+        background-color: $main;
+        @include sk(text-shadow, 1px 1px 1px rgba($black, 0.8), true);
+        @include sk(transition, all .3s ease-out, true);
+        font:{
+          size: $_20px + $_5px;
+        };
+        border:{
+          bottom: 3px solid $secondary;
+        };
+        &:hover, &:focus, &:active{
+          outline: 0;
+          background:{
+            color: darken($main, 10%);
+          };
+          border:{
+            color: darken($secondary, 10%);
+          };
+        }
+      }
+      .or{
+        display: block;
+        color: $heading_color;
+        text-align: center;
+        margin:{
+          top: $_6px;
+          bottom: $_6px;
+        };
+      }
+      .dont_account{
+        display: block;
+        color: $heading_color;
+        text-align: center;
+        width: 100%;
+        float: left;
+        margin:{
+          top: $_20px;
+          bottom: $_14px;
+        };
+        a{
+          color: $main;
+          text:{
+            decoration: underline;
+          };
+          font:{
+            size: $_14px;
+          };
+          &:hover{
+            color: $secondary;
+          }
+        }
+      }
+      .facebook_button{
+        position: relative;
+        background-color: $facebook_color;
+        color: $white;
+        outline: 0;
+        border: none;
+        width: 45%;
+        height: 50px;
+        line-height: 25px;
+        float: left;
+        &:hover, &:focus, &:active{
+          background:{
+            color: darken($facebook_color, 20%);
+          };
+        }
+        i{
+          position: absolute;
+          left: 15px;
+          bottom: -4px;
+          font-size: $_40px;
+        }
+      }
+      .google_button{
+        float: right;
+        border: none;
+        position: relative;
+        background-color: $google_color;
+        outline: 0;
+        color: $white;
+        width: 45%;
+        height: 50px;
+        line-height: 25px;
+        &:hover, &:focus, &:active{
+          background:{
+            color: darken($google_color, 20%);
+          };
+        }
+        i{
+          font-size: $_20px + $_5px;
+          top: 13px;
+          position: absolute;
+          left: 15px;
+        }
+      }
+      .button_social_login{
+        font-size: $_18px;
+        text-align: right;
+        &:hover, &:focus, &:active{
+          outline: 0;
+        }
+        .icon_button{
+          color: $white;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
+
+.side_nav{
+  background:{
+    color: $menu_gray;
+  };
+  border:{
+    right: 1px solid $body_gray;
+  };
+  .nav-content{
+    .nav-body{
+      height: 100vh;
+    }
+  }
+}
+
+.bg_panel{
+  background:{
+    color: $body_gray;
+  };
+}
+
+.panel_area{
+  .panel_header{
+    padding: $_10px 0;
+    background:{
+      color: $menu_gray;
+    };
+  }
+  .user_not{
+    float: right;
+    margin-top: $_6px;
+    button{
+      height: $_40px;
+      border-radius: 0;
+      border: none;
+      @include sk(box-shadow, 0px 0px 0px rgba($black, 0) !important, true);
+      background:{
+        color: transparent !important;
+      };
+      &:active, &:visited{
+        background:{
+          color: transparent;
+        };
+      }
+    }
+    .dropdown-menu{
+      right: 0 !important;
+      left: inherit;
+      border-radius: 0;
+    }
+  }
+  .panel_nav{
+    background:{
+      color: $menu_gray;
+    };
+    border:{
+      bottom: 1px solid $border_gray;
+      top: 1px solid $border_gray;
+    };
+    ul.horizontal_menu{
+      width: 100%;
+      display: block;
+      padding-left: 0px;
+      li{
+        display: inline-block;
+        float: left;
+        line-height: $_40px + $_6px;
+        a{
+          @include sk(transition, all .2s ease-out, true);
+          display: block;
+          padding: 0 $_30px;
+          color: $big_dark_gray;
+          font-size: $_16px;
+          border-bottom: $_4px solid transparent;
+          &:hover{
+            color: $main;
+            border-bottom: $_4px solid $main;
+            text:{
+              decoration: none;
+            };
+            i{
+              color: $main;
+            }
+          }
+          i{
+            color: $big_dark_gray;
+          }
+        }
+      }
+    }
+  }
+}
+
+.search_area{
+  margin-top: $_6px;
+  .input-group{
+    width: 100%;
+    .btn-group.area-search{
+      padding: 0;
+      button{
+        width: 100%;
+        border-radius: 0;
+        height: $_40px;
+      }
+      .dropdown-menu{
+        width: 100%;
+        border-radius: 0;
+        margin-top: 0;
+      }
+      input{
+        height: $_40px;
+      }
+    }
+  }
+}
+.user_area{
+  width: 100%;
+  button{
+    border: none;
+    width: 100%;
+    background:{
+      color: transparent;
+    };
+    height: auto;
+    padding: 0px;
+    overflow: hidden;
+    &:hover, &:focus, &:active{
+      @include sk(box-shadow, 0px 0px 0px transparent !important, true);
+      background:{
+        color: transparent !important;
+      };
+    }
+    .image-profile{
+      float: left;
+      border: 2px solid $border_gray;
+      padding: 2px;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: block;
+      background:{
+        size: cover;
+        repeat: no-repeat;
+        position: center;
+      };
+    }
+    .info-profile{
+      padding:{
+        left: 10px;
+        top: 10px;
+      };
+      float: left;
+      width: auto;
+      height: 50px;
+      display: block;
+      text-align: left;
+      text:{
+        align: left;
+      };
+      h3{
+        margin: 0;
+        font:{
+          size: $_18px;
+        };
+      }
+      h4{
+        margin:{
+          top: 5px;
+          left: 0;
+          bottom: 0;
+          right: 0;
+        };
+        font:{
+          size: $_14px;
+        };
+      }
+    }
+  }
+  .dropdown-menu{
+    border-radius: 0;
+  }
+}

@@ -1,0 +1,72 @@
+<div class="preloader hide-element">
+  <span class="body-preloader">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw icon-peloader"></i>
+    <p>Carregando...</p>
+  </span>
+</div>
+<div class="welcome hide-element">
+  <div class="item-welcome welcome-left"></div>
+  <div class="item-welcome welcome-right"></div>
+  <div class="imagePreloader">
+  	<span class="loading">Bem-Vindo</span>
+  </div>
+</div>
+<header class="container-fluid">
+  <div class="container login-area">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 login-item">
+        <span class="body_logo">
+          <a href="#">
+            <img src="images/logo.png" alt="" width="100%"/>
+          </a>
+        </span>
+        <span class="body_login">
+            <h1>Entrar no Sistema</h1>
+            <form>
+              <div class="input-group alert-loginData hide-element">
+                <div class="alert alert-danger" role="alert">Dados de usuário incorretos</div>
+              </div>
+              <div class="input-group alert-statusDesabled hide-element">
+                <div class="alert alert-warning" role="alert">Login inativo. Confirme seu e-mail para fazer Login.</div>
+              </div>
+              <div class="input-group login-form">
+                <span class="input-group-addon icon-form" id="user_email"><i class="fa fa-envelope"></i></span>
+                <input id="emailUser" type="email" class="form-control" placeholder="E-mail ou Usuário" aria-describedby="user_email">
+              </div>
+              <div class="input-group login-form">
+                <span class="input-group-addon icon-form" id="user_password"><i class="fa fa-unlock-alt"></i></span>
+                <input id="senhaUser" type="password" class="form-control" placeholder="Senha" aria-describedby="user_password">
+              </div>
+              <span class="link_form"><a href="#" data-toggle="modal" data-target="#requestPass">Esqueci minha Senha</a></span>
+              <button ng-click="login();" type="submit" class="btn btn-default button_default button_login waves-light waves-effect">Entrar</button>
+              <!--<span class="or">ou</span>-->
+              <!--<button type="submit" class="btn btn-default button_default button_social_login facebook_button"><i class="icon_button fa fa-facebook-f"></i>Conectar</button>-->
+              <!--<button type="submit" class="btn btn-default button_default button_social_login google_button"><i class="icon_button fa fa-google-plus"></i>Conectar</button>-->
+              <span class="dont_account">Não possui uma conta? <a href="./#/register">Cadastre-se</a></span>
+            </form>
+        </span>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- Modal -->
+<div class="modal fade" id="requestPass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Recuperar Senha</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group requestPass">
+          <span class="input-group-addon icon-form" id="user_email"><i class="fa fa-envelope"></i></span>
+          <input id="emailUserRecovery" type="email" class="form-control" placeholder="Digite Seu E-mail" aria-describedby="user_email">
+        </div>
+        <p>*Você receberá em seu E-mail sua senha.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" ng-click="recoverPass();" class="btn btn-default btnClosePass" data-dismiss="modal">Recuperar Senha</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<!-- Modal -->
+<div ng-controller="mainController" class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="taskModalLabel">Nova Tarefa</h4>
+      </div>
+      <!--Body-->
+      <div class="modal-body" style="min-height: 420px;">
+        <div class="modalPreloaderBody hide-element">
+          <div ng-include="'views/preloader.html'"></div>
+          <h3>Aguarde um instante...</h3>
+        </div>
+        <form class="formUser formNewTask">
+          <div class='form-group col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div class="bodyNewProject ">
+              <input onclick="clearClientList();" type='text' class='form-control' id='taskTitle' placeholder='Título do Projeto'>
+              <input type='hidden' id='projetoId' value='{{$scope.projetoId}}'>
+            </div>
+          </div>
+          <div class='form-group md-form col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+            <div class="bodyNewProject ">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <input onclick="clearClientList();" placeholder="Data de entrega" type="text" id="taskDate" class="form-control datepicker">
+            </div>
+          </div>
+          <div class='form-group md-form col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+            <div class="bodyNewProject ">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              <input onclick="clearClientList();" placeholder="Horário de entrega" type="text" id="taskTime" class="form-control timepicker">
+            </div>
+          </div>
+          <div class='form-group md-form col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+              <label class="bodyNewProject" for="">Usuários participantes:</label>
+            </div>
+            <div class="bodyNewProject marginTop taskSelect" id="participantsId">
+              <fieldset class="form-group removeBorder" id="areaCheck">
+<!--                 <span ng-repeat="participanteAtivo in  usuariosProjeto">
+                  <input value="{{participanteAtivo.id}}" name="participantes[]" type="checkbox" id="checkbox_{{participanteAtivo.id}}">
+                  <label for="checkbox_{{participanteAtivo.id}}">{{participanteAtivo.nomeUsuario}}</label>
+                </span>
+                <span style="display:none">
+                  <input value="{{user.id}}" name="participantes[]" type="checkbox" id="checkbox_user_{{user.id}}" checked>
+                  <label for="checkbox_user_{{user.id}}">{{user.nomeUsuario}}</label>
+                </span> -->
+              </fieldset>
+            </div>
+          </div>
+          <div class='form-group col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div class="bodyNewProject ">
+              <textarea type='text' id='taskDescription' rows="5" class='form-control md-textarea'>Descrição da tarefa</textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar Janela</button>
+        <button ng-click="createNewTask();" type="button" class="btn btn-primary">Criar Tarefa</button>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!-- /.Live preview-->

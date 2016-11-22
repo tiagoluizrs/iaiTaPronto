@@ -1,0 +1,16 @@
+<div class="sideMenu" ng-controller="mainController">
+	<ul class="nav">
+	   <li ng-repeat="item in menu">
+	   		<a onclick="addActive(this);" href="./#/{{item.href}}" data-toggle="tooltip" data-placement="right" title="{{item.title}}">
+	   			<i class="material-icons">{{item.icon}}</i>
+	   			<span class="menuOpened">{{item.shortTitle}}</span>
+	   		</a>
+	   </li>		
+	   <li>
+		   <a href="#" ng-click="logout();" data-toggle="tooltip" data-placement="right" title="Sair do Sistema">
+			   	<i class="material-icons">exit_to_app</i>
+			   	<span class="menuOpened">Sair do Sistema</span>
+		   </a>
+	   </li>
+	</ul>
+</div>

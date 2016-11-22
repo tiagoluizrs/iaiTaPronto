@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#333333">
+  <link rel="icon" href="images/favicon.png" type="image/png" sizes="60x60">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <!-- <title>Iai Tá Pronto</title> -->
+  <title ng-bind="$root.title + ' - Iaí Tá Pronto?'">Início - Iaí Tá Pronto?</title>
+
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/admin/mdb.min.css" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+
+  <link href="css/animate.css" rel="stylesheet">
+  <link href="css/fullcalendar.min.css" rel="stylesheet">
+  <link href="css/jquery-ui.min.css" rel="stylesheet">
+  <link href="css/materialFullCalendar.css" rel="stylesheet">
+  <link href="css/materialFullCalendar.css" rel="stylesheet">
+  <link href="css/user/style.css" rel="stylesheet">
+  <link href="css/admin/style.css" rel="stylesheet">
+  <link href="css/general/style.css" rel="stylesheet">
+  <link href="css/general/chat.css" rel="stylesheet">
+  <link href="css/materialize-tags.min.css" rel="stylesheet">
+  <link href="css/materialize-tags.min.css.map" rel="stylesheet">
+  <!-- Latest compiled and minified CSS -->
+  <link href="css/bootstrap-select.min.css" rel="stylesheet">
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body class="bodyLogin fixed-sn mdb-skin">
+  <div class="welcome">
+    <div class="item-welcome welcome-left"></div>
+    <div class="item-welcome welcome-right"></div>
+    <div class="imagePreloader">
+    </div>
+  </div>
+  <!--/Double Navigation-->
+  <ng-view></ng-view>
+  <div ng-include="'views/modals/newProjectModal.html'"></div>
+  <div ng-include="'views/modals/newTaskModal.html'"></div>
+  <div ng-include="'views/modals/newSchenduleModal.html'"></div>
+  <div ng-include="'views/modals/editSchenduleModal.html'"></div>
+  <div ng-include="'views/others/chat.html'"></div>
+  <div ng-include="'views/others/tutorial.html'"></div>
+
+  <!-- jQuery + Frameworks (necessary for Bootstrap's JavaScript plugins) -->
+  <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui.custom.min.js"></script>
+  <script type="text/javascript" src="js/moment.min.js"></script>
+  <script type="text/javascript" src="js/admin/tether.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/jquery.mask.min.js"></script>
+  <script type="text/javascript" src="js/admin/mdb.min.js"></script>
+  <script type="text/javascript" src="js/materialize-tags.min.js"></script>
+  <script type="text/javascript" src="js/jspdf.debug.js"></script>
+  <script type="text/javascript" src="js/svgToPdf.js"></script>
+  <script type="text/javascript" src="js/jspdf.min.js"></script>
+  <script type="text/javascript" src="js/jspdf.plugin.autotable.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+  
+  <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/i18n/defaults-*.min.js"></script> -->
+
+  <!--Angular-->
+  <script src="js/angular.min.js"></script>
+  <script src="js/angular-locale_pt-br.js"></script>
+  <script src="js/angular-cookies.min.js"></script>
+  <script src="js/angular-route.min.js"></script>
+  <script src="js/angular-material-calendar.js"></script>
+
+  <!--   Plugins -->
+  <script type="text/javascript" src="js/calendar.js"></script>
+  <script type="text/javascript" src="js/fullcalendar.min.js"></script>
+  <script type="text/javascript" src="js/calendar_pt-br.js"></script>
+  <script type="text/javascript" src="js/gcal.js"></script>
+  <script type="text/javascript" src="js/jquery.nicescroll.min.js"></script>
+  <script type="text/javascript" src ="js/zingchart.min.js"></script>  
+  <script type="text/javascript" src ="js/zingchart-angularjs.js"></script>  
+  <!--Aplicações front-back-->
+  <script src="application/app.js"></script>
+  <script src="application/run.js"></script>
+  <script src="application/routes.js"></script>
+  <script src="application/globalFunctions.js"></script>
+  <script src="application/loginController.js"></script>
+  <script src="application/registerController.js"></script>
+  <script src="application/mainController.js"></script>
+  <script src="application/supController.js"></script>
+
+
+  <!--user custom-->
+  <script src="js/general/custom.js"></script>
+  <!--user custom-->
+  <script src="js/user/custom.js"></script>
+  <!--admin custom-->
+  <script src="js/admin/custom.js"></script>
+
+</body>
+</html>

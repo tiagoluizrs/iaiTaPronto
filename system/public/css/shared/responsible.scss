@@ -1,0 +1,30 @@
+@media screen and (max-width: 500px){
+  .login-area{
+    .body_login{
+      form{
+        padding: 0 ($_16px * 3) $_30px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 370px){
+  .login-area{
+    .body_login{
+      form{
+        padding: 0 $_30px $_30px;
+        .facebook_button{
+          width: 100%;
+        }
+        .google_button{
+          width: 100%;
+          margin:{
+            top: $_14px;
+          };
+        }
+        .button_social_login{
+          text-align: center;
+        }
+      }
+    }
+  }
+}

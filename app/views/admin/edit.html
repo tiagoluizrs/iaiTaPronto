@@ -1,0 +1,108 @@
+<!--Double Navigation-->
+ <header class="headerAdmin">
+
+        <!-- Sidebar navigation -->
+        <ul id="slide-out" class="side-nav admin-nav fixed custom-scrollbar">
+
+            <!-- Logo -->
+            <li>
+                <div class="avatarArea logo-wrapper waves-light sn-avatar-wrapper">
+                    <a href="#">
+                        <img src="images/admin/avatar-admin.png" class="img-circle">
+                    </a>
+                    <a href="" class="nameUser">{{user.nome}}</a>
+                </div>
+            </li>
+            <!--/. Logo -->
+            <!-- Side navigation links -->
+            <li>
+                <ul class="collapsible collapsible-accordion">
+                    <li><a href="#/users" class="waves-effect arrow-r"><i class="fa fa-users" aria-hidden="true"></i> Usuários</a></li>
+                    <li><a href="#/edit" class="waves-effect arrow-r"><i class="fa fa-pencil" aria-hidden="true"></i> Editar Perfil</a></li>
+                    <li><a ng-click="manutencao()" class="waves-effect arrow-r"><i class="fa fa-cogs" aria-hidden="true"></i> Manutenção</a></li>
+                </ul>
+            </li>
+            <!--/. Side navigation links -->
+        </ul>
+        <!--/. Sidebar navigation -->
+
+        <!--Navbar-->
+        <nav class="navbar navbar-fixed-top scrolling-navbar double-nav">
+
+            <!-- SideNav slide-out button -->
+            <div class="pull-left">
+                <a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
+            </div>
+
+            <!-- Breadcrumb-->
+            <div class="breadcrumb-dn">
+                <p ng-bind="$root.title">Início</p>
+            </div>
+
+
+            <ul class="nav navbar-nav pull-right">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Perfil</a>
+                    <div class="dropdown-menu dropdown-primary dd-right totalRight" aria-labelledby="dropdownMenu1" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                        <a ng-click="logout();" class="dropdown-item" href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a>
+                    </div>
+                </li>
+            </ul>
+
+        </nav>
+        <!--/.Navbar-->
+
+    </header>
+<input type="hidden" id="idAdmin" value="{{user.id}}">
+<main class="">
+<div class="container-fluid" style="height: 800px;">
+ <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 login-area">
+
+      	<div class="login-item">
+        <span class="body_login" style="background: transparent;">
+            <form id="formRegisterUser">
+							<img id="profile_add" class="img-cicle" src="http://tiagoluizweb.com.br/tcc/system/public/attachments/manager.png">
+							<input type="hidden" value="{{user.foto_perfil}}" id="lastImage">
+              <div class="input-group login-form inputRequired">
+                <span class="input-group-addon icon-form"><i class="fa fa-user"></i></span>
+                <input type="text" class="form-control" value="{{user.nome}}" placeholder="Nome" id="editNameUser" aria-describedby="editNameUser">
+              </div>
+              <label class="blankLabel hide-element">Campo obrigatório</label>
+              <div class="input-group login-form inputRequired">
+                <span class="input-group-addon icon-form"><i class="fa fa-envelope"></i></span>
+                <input type="text" value="{{user.email}}" class="form-control" id='editEmailUser' placeholder="E-mail" aria-describedby="editEmailUser">
+              </div>
+              <label class="blankLabel hide-element">Campo obrigatório</label>
+            	<label class="useremailExistent hide-element">E-mail já em uso</label>
+              <div class="input-group login-form inputRequired">
+                <span class="input-group-addon icon-form"><i class="fa fa-user"></i></span>
+                <input type="text" value="{{user.nomeUsuario}}" class="form-control" placeholder="Nome de usuário" id="editUsuarioUser" aria-describedby="editUsuarioUser">
+              </div>
+              <label class="blankLabel hide-element">Campo obrigatório</label>
+            	<label class="usernameExistent hide-element">Nome de Usuário já em uso</label>
+      				<div class='input-group login-form inputRequired'>
+      				  <span class="input-group-addon icon-form"><i class="fa fa-book"></i></span>
+      					<input type='text' value="{{user.cpf}}" disabled class='form-control cpfMask' id='editCpfUser' aria-describedby="editCpfUser" placeholder='CPF'>
+    					</div>
+    					<label class="blankLabel hide-element">Campo obrigatório</label>
+    					<label class="labelCpfValid hide-element">CPF Válido</label>
+    					<label class="labelCpfInvalid hide-element">CPF Inválido</label>
+    					<label class="cpfExistent hide-element">CPF já em uso</label>
+              <div class="input-group login-form inputRequired">
+                <span class="input-group-addon icon-form"><i class="fa fa-unlock-alt"></i></span>
+                <input type="password" value="{{user.senha}}" class="form-control" id='editPasswordUser' placeholder="Senha" aria-describedby="editPasswordUser">
+                <input type='hidden' value="3" id='editRoleUser'>
+                <input type='hidden' value="{{user.id}}" id='idUserClient'>
+              </div>
+              <label class="blankLabel hide-element">Campo obrigatório</label>
+      				<button style="border-bottom: 3px solid #1e364a; background-color: #3f729b !important;" ng-click="editarUsuarioAdministrador();" class="btn btn-default button_default button_login waves-light waves-effect">Salvar Alterações</button>
+      				<!--<span class="or">ou</span>-->
+              <!--<button type="submit" class="btn btn-default button_default button_social_login facebook_button"><i class="icon_button fa fa-facebook-f"></i>Registrar</button>-->
+              <!--<button type="submit" class="btn btn-default button_default button_social_login google_button"><i class="icon_button fa fa-google-plus"></i>Registrar</button>-->
+            </form>
+        </span>
+      </div>
+
+    </div>
+    </div>
+</main>

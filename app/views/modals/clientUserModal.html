@@ -1,0 +1,32 @@
+<!-- Modal -->
+<div ng-controller="mainController" class="modal fade" id="clientModal" tabindex="-1" role="dialog" aria-labelledby="clientModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="userModalLabel">Informações da Empresa</h4>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+				<div class="modalPreloaderBody hide-element">
+					<div ng-include="'views/preloader.html'"></div>
+					<h3>Aguarde um instante...</h3>
+				</div>
+                <form class="formUser formClient">
+                    
+                </form>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar Janela</button>
+                <button ng-click="editarEmpresa();" type="button" class="btn btn-primary">Editar Empresa</button>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!-- /.Live preview-->
