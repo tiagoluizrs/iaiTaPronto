@@ -1,9 +1,5 @@
 var url = "http://localhost/iaiTaPronto/system/";
 $(window).load(function(){
-    setTimeout(function(){
-      $('.sideMenu .nav li a').tooltip();
-      $('.backButton').tooltip();
-    }, 500);
 });
 
 function showParticipants(){

@@ -77,12 +77,12 @@ class Participante{
             $queryProject = $this->CI->db->query("SELECT * FROM data__projeto WHERE id = $this->projetoId");
             $projectResult = $queryProject->result();
 
-            $this->CI->email->from('tcc@tiagoluizweb.com.br', 'Tiago Luiz - ' . $participante);
-            $this->CI->email->to($participante);
+            // $this->CI->email->from('tcc@tiagoluizweb.com.br', 'Tiago Luiz - ' . $participante);
+            // $this->CI->email->to($participante);
 
-            $this->CI->email->subject('Convite para projeto');
-            $this->CI->email->message('Olá querido ' . $participante . '. Você recebeu um convite para parcitipar do projeto ' . $projectResult[0]->titulo . ', para isso você precisará se cadastrar em nosso sistema através do link ao lado. '.base_url().'app/#/register/' . $this->projetoId);
-            $this->CI->email->send();
+            // $this->CI->email->subject('Convite para projeto');
+            // $this->CI->email->message('Olá querido ' . $participante . '. Você recebeu um convite para parcitipar do projeto ' . $projectResult[0]->titulo . ', para isso você precisará se cadastrar em nosso sistema através do link ao lado. '.base_url().'app/#/register/' . $this->projetoId);
+            // $this->CI->email->send();
           }
         }
       }

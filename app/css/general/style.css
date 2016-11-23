@@ -857,6 +857,54 @@ select{
     background: rgba(255,255,255,.8);
     /* color: #fff; */
 }
+#manutencao-container {
+    position: fixed;
+    z-index: 999999;
+}
+.manutencao-top-right {
+    bottom: 22px;
+    left: 12px;
+}
+#manutencao-container>div {
+    position: relative;
+    overflow: hidden;
+    margin: 0 0 6px;
+    padding: 15px 15px 15px 50px;
+    width: 300px;
+    background-position: 15px center;
+    background-repeat: no-repeat;
+    color: #fff;
+    opacity: .8;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+    filter: alpha(opacity=80);
+}
+#manutencao-container>div{
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
+}
+#manutencao-container * {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.manutencao-info {
+    background-color: #2f96b4 !important;
+}
+.manutencao {
+    /*background-color: #030303;*/
+}
+.manutencao-message {
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+}
+.btnChat{
+  margin-top: 0;
+  padding: 5px 9px; 
+}
+li.list-group-item a {
+  right: 10px;
+  position: absolute;
+  top: 7px;
+}
 @media print {
     body * { visibility: hidden; }
     #chart * { visibility: visible; }

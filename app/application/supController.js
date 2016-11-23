@@ -1,41 +1,44 @@
-angular.module('app').controller('supController', ['$scope', 'ChatFactory', 'verifyDate3', 'convertReportData', 'convertData', '$rootScope', '$routeParams', '$route', '$window', 'setBackground', 'loadUser', '$location', 'verificarLogin', 'logout', '$http', '$timeout', '$cookies', 'verificarRegras', 'createNewProject', 'createNewTask', 'editProject', 'formatDate', 'verifyDateProjectStatus', 'formatDate2', 'formatTime', 'convertReportDataCircle', 'verifyDate', 'verifyDate2', '$interval', 'verificarSolicitacao', 'verifyDate4', function($scope, ChatFactory, verifyDate3, convertReportData, convertData, $rootScope, $routeParams, $route, $window, setBackground, loadUser, $location, verificarLogin, logout, $http, $timeout, $cookies, verificarRegras, createNewProject, createNewTask, editProject, formatDate, verifyDateProjectStatus, formatDate2, formatTime, convertReportDataCircle, verifyDate, verifyDate2, $interval, verificarSolicitacao, verifyDate4){
+angular.module('app').controller('supController', ['$scope', 'ChatSupportFactory', 'verifyDate3', 'convertReportData', 'convertData', '$rootScope', '$routeParams', '$route', '$window', 'setBackground', 'loadUser', '$location', 'verificarLogin', 'logout', '$http', '$timeout', '$cookies', 'verificarRegras', 'createNewProject', 'createNewTask', 'editProject', 'formatDate', 'verifyDateProjectStatus', 'formatDate2', 'formatTime', 'convertReportDataCircle', 'verifyDate', 'verifyDate2', '$interval', 'verificarSolicitacao', 'verifyDate4', function($scope, ChatSupportFactory, verifyDate3, convertReportData, convertData, $rootScope, $routeParams, $route, $window, setBackground, loadUser, $location, verificarLogin, logout, $http, $timeout, $cookies, verificarRegras, createNewProject, createNewTask, editProject, formatDate, verifyDateProjectStatus, formatDate2, formatTime, convertReportDataCircle, verifyDate, verifyDate2, $interval, verificarSolicitacao, verifyDate4){
 
 	
   var url = "http://localhost/iaiTaPronto/system/";
   var hashName = $location.path().split('/');
 
 	var verDados = verificarLogin.verificarLogin();
-	console.log(verDados);
 	if(verDados){
 		$scope.user = loadUser.loadUser();
 		if($scope.user.acesso <= 1){
 			$('.modalTutorial').modal('show');
 		}
 	}
-	
 	$scope.sync = function(){
 		location.reload();
 	};
-	if(verDados){
-		$scope.user = loadUser.loadUser();
-		if($scope.user.nome != undefined){
-			$scope.usuario = {
-				nome: $scope.user.nome
-			};
-			if($scope.user.funcao == 2 || $scope.user.funcao == 3){
-				$scope.chat = ChatFactory;
-				if(typeof $scope.chat.entrar == 'function'){
-					$scope.chat.entrar();
-					$scope.verifyChat = function(id){
-						if(id == $scope.user.id){
-							return true;
+	if($location.path() == '/support/' + hashName[2]){
+		console.log('entrou');
+		if(verDados){
+			$scope.user = loadUser.loadUser();
+			if($scope.user.nome != undefined){
+				$scope.usuario = {
+					nome: $scope.user.nome
+				};
+				if($scope.user.funcao == 2 || $scope.user.funcao == 3){
+					$scope.chatSuporte = ChatSupportFactory;
+					if(typeof $scope.chatSuporte.entrar == 'function'){
+						$scope.chatSuporte.entrar();
+						$scope.verifyChat = function(id){
+							if(id == $scope.user.id){
+								return true;
+							}
 						}
+					}else{
+							$scope.sync();
 					}
-				}else{
-						$scope.sync();
 				}
-			}
-	  }
+		  }
+		}
+	}else{
+		
 	}
 	$scope.ativarRefresh = function(data) {
 		var contador = 5;
@@ -75,25 +78,26 @@ angular.module('app').controller('supController', ['$scope', 'ChatFactory', 'ver
      });
 	}
   angular.element(document).ready(function () {
-			$('#popup-messagesBody').scroll(function (event) {
-				var scroll = document.getElementById('popup-messagesBody').scrollTop;
-				var altura = document.getElementById('popup-messagesBody').scrollHeight;
-				var alturaDiv = document.getElementById('popup-messagesBody').clientHeight;
-				if(scroll < (altura - alturaDiv) - 80){
-					$('.btn-scroll').removeClass('hide');
-				}else{
-					$('.btn-scroll').addClass('hide');
-				}
-			});
-			$("#buttonChat").click(function () {
-   			$('#qnimate').addClass('popup-box-on');
+		$('#popup-messagesBody').scroll(function (event) {
+			var scroll = document.getElementById('popup-messagesBody').scrollTop;
+			var altura = document.getElementById('popup-messagesBody').scrollHeight;
+			var alturaDiv = document.getElementById('popup-messagesBody').clientHeight;
+			if(scroll < (altura - alturaDiv) - 80){
+				$('.btn-scroll').removeClass('hide');
+			}else{
 				$('.btn-scroll').addClass('hide');
-				var objDiv = $('#popup-messagesBody');
-				objDiv[0].scrollTop = objDiv[0].scrollHeight;
-			});
-			$("#closeChat").click(function () {
-					$('#qnimate').removeClass('popup-box-on');
-			});
+			}
+		});
+		$('#qnimateSupporte').addClass('popup-box-on');
+		$("#buttonChat").click(function () {
+			$('#qnimate').addClass('popup-box-on');
+			$('.btn-scroll').addClass('hide');
+			var objDiv = $('#popup-messagesBody');
+			objDiv[0].scrollTop = objDiv[0].scrollHeight;
+		});
+		$("#closeChat").click(function () {
+				$('#qnimate').removeClass('popup-box-on');
+		});
                 
       $('.button-collapse').sideNav('hide');
       $('.buttonSaveProject').addClass('hide-element');
@@ -226,28 +230,27 @@ angular.module('app').controller('supController', ['$scope', 'ChatFactory', 'ver
 		setBackground.setBackground();
 		verificarRegras.verificarRegras();
 	
-		if($location.path() == '/editSupport' || $location.path() == '/editSupport/' + $routeParams.id){
-			if($location.path() == '/editProfile/' + $routeParams.id){
-				toastr.success('Altere sua senha abaixo', 'Sucesso!');
-			}
-			$scope.editarUsuario = function(){
-				var editCode;
-				if($routeParams.id == undefined){
-					editCode = 0;
-				}else{
-					editCode = $routeParams.id;
+		if($location.path() == '/editSupport' || $location.path() == '/editSupport/' + hashName[2]){
+				if($location.path() == '/editProfile/' + $routeParams.id){
+					toastr.success('Altere sua senha abaixo', 'Sucesso!');
 				}
-				var data = {
-	        editNameUser:$('#editNameUser').val(),
-	        editEmailUser:$('#editEmailUser').val(),
-	        editUsuarioUser:$('#editUsuarioUser').val(),
-	        editPasswordUser:$('#editPasswordUser').val(),
-	        editCode:editCode,
-	        idUser:$('#idUserClient').val(),
-	        userRole: 2
-	      }
-				console.log(data);
-				$scope.httpEditUsuario(data);
+				$scope.editarUsuario = function(){
+					var editCode;
+					if($routeParams.id == undefined){
+						editCode = 0;
+					}else{
+						editCode = $routeParams.id;
+					}
+					var data = {
+		        editNameUser:$('#editNameUser').val(),
+		        editEmailUser:$('#editEmailUser').val(),
+		        editUsuarioUser:$('#editUsuarioUser').val(),
+		        editPasswordUser:$('#editPasswordUser').val(),
+		        editCode:editCode,
+		        idUser:$('#idUserClient').val(),
+		        userRole: 2
+		      }
+			  $scope.httpEditUsuario(data);
 			}
 			$scope.httpEditUsuario = function(data){
 				$http({

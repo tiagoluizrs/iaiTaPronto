@@ -74,7 +74,7 @@ class Conversa{
     $this->CI->db->query("INSERT INTO `data__usuario_conversa`(`conversa_id`, `usuario_id`) VALUES (1, $this->usuarioId);");
   }
   public function usuariosConversa(){
-    $sql = "SELECT	uc . *, du . nomeUsuario 
+    $sql = "SELECT	uc . *, du . nomeUsuario, du . codigoConfirmacao 
             FROM	data__usuario_conversa uc, 
                     (
                       SELECT	* 

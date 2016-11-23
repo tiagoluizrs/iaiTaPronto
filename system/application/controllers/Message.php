@@ -18,6 +18,16 @@ class Message extends CI_Controller {
 		$this->mensagem->setMensagem($data->mensagem);
 		$resultado = $this->mensagem->criarMensagem();
 		echo json_encode($resultado);
+	}
+	public function criarMensagemSuporte(){
+		$data = json_decode(file_get_contents("php://input"));
+		$this->load->library('mensagem');
+		$this->mensagem->setUsuarioId($data->id);
+		$this->mensagem->setAlias($data->alias);
+		$this->mensagem->setClienteId($data->usuarioChat);
+		$this->mensagem->setMensagem($data->mensagem);
+		$resultado = $this->mensagem->criarMensagemSuporte();
+		echo json_encode($resultado);
 	}	
 	public function carregarMensagem(){
 		$this->load->library('mensagem');
@@ -26,7 +36,10 @@ class Message extends CI_Controller {
 		echo json_encode($resultado);
 	}
 	public function carregarMensagemSuporte(){
-		echo json_encode($_GET['usuarioId']);
+		$this->load->library('mensagem');
+		$this->mensagem->setUsuarioId($_GET['hash']);
+		$resultado = $this->mensagem->carregarMensagemSuporte();
+		echo json_encode($resultado);
 	}	
 	public function usuariosChat(){
 		

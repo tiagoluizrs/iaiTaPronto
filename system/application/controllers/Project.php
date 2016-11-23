@@ -81,4 +81,9 @@ class Project extends CI_Controller {
 
 		echo json_encode($data);
 	}
+	public function verificarProjeto(){
+		$this->load->library('projeto');
+		$data = $this->projeto->verificarProjeto();
+		echo json_encode($data);
+	}
 }

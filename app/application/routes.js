@@ -105,6 +105,11 @@ angular.module('app').config(['$routeProvider', '$locationProvider', function($r
       templateUrl: 'views/support/suporte.html',
       controller: 'supController'
     })
+    .when('/support/:id', {
+      title : 'Suporte',
+      templateUrl: 'views/support/suporte.html',
+      controller: 'supController'
+    })
     .when('/editSupport', {
       title : 'Editar Perfil',
       templateUrl: 'views/support/edit.html',

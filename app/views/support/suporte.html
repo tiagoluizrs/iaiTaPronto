@@ -115,8 +115,8 @@
 				<ul class="bodyUsuariosChat list-group">
 					<li ng-repeat="usuarioResult in solicitacaoCheck.listarUsuariosChat()" class="list-group-item">
 						{{usuarioResult.nomeUsuario}}
-						<button ng-click="abrirChat(usuarioResult.usuario_id)" class="tag btn-info btn waves-effect label-pill pull-xs-right">
-						<i class="fa fa-commenting" aria-hidden="true"></i></button>
+						<a href="http://localhost/iaiTaPronto/app/#/support/{{usuarioResult.codigoConfirmacao}}" class="tag btn-info btn waves-effect label-pill pull-xs-right">
+						<i class="fa fa-commenting" aria-hidden="true"></i></a>
 					</li>
 				</ul>
 				<br>

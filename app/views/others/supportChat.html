@@ -1,0 +1,54 @@
+<div ng-controller="supController" class="popup-box chat-popup" id="qnimateSuporte">
+  <div class="popup-head">
+    <div class="popup-head-left pull-left">{{user.nomeUsuario}}</div>
+    <div class="popup-head-right pull-right">
+      <div class="btn-group">
+      </div>
+    </div>
+  </div>
+      
+  <div class="bodyGeneral">
+    <!-- Message. Default to the left -->
+  <button ng-click="chatSuporte.scrollBottom()" class="btn-scroll btn-floating btn-small  waves-effect  waves-light">
+<!--    <span class="tagChat"></span> -->
+    <i class="fa fa-angle-double-down" aria-hidden="true"></i></button>
+  <div class="popup-messages" id="popup-messagesBodySuporte">
+    <div class="direct-chat-messages">
+      <div class="direct-chat-msg doted-border" ng-repeat="mensagemSupport in chatSuporte.listar()">
+<!--        <div class="chat-box-single-line" ng-if="verifyChat() ? 'colorUser' : 'colorSupport'" >
+          <abbr class="timestamp">{{mensagemSupport.dataCadastro | configurarData: 'dia'}}</abbr>
+        </div> -->
+        <div class="direct-chat-info clearfix">
+          <span class="direct-chat-name pull-left">{{mensagemSupport.alias}}</span>
+        </div>
+        <!-- /.direct-chat-info -->
+<!--         <img alt="message user image" src="https://media.licdn.com/mpr/mpr/shrink_100_100/p/2/005/0b3/123/319cbe7.jpg" class="direct-chat-img"> -->
+        <span class="direct-chat-img">{{mensagemSupport.alias | primeraLetra}}</span>
+        <!-- /.direct-chat-img -->
+        <div class="direct-chat-text">
+          {{mensagemSupport.mensagem}}
+        </div>
+        <div class="direct-chat-info clearfix">
+          <span class="direct-chat-timestamp pull-right">{{mensagemSupport.dataCadastro | configurarData}}</span>
+        </div>
+      </div>
+      
+      <!-- /.direct-chat-msg -->
+      <div id="areaBeggin"></div>
+    </div>
+  </div>
+  <div class="popup-messages-footer">
+    <form ng-submit="chatSuporte.cadastrarSupporte(mensagemSupport); texto=''">
+      <div class="md-form form-bodyChat col-xs-9 col-sm-9 col-md-9 col-lg-9">
+          <textarea ng-enter="chatSuporte.cadastrarSupporte(mensagemSupport); texto=''" ng-model="mensagemSupport" class="md-textarea" id="status_message" placeholder="Digite sua mensagemSupport..." rows="10" cols="40" name="message"></textarea>
+      </div>
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <button prevent-default class="btn-small blue btn-chat  waves-effect  waves-light" type="submit"><i class="material-icons">send</i></button>
+      </div>
+    </form>
+  </div>
+  </div>
+</div>
+<div class="fixed-action-btn bodyFloatButton bodyChatSuporteButton" ng-controller="mainController" style="right: 90px;">
+  <a class="btn btn-floating btn-large blue waves-effect" id="buttonChat"><i class="material-icons">chat</i></a>
+</div>

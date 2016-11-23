@@ -168,16 +168,16 @@ class Tarefa{
       $usuarioSql = "SELECT * FROM `data__usuario` WHERE id = $participanteId";
       $usuarioQuery = $this->CI->db->query($usuarioSql);
       $usuarioResult = $usuarioQuery->result();
-      $this->CI->email->from('tcc@tiagoluizweb.com.br', 'Tiago Luiz - ' . $usuarioResult[0]->nome);
-      $this->CI->email->to($usuarioResult[0]->email);
+      // $this->CI->email->from('tcc@tiagoluizweb.com.br', 'Tiago Luiz - ' . $usuarioResult[0]->nome);
+      // $this->CI->email->to($usuarioResult[0]->email);
 
-      $this->CI->email->subject('Nova tarefa Criada');
-      $this->CI->email->message('Olá querido usuário '.$usuarioResult[0]->nome.'. uma nova tarefa de título ' . $tarefaResult[0]->titulo . ' foi criada para o projeto ' . $projetoResult[0]->titulo . ' e você foi um dos adicionados à ela. Parabéns!');
-      $this->CI->email->send();
+      // $this->CI->email->subject('Nova tarefa Criada');
+      // $this->CI->email->message('Olá querido usuário '.$usuarioResult[0]->nome.'. uma nova tarefa de título ' . $tarefaResult[0]->titulo . ' foi criada para o projeto ' . $projetoResult[0]->titulo . ' e você foi um dos adicionados à ela. Parabéns!');
+      // $this->CI->email->send();
       
-      if(!$this->CI->email->send()){
-        $errorCounter++;
-      }
+      // if(!$this->CI->email->send()){
+      //   $errorCounter++;
+      // }
     }
     if(count($this->usuarioId) == $errorCounter){
       return $data = array(

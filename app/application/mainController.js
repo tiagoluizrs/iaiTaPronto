@@ -58,26 +58,29 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 			icon: 'account_circle',
 		},
 	];	
-	if(verDados){
-		$scope.user = loadUser.loadUser();
-		if($scope.user.nome != undefined){
-			$scope.usuario = {
-				nome: $scope.user.nome
-			};
-			if($scope.user.funcao == 2 || $scope.user.funcao == 3){
-				$scope.chat = ChatFactory;
-				if(typeof $scope.chat.entrar == 'function'){
-					$scope.chat.entrar();
-					$scope.verifyChat = function(id){
-						if(id == $scope.user.id){
-							return true;
+	if($location.path() == '/edit' || $location.path() == '/edit/' + hashName[2]){
+	}else{
+		if(verDados){
+			$scope.user = loadUser.loadUser();
+			if($scope.user.nome != undefined){
+				$scope.usuario = {
+					nome: $scope.user.nome
+				};
+				if($scope.user.funcao == 2 || $scope.user.funcao == 3){
+					$scope.chat = ChatFactory;
+					if(typeof $scope.chat.entrar == 'function'){
+						$scope.chat.entrar();
+						$scope.verifyChat = function(id){
+							if(id == $scope.user.id){
+								return true;
+							}
 						}
+					}else{
+							$scope.sync();
 					}
-				}else{
-						$scope.sync();
 				}
-			}
-	  }
+		  }
+		}
 	}
 	$scope.ativarRefresh = function(data) {
 		var contador = 5;
@@ -94,25 +97,27 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 	
 	
   angular.element(document).ready(function () {
-			$('#popup-messagesBody').scroll(function (event) {
-				var scroll = document.getElementById('popup-messagesBody').scrollTop;
-				var altura = document.getElementById('popup-messagesBody').scrollHeight;
-				var alturaDiv = document.getElementById('popup-messagesBody').clientHeight;
-				if(scroll < (altura - alturaDiv) - 80){
-					$('.btn-scroll').removeClass('hide');
-				}else{
-					$('.btn-scroll').addClass('hide');
-				}
-			});
-			$("#buttonChat").click(function () {
-   			$('#qnimate').addClass('popup-box-on');
-				$('.btn-scroll').addClass('hide');
-				var objDiv = $('#popup-messagesBody');
-				objDiv[0].scrollTop = objDiv[0].scrollHeight;
-			});
-			$("#closeChat").click(function () {
-					$('#qnimate').removeClass('popup-box-on');
-			});
+	$('#popup-messagesBody').scroll(function (event) {
+		var scroll = document.getElementById('popup-messagesBody').scrollTop;
+		var altura = document.getElementById('popup-messagesBody').scrollHeight;
+		var alturaDiv = document.getElementById('popup-messagesBody').clientHeight;
+		if(scroll < (altura - alturaDiv) - 80){
+			$('.btn-scroll').removeClass('hide');
+		}else{
+			$('.btn-scroll').addClass('hide');
+		}
+	});
+
+	$('#qnimateCliente').removeClass('popup-box-on');
+	$("#buttonChat").click(function () {
+		$('#qnimateCliente').addClass('popup-box-on');
+		$('.btn-scroll').addClass('hide');
+		var objDiv = $('#popup-messagesBody');
+		objDiv[0].scrollTop = objDiv[0].scrollHeight;
+	});	
+	$("#closeChat").click(function () {
+		$('#qnimateCliente').removeClass('popup-box-on');
+	});
                 
       $('.button-collapse').sideNav('hide');
       $('.buttonSaveProject').addClass('hide-element');
@@ -141,7 +146,7 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
       	ativarUsuario(hashName[2]);
       }
       if(hashName[1] == 'editProfile'){
- 				$('#qnimate').removeClass('popup-box-on');
+ 				$('#qnimateCliente').removeClass('popup-box-on');
 				if(hashName[2] != undefined){
       		dadosRecovery(hashName[2]);
 				}
@@ -293,18 +298,21 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 	}
 	
 	var verificarLogin2 = verificarLogin.verificarLogin();
-	if(verificarLogin2){
-		$scope.user = loadUser.loadUser();
-		if($scope.user != undefined){
-			$scope.usuario = {
-				nome: $scope.user.nome
-			};
-			$scope.solicitacaoCheck = verificarSolicitacao;
-			if(typeof $scope.solicitacaoCheck.assincVerificacao == 'function' && typeof 						$scope.solicitacaoCheck.assincConviteAceito == 'function'){
-				$scope.solicitacaoCheck.assincVerificacao();
-				$scope.solicitacaoCheck.assincConviteAceito();
-			}else{
+	if($location.path() == '/support' || $location.path() == '/support/' + hashName[2] || $location.path() == '/edit' || $location.path() == '/edit/' + hashName[2]){
+	}else{
+		if(verificarLogin2){
+			$scope.user = loadUser.loadUser();
+			if($scope.user != undefined){
+				$scope.usuario = {
+					nome: $scope.user.nome
+				};
+				$scope.solicitacaoCheck = verificarSolicitacao;
+				if(typeof $scope.solicitacaoCheck.assincVerificacao == 'function' && typeof $scope.solicitacaoCheck.assincConviteAceito == 'function'){
+					$scope.solicitacaoCheck.assincVerificacao();
+					$scope.solicitacaoCheck.assincConviteAceito();
+				}else{
 			 		$scope.sync();
+				}
 			}
 		}
 	}
@@ -654,14 +662,39 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 	      }
 	    }
 	  }
-
-	  
+	  $scope.manutencaoCliente = function(){
+			$http({
+	            method : "GET",
+	            url : url+'maintenance/carregarManutencao',
+	        }).then(function mySucces(response) {
+				var manutencao = response.data.data[0];
+				if(manutencao.estado == 1){
+					$('.manutencao').removeClass('hide-element');
+				}else{
+					$('.manutencao').addClass('hide-element');
+				}
+      		});
+		}
+	  	
+	  	$scope.manutencaoCliente();
 		$scope.realClock();
 
 		$scope.salutation();
 		setBackground.setBackground();
 		verificarRegras.verificarRegras();
-		
+	
+	  if($scope.user.funcao == 3){
+	  	$scope.vericarProjeto = function(){
+			$http({
+	            method : "GET",
+	            url : url+'project/verificarProjeto',
+	        }).then(function mySucces(response) {
+				console.log(response);
+	  		});
+		}
+		$scope.vericarProjeto();
+	  }
+
 	  if($location.path() == '/reports'){
 			$scope.reportDatas = function(data, type){
 				var reportValues;
@@ -947,9 +980,49 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 				$('.configReport').removeClass('hide-element');
 			}
 		}
-	  if($location.path() == '/users' || $location.path() == '/edit'){
+	  	if($location.path() == '/users' || $location.path() == '/edit'){
 			$scope.manutencao = function(){
-				console.log('manutencao');
+				$http({
+		            method : "GET",
+		            url : url+'maintenance/carregarManutencao',
+		        }).then(function mySucces(response) {
+					var manutencao = response.data.data[0];
+					if(manutencao.estado == 1){
+						$scope.desativarManutencao();
+					}else{
+						$scope.ativarManutencao();
+					}
+	      		});
+			}
+			$scope.desativarManutencao = function(){
+				$http({
+		            method : "GET",
+		            url : url+'maintenance/desativarManutencao',
+		        }).then(function mySucces(response) {
+		        	console.log(response);
+					var auth = response.data.auth;
+					if(auth){
+	                  toastr["warning"]('Manutenção desativada');
+					}else{
+	                  toastr["error"]('Erro ao desativar manutenção');
+					}
+				    $('.manutencao').addClass('hide-element');	
+	      		});
+			}
+			$scope.ativarManutencao = function(){
+				$http({
+		            method : "GET",
+		            url : url+'maintenance/ativarManutencao',
+		        }).then(function mySucces(response) {
+		        	console.log(response);
+					var auth = response.data.auth;
+					if(auth){
+	                  toastr["success"]('Manutenção ativada');
+					}else{
+	                  toastr["error"]('Erro ao ativar manutenção');
+					}
+				    $('.manutencao').removeClass('hide-element');
+	      		});
 			}
 		}
 			
@@ -1408,7 +1481,6 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 	          method : "GET",
 	          url : url+'project/pesquisarProjeto?userId='+$scope.user.id+'&data='+$routeParams.id,
 	      }).then(function mySucces(response) {
-					console.log(response);
 	          $scope.projeto2 = response.data.data[0];
 	          var estado = $scope.projeto2.estado;
 	          switch (estado) {
@@ -1611,7 +1683,6 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 			}
 		}
 		if($location.path() == '/' || $location.path() == '/register' || $location.path() == '/login' ||  $location.path() == '/support' || $location.path() == '/editSupport'){
-			console.log('');
 		}else{
 			$scope.pesquisarEmpresaProjeto = function(){
 				var projectClient = '';

@@ -141,13 +141,15 @@ class Projeto{
       $usuarioSql = "SELECT * FROM `data__usuario` WHERE id = $this->usuarioId";
       $usuarioQuery = $this->CI->db->query($usuarioSql);
       $usuarioResult = $usuarioQuery->result();
-      $this->CI->email->from('tcc@tiagoluizweb.com.br', 'Tiago Luiz - ' . $usuarioResult[0]->nome);
-      $this->CI->email->to($usuarioResult[0]->email);
+      // $this->CI->email->from('tcc@tiagoluizweb.com.br', 'Tiago Luiz - ' . $usuarioResult[0]->nome);
+      // $this->CI->email->to($usuarioResult[0]->email);
 
-      $this->CI->email->subject('Novo projeto Criado');
-      $this->CI->email->message('Olá querido usuário '.$usuarioResult[0]->nome.'. um novo projeto com título ' . $this->titulo . ' foi criado por você em nosso sistema, para acessar utilize seu painel de controle.');
-      $this->CI->email->send();
-      return $data = array('auth' => 1);
+      // $this->CI->email->subject('Novo projeto Criado');
+      // $this->CI->email->message('Olá querido usuário '.$usuarioResult[0]->nome.'. um novo projeto com título ' . $this->titulo . ' foi criado por você em nosso sistema, para acessar utilize seu painel de controle.');
+      // $this->CI->email->send();
+      return $data = array(
+        'auth' => 1
+        );
     }else{
       return $data = array('auth' => 0);
     }
@@ -162,6 +164,39 @@ class Projeto{
       return $data = array('auth' => 1);
     }else{
       return $data = array('auth' => 0);
+    }
+  }
+
+  public function verificarProjeto(){
+    $projetos = $this->CI->db->query("SELECT * FROM `data__projeto` WHERE `dataEntrega` < NOW()");
+    
+    if($projetos->num_rows() > 0){
+      foreach ($projetos->result() as $projeto) {
+        $totalTarefasAndamento = $this->CI->db->query("SELECT * FROM `data__tarefa` WHERE `projeto_id` = $projeto->id AND `estado` = 1");
+
+        if($totalTarefasAndamento->num_rows() > 0){
+          $estado = 5;
+          $msg = 'Atrasado';
+        }else{
+          $estado = 3;
+          $msg = 'Entregue';
+        }
+        $this->CI->db->query("UPDATE `data__projeto` SET `estado` = $estado WHERE `id` = $projeto->id");
+
+        $usuario = $this->CI->db->query("SELECT * FROM `data__usuario` WHERE `id` = $projeto->usuario_id")->result();
+
+        // $this->CI->email->from('tcc@tiagoluizweb.com.br', 'Tiago Luiz - ' . $participante);
+        // $this->CI->email->to($usuario[0]->email);
+
+        // $this->CI->email->subject('Estado do projeto alterado');
+        // $this->CI->email->message('Olá querido ' . $usuario[0]->nomeUsuario . '. seu projeto '.$projeto->titulo.' acaba de ser alterado para o estado $msg');
+        // $this->CI->email->send();
+      }
+      if($this->CI->db->affected_rows() > 0){
+        return $data = array('auth' => 1);
+      }else{
+        return $data = array('auth' => 0);
+      }
     }
   }
 }

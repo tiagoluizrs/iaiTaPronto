@@ -60,6 +60,7 @@ angular.module('app')
 				}, 100);
 		}
 		function cadastrar(mensagem) {
+			console.log('cliente');
 			var data = {
 				id: usuario.id,
 				alias: usuario.nomeUsuario,
@@ -97,8 +98,110 @@ angular.module('app')
 		}	
 	}
 })
-.factory("verificarSolicitacao", function($http, $location, $timeout, $cookies, $routeParams) {
+.factory("ChatSupportFactory", function($http, $timeout, $cookies, $location) {
+	if($cookies.get('userData') == undefined || $cookies.get('userData') == ''){
+		return true;
+	}else{
+  		var hashName = $location.path().split('/');
+		var promise;
+		var url = "http://localhost/iaiTaPronto/system/";
+		var mensagens = [];
+		var aberto = false;
+		var contador = 5;
+		var usuario = $.parseJSON($cookies.get('userData'));
+		return {
+			entrar: entrar,
+			listar: listar,
+			scrollBottom: scrollBottom,
+			cadastrarSupporte: cadastrarSupporte,
+			isAberto: isAberto,
+			sair: sair,
+			getContador: getContador,
+			atualizar: atualizar,
+		};
+
+		function entrar() {
+			aberto = true;
+			ativarRefresh()
+		}
+
+		function scrollBottom(){
+			var objDiv = $('#popup-messagesBodySuporte');
+			objDiv[0].scrollTop = objDiv[0].scrollHeight;
+		}
 	
+		function ativarRefresh() {
+			contador--;
+			if (contador === 0) {
+				atualizar();
+				contador = 5;
+			}
+			promise = $timeout(ativarRefresh, 1000);
+		}
+
+		function sair() {
+			$timeout.cancel(promise);
+			aberto = false;
+		}
+		function atualizar() {
+			var hashName = $location.path().split('/');
+			$http({
+	        method : "GET",
+	        url : url+'message/carregarMensagemSuporte?hash='+hashName[2],
+	    }).then(function mySucces(response) {
+			console.log(response);
+			if(response.data['auth']){
+	         	mensagens = response.data['messages'];
+	        }
+	    });
+		}
+		function scrollBottom(){
+			setTimeout(function(){
+					var objDiv = $('#popup-messagesBody');
+					objDiv[0].scrollTop = objDiv[0].scrollHeight;
+				}, 100);
+		}
+		function cadastrarSupporte(mensagem) {
+			var data = {
+				id: usuario.id,
+				alias: usuario.nomeUsuario,
+				mensagem: mensagem,
+				usuarioChat: hashName[2]
+			}
+			 $http({
+	          method : "POST",
+	          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+	          url : url+'message/criarMensagemSuporte',
+	          data : data,
+				    cache: true,
+	      }).then(function mySucces(response) {
+	      			console.log(response);
+				 if(response.data['auth'] == 1){
+						 $('#status_message').val('');
+						setTimeout(function(){
+							var objDiv = $('#popup-messagesBody');
+							objDiv[0].scrollTop = objDiv[0].scrollHeight;
+						}, 300);
+					 }
+	      }, function myError(response) {
+				console.log(response);
+	      });
+		}
+
+		function getContador() {
+			return contador;
+		}
+
+		function isAberto() {
+			return aberto;
+		}
+
+		function listar() {
+			return mensagens;
+		}	
+	}
+})
+.factory("verificarSolicitacao", function($http, $location, $timeout, $cookies, $routeParams) {
 	if($cookies.get('userData') == undefined || $cookies.get('userData') == ''){
 		return true;
 	}else{
@@ -193,15 +296,15 @@ angular.module('app')
 		}
 		function carregarUsuariosChat(){
 			$http({
-					 method : "GET",
-					 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-					 url : url+'chat/usuariosConversa?usuarioId=' + usuario.id,
-			 }).then(function mySucces(response) {
-					if(response.data.auth){
-						$('.preloaderuser').addClass('hide-element');
-						$('.userTitleChat').removeClass('hide-element');
-						userChat = response.data.data;
-					}
+				 method : "GET",
+				 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+				 url : url+'chat/usuariosConversa?usuarioId=' + usuario.id,
+		 }).then(function mySucces(response) {
+				if(response.data.auth){
+					$('.preloaderuser').addClass('hide-element');
+					$('.userTitleChat').removeClass('hide-element');
+					userChat = response.data.data;
+				}
 			 });
 		}
 		function listarConvites() {
@@ -293,17 +396,20 @@ angular.module('app')
       					return true;
       				}
             }else if(userDatas.funcao == 2){
-							if(controllerName == '/support'){
-									$location.path('/support');
-      						return true;
-							}else if(controllerName == '/editSupport'){
-									$location.path('/editSupport');
-      						return true;
-							}
-							else{
-									$location.path('/support');
-      						return true;
-							}
+				if(controllerName == '/support'){
+						$location.path('/support');
+					return true;
+				}else if(controllerName == '/editSupport'){
+						$location.path('/editSupport');
+					return true;
+				}else if(controllerName == '/support/'+ hashName[2]){
+	                $location.path('/support/'+ hashName[2]);
+	                return true;
+	              }
+				else{
+						$location.path('/support');
+					return true;
+				}
             }else{
               if(controllerName == '/' || controllerName == '/register' || controllerName == '/login' ||  controllerName == '/admin' || controllerName == '/users' || controllerName == '/adminReports' || controllerName == '/confirmarEmail' || controllerName ==  '/edit'){
       				  $location.path('/panel');
@@ -322,7 +428,7 @@ angular.module('app')
         verificarRegras: function() {
         var controllerName = $location.path();
         var hashName = $location.path().split('/');
-			if(controllerName == '/admin' || controllerName == '/edit' || controllerName == '/' || controllerName == '/register/'+ hashName[2] || controllerName == '/register' || controllerName == '/users' || controllerName == '/adminReports' || controllerName == '/support' || controllerName == '/editSupport'){
+			if(controllerName == '/admin' || controllerName == '/edit' || controllerName == '/' || controllerName == '/register/'+ hashName[2] || controllerName == '/register' || controllerName == '/users' || controllerName == '/adminReports' || controllerName == '/support' || controllerName == '/support/' + hashName[2] || controllerName == '/editSupport'){
 				$('.areaDesktop').addClass('removePadding');
 				$('.topBar').addClass('hide-element');
 				$('.sideMenu').addClass('hide-element');
@@ -330,11 +436,14 @@ angular.module('app')
 				$('.bodyFloatButton').addClass('hide-element');
 				$('.clock ').addClass('hide-element');
 				$('.bodyChatButton').addClass('hide-element');
-				$('#qnimate').removeClass('popup-box-on');
+				$('.bodyChatSuporteButton').addClass('hide-element');
+				$('#qnimateSuporte').removeClass('popup-box-on');
+				$('#qnimateCliente').removeClass('popup-box-on');
 			  if(controllerName == '/' || controllerName == '/register/'+ hashName[2] || controllerName == '/register'){
 			    $('body').removeClass('fixed-sn mdb-skin');
 			    $('body').removeClass('bgAdmin');
 			    $('.headerAdmin').addClass('hide-element');
+			    $('.manutencao').addClass('hide-element');	
 			  }else{
 			    $('body').addClass('fixed-sn mdb-skin');
 			    $('body').addClass('bgAdmin');
@@ -342,15 +451,23 @@ angular.module('app')
 			    $('.headerAdmin').removeClass('hide-element');
 			  }
 			}else{
-// 				$('#qnimate').addClass('popup-box-on');
-				$('.bodyChatButton').removeClass('hide-element');
-			  $('.headerAdmin').addClass('hide-element');
-			  $('.areaDesktop').removeClass('removePadding');
-			  $('.sideMenu').removeClass('hide-element');
-			  $('.topBar').removeClass('hide-element');
-			  $('.userTopBar').removeClass('hide-element');
-			  $('.bodyFloatButton').removeClass('hide-element');
-			  $('.clock ').removeClass('hide-element');
+// 				$('#qnimateCliente').addClass('popup-box-on');
+				if(controllerName == '/panel'){
+					$('#qnimateCliente').addClass('popup-box-on');
+					$('.bodyChatButton').removeClass('hide-element');	
+					$('.bodyChatSuporteButton').addClass('hide-element');		
+				}else if(controllerName == '/support' + hashName[2]){	
+					$('#qnimateSuporte').addClass('popup-box-on');
+					$('.bodyChatButton').addClass('hide-element');	
+					$('.bodyChatSuporteButton').removeClass('hide-element');
+				}	
+				$('.headerAdmin').addClass('hide-element');
+				$('.areaDesktop').removeClass('removePadding');
+				$('.sideMenu').removeClass('hide-element');
+				$('.topBar').removeClass('hide-element');
+				$('.userTopBar').removeClass('hide-element');
+				$('.bodyFloatButton').removeClass('hide-element');
+				$('.clock ').removeClass('hide-element');
 				if(controllerName == '/schendule'){
 					$('.bodyFloatButton ').addClass('hide-element');
 					$('.bodySchenduleButton ').removeClass('hide-element');
@@ -424,8 +541,9 @@ angular.module('app')
         }).then(function mySucces(response) {
               var userResult = response.data;
               if(userResult.auth){
+              	$('.formNewProject input').val('');
                 toastr.success('Projeto cadastrado com sucesso!!!', 'Suuuuucesuuuul!');
-                $('#schenduleModal').modal('hide')
+                $('#schenduleModal').modal('hide');
                 $route.reload();
               }else{
                 toastr.error('Erro ao cadastrar projeto!!!', 'Ops!');
@@ -451,7 +569,8 @@ angular.module('app')
               var userResult = response.data;
               if(userResult.auth){
                 toastr.success('Tarefa cadastrada com sucesso!!!', 'Suuuuucesuuuul!');
-                $('#schenduleModal').modal('hide')
+                $('.formNewTask  input, .formNewTask  textarea').value('');
+                $('#schenduleModal').modal('hide');
                 $route.reload();
               }else{
                 toastr.error('Erro ao cadastrar tarefa!!!', 'Ops!');
