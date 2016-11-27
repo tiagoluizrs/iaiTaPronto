@@ -1,4 +1,4 @@
-var url = "http://localhost/iaiTaPronto/system/";
+var url = "http://tiagoluizweb.com.br/tcc/system/";
 
 $(window).load(function(){
     // $('.mdb-select').material_select();  

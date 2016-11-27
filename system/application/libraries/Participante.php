@@ -6,7 +6,17 @@ class Participante{
 
   public function __construct(){
     $this->CI =& get_instance();
-    $this->CI->load->library('email');
+    $config = array (
+      'smtp_user' => 'seu@email',
+      'smtp_pass' => 'suasenha',
+      'mailtype'  => 'html', 
+      'charset'   => 'utf-8',
+      'protocol' => 'smtp',
+      'smtp_host' => 'ssl://smtp.googlemail.com',
+      'smtp_port' => 465,
+     );
+    $this->CI->load->library('email', $config);
+    $this->CI->email->set_newline("\r\n");
   }
   public function setProjetoId($projetoId){
     $this->projetoId = $projetoId;
@@ -77,12 +87,12 @@ class Participante{
             $queryProject = $this->CI->db->query("SELECT * FROM data__projeto WHERE id = $this->projetoId");
             $projectResult = $queryProject->result();
 
-            // $this->CI->email->from('tcc@tiagoluizweb.com.br', 'Tiago Luiz - ' . $participante);
-            // $this->CI->email->to($participante);
+            $this->CI->email->from('tiago@tiagoluizweb.com.br', 'Tiago Luiz - ' . $participante);
+            $this->CI->email->to($participante);
 
-            // $this->CI->email->subject('Convite para projeto');
-            // $this->CI->email->message('Olá querido ' . $participante . '. Você recebeu um convite para parcitipar do projeto ' . $projectResult[0]->titulo . ', para isso você precisará se cadastrar em nosso sistema através do link ao lado. '.base_url().'app/#/register/' . $this->projetoId);
-            // $this->CI->email->send();
+            $this->CI->email->subject('Convite para projeto - ' . date("d-m-Y H:i:s"));
+            $this->CI->email->message('Olá querido ' . $participante . '. Você recebeu um convite para parcitipar do projeto ' . $projectResult[0]->titulo . ', para isso você precisará se cadastrar em nosso sistema através do link ao lado. '.base_url().'app/#/register/' . $this->projetoId);
+            $this->CI->email->send();
           }
         }
       }
@@ -180,10 +190,9 @@ class Participante{
     }
   }
   public function removerDeTarefa(){
-    foreach($this->participante as $participante){
-      $query = $this->CI->db->query("DELETE FROM `data__usuario_tarefa` WHERE `usuario_id` = $participante");
-    } 
-    if($query){
+    $query = $this->CI->db->query("DELETE FROM `data__usuario_tarefa` WHERE `tarefa_id` = $this->tarefaId");
+     
+    if($this->CI->db->affected_rows() > 0){
       return $data = array('auth' => 1);
     }else{
       return $data = array('auth' => 0);

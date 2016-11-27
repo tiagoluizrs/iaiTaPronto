@@ -4,7 +4,8 @@ angular.module('app')
 		return true;
 	}else{
 		var promise;
-		var url = "http://localhost/iaiTaPronto/system/";
+		var url = "http://tiagoluizweb.com.br/tcc/system/";
+// 		var url = "http://localhost/iaiTaPronto/system/";
 		var mensagens = [];
 		var aberto = false;
 		var contador = 5;
@@ -104,25 +105,34 @@ angular.module('app')
 	}else{
   		var hashName = $location.path().split('/');
 		var promise;
-		var url = "http://localhost/iaiTaPronto/system/";
+		var url = "http://tiagoluizweb.com.br/tcc/system/";
+// 		var url = "http://localhost/iaiTaPronto/system/";
 		var mensagens = [];
+		var mensagensNotificacao = [];
 		var aberto = false;
 		var contador = 5;
 		var usuario = $.parseJSON($cookies.get('userData'));
 		return {
 			entrar: entrar,
+			entrarNotificacao: entrarNotificacao,
 			listar: listar,
+			listarNotificacao: listarNotificacao,
 			scrollBottom: scrollBottom,
 			cadastrarSupporte: cadastrarSupporte,
 			isAberto: isAberto,
 			sair: sair,
 			getContador: getContador,
 			atualizar: atualizar,
+			atualizarNotificacao: atualizarNotificacao,
 		};
 
 		function entrar() {
 			aberto = true;
 			ativarRefresh()
+		}
+		function entrarNotificacao() {
+			aberto = true;
+			ativarRefreshNotificacao()
 		}
 
 		function scrollBottom(){
@@ -138,6 +148,14 @@ angular.module('app')
 			}
 			promise = $timeout(ativarRefresh, 1000);
 		}
+		function ativarRefreshNotificacao() {
+			contador--;
+			if (contador === 0) {
+				atualizarNotificacao();
+				contador = 5;
+			}
+			promise = $timeout(ativarRefreshNotificacao, 1000);
+		}
 
 		function sair() {
 			$timeout.cancel(promise);
@@ -149,10 +167,42 @@ angular.module('app')
 	        method : "GET",
 	        url : url+'message/carregarMensagemSuporte?hash='+hashName[2],
 	    }).then(function mySucces(response) {
-			console.log(response);
 			if(response.data['auth']){
-	         	mensagens = response.data['messages'];
-	        }
+					mensagens = response.data['messages'];
+					var data = {
+						usuarioChat: hashName[2]
+					}
+					$http({
+						method : "POST",
+	          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+	          url : url+'chat/alterarEstadoNotificacao',
+	          data : data,
+				    cache: true,
+					}).then(function mySucces(response) {
+						console.log(response);
+					});
+				
+				}
+	    });
+		}
+		function atualizarNotificacao() {
+			var hashName = $location.path().split('/');
+			$http({
+	        method : "GET",
+	        url : url+'chat/carregarNotificacao?usuarioId='+usuario.id,
+	    }).then(function mySucces(response) {
+			if(response.data['auth']){
+					mensagensNotificacao = response.data['data'];
+					var count = mensagensNotificacao.length;
+					if(count > 0){
+						$('.countChat').removeClass('hide-element');
+						$('.countChat').text(count);
+					}else{
+						$('.countChat').addClass('hide-element');
+					}
+				}else{
+						$('.countChat').addClass('hide-element');
+				}
 	    });
 		}
 		function scrollBottom(){
@@ -162,11 +212,12 @@ angular.module('app')
 				}, 100);
 		}
 		function cadastrarSupporte(mensagem) {
+			var newHash = $location.path().split('/');
 			var data = {
 				id: usuario.id,
 				alias: usuario.nomeUsuario,
 				mensagem: mensagem,
-				usuarioChat: hashName[2]
+				usuarioChat: newHash[2]
 			}
 			 $http({
 	          method : "POST",
@@ -178,10 +229,10 @@ angular.module('app')
 	      			console.log(response);
 				 if(response.data['auth'] == 1){
 						 $('#status_message').val('');
-						setTimeout(function(){
-							var objDiv = $('#popup-messagesBody');
-							objDiv[0].scrollTop = objDiv[0].scrollHeight;
-						}, 300);
+							setTimeout(function(){
+								var objDiv = $('#popup-messagesBody');
+								objDiv[0].scrollTop = objDiv[0].scrollHeight;
+							}, 300);
 					 }
 	      }, function myError(response) {
 				console.log(response);
@@ -199,6 +250,9 @@ angular.module('app')
 		function listar() {
 			return mensagens;
 		}	
+		function listarNotificacao() {
+			return mensagensNotificacao;
+		}	
 	}
 })
 .factory("verificarSolicitacao", function($http, $location, $timeout, $cookies, $routeParams) {
@@ -206,7 +260,8 @@ angular.module('app')
 		return true;
 	}else{
 		var promise;
-		var url = "http://localhost/iaiTaPronto/system/";
+		var url = "http://tiagoluizweb.com.br/tcc/system/";
+// 		var url = "http://localhost/iaiTaPronto/system/";
 		var solicitacaoCheck = [];
 		var participantesAtivos = [];
 		var participantesInativos = [];
@@ -396,23 +451,23 @@ angular.module('app')
       					return true;
       				}
             }else if(userDatas.funcao == 2){
-				if(controllerName == '/support'){
-						$location.path('/support');
-					return true;
-				}else if(controllerName == '/editSupport'){
-						$location.path('/editSupport');
-					return true;
-				}else if(controllerName == '/support/'+ hashName[2]){
+								if(controllerName == '/support'){
+										$location.path('/support');
+									return true;
+								}else if(controllerName == '/editSupport'){
+										$location.path('/editSupport');
+									return true;
+								}else if(controllerName == '/support/'+ hashName[2]){
 	                $location.path('/support/'+ hashName[2]);
 	                return true;
 	              }
-				else{
-						$location.path('/support');
-					return true;
-				}
+								else{
+										$location.path('/support');
+									return true;
+								}
             }else{
-              if(controllerName == '/' || controllerName == '/register' || controllerName == '/login' ||  controllerName == '/admin' || controllerName == '/users' || controllerName == '/adminReports' || controllerName == '/confirmarEmail' || controllerName ==  '/edit'){
-      				  $location.path('/panel');
+              if(controllerName == '/' || controllerName == '/register' || controllerName == '/login' ||  controllerName == '/admin' || controllerName == '/users' || controllerName == '/adminReports' || controllerName == '/confirmarEmail' || controllerName ==  '/edit' || controllerName ==  '/inexistentProject' || controllerName ==  '/404' || controllerName == '/inexistentParticipantProject'){
+//       				  $location.path('/panel');
 								return true;
       				}else{
       					return true;
@@ -437,9 +492,8 @@ angular.module('app')
 				$('.clock ').addClass('hide-element');
 				$('.bodyChatButton').addClass('hide-element');
 				$('.bodyChatSuporteButton').addClass('hide-element');
-				$('#qnimateSuporte').removeClass('popup-box-on');
 				$('#qnimateCliente').removeClass('popup-box-on');
-			  if(controllerName == '/' || controllerName == '/register/'+ hashName[2] || controllerName == '/register'){
+			  if(controllerName == '/' || controllerName == '/login' || controllerName == '/register/'+ hashName[2] || controllerName == '/register'){
 			    $('body').removeClass('fixed-sn mdb-skin');
 			    $('body').removeClass('bgAdmin');
 			    $('.headerAdmin').addClass('hide-element');
@@ -453,11 +507,10 @@ angular.module('app')
 			}else{
 // 				$('#qnimateCliente').addClass('popup-box-on');
 				if(controllerName == '/panel'){
-					$('#qnimateCliente').addClass('popup-box-on');
+// 					$('#qnimateCliente').addClass('popup-box-on');
 					$('.bodyChatButton').removeClass('hide-element');	
 					$('.bodyChatSuporteButton').addClass('hide-element');		
 				}else if(controllerName == '/support' + hashName[2]){	
-					$('#qnimateSuporte').addClass('popup-box-on');
 					$('.bodyChatButton').addClass('hide-element');	
 					$('.bodyChatSuporteButton').removeClass('hide-element');
 				}	
@@ -491,6 +544,7 @@ angular.module('app')
     return {
       logout: function(cookie){
         $cookies.remove(cookie);
+				location.reload();
       }
     };
 }])
@@ -527,10 +581,31 @@ angular.module('app')
       }
     };
 }])
+.factory('formatDateOnlyNew', ['$cookies', function($cookies){
+    return {
+      formatDateOnlyNew: function(date, type){
+        if(type == 1){
+					var date = date.split(' ');
+					date = date[0].split('-');
+					date = date[2] + '-' + date[1] + '-' + date[0];
+					return date;
+				}
+				else if(type == 2){
+					var date = date.split(' ');
+					return date[1];
+				}
+				else if(type == 3){
+					var date = date.split(' ');
+					return date[0];
+				}
+      }
+    };
+}])
 .factory('createNewProject', ['$http', '$route', function($http, $route){
     return {
       createNewProject: function(element){
-				var url = "http://localhost/iaiTaPronto/system/";
+				var url = "http://tiagoluizweb.com.br/tcc/system/";
+// 		var url = "http://localhost/iaiTaPronto/system/";
         $http({
             method : "POST",
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -539,16 +614,20 @@ angular.module('app')
               data: element
             }
         }).then(function mySucces(response) {
+							console.log(response);
               var userResult = response.data;
               if(userResult.auth){
               	$('.formNewProject input').val('');
                 toastr.success('Projeto cadastrado com sucesso!!!', 'Suuuuucesuuuul!');
                 $('#schenduleModal').modal('hide');
-                $route.reload();
+                location.reload();
               }else{
-                toastr.error('Erro ao cadastrar projeto!!!', 'Ops!');
+								if(userResult.error){
+                	toastr.warning('Uma empresa com o mesmo nome já existe!!', 'Ops!');
+								}
               }
         }, function myError(response) {
+						console.log(response);
         });
       }
     };
@@ -556,7 +635,8 @@ angular.module('app')
 .factory('createNewTask', ['$http', '$route', function($http, $route){
     return {
       createNewTask: function(element){
-				var url = "http://localhost/iaiTaPronto/system/";
+				var url = "http://tiagoluizweb.com.br/tcc/system/";
+// 		var url = "http://localhost/iaiTaPronto/system/";
         $http({
             method : "POST",
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -569,7 +649,6 @@ angular.module('app')
               var userResult = response.data;
               if(userResult.auth){
                 toastr.success('Tarefa cadastrada com sucesso!!!', 'Suuuuucesuuuul!');
-                $('.formNewTask  input, .formNewTask  textarea').value('');
                 $('#schenduleModal').modal('hide');
                 $route.reload();
               }else{
@@ -581,10 +660,11 @@ angular.module('app')
       }
     };
 }])
-.factory('editProject', ['$http', function($http){
+.factory('editProject', ['$http', '$location', function($http, $location){
     return {
       editProject: function(element){
-				var url = "http://localhost/iaiTaPronto/system/";
+				var url = "http://tiagoluizweb.com.br/tcc/system/";
+// 		var url = "http://localhost/iaiTaPronto/system/";
         $http({
             method : "POST",
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -596,6 +676,7 @@ angular.module('app')
               var userResult = response.data;
               if(userResult.auth){
                 toastr.success('Projeto editado com sucesso!!!', 'Suuuuucesuuuul!');
+								$location.path('/projects');
               }else{
                 toastr.error('Erro ao editar projeto!!!', 'Ops!');
               }
@@ -761,11 +842,11 @@ angular.module('app')
 							}];
 						}else{
 							jsonConstruct = [{
-									text: 'Ativos',
+									text: 'Andamento',
 									values: 0,
 									backgroundColor: "#154771",
 								},{
-									text: 'Inativos',
+									text: 'Finalizado',
 									values: 0,
 									backgroundColor: "#F80",
 								}

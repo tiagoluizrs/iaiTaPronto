@@ -1,0 +1,67 @@
+<!-- Modal -->
+<div ng-controller="mainController" class="modal fade" id="editTaskModal" tabindex="-1" role="dialog" aria-labelledby="editTaskModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="editTaskModalLabel">Editar Tarefa</h4>
+      </div>
+      <!--Body-->
+      <div class="modal-body" style="min-height: 420px;">
+        <div class="modalPreloaderBody hide-element">
+          <div ng-include="'views/preloader.html'"></div>
+          <h3>Aguarde um instante...</h3>
+        </div>
+        <form class="formUser formNewTask">
+          <div class='form-group col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div class="bodyNewProject ">
+              <input onclick="clearClientList();" type='text' class='form-control' id='editTaskTitle' placeholder='Título do Projeto'>
+            </div>
+          </div>
+          <div class='form-group md-form col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+            <div class="bodyNewProject ">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <input placeholder="Data de entrega" style="text-indent: 30px !important;" type="text" id="editTaskDate" class="form-control datepicker">
+            </div>
+          </div>
+          <div class='form-group md-form col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+            <div class="bodyNewProject ">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              <input placeholder="Horário de entrega" style="text-indent: 30px !important;" type="text" id="editTaskTime" class="form-control timepicker">
+            </div>
+          </div>
+          <div class='form-group md-form col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+            <div class="bodyNewProject marginTop" style="border: 1px solid #cecece;" id="participantsId">
+              <fieldset class="form-group removeBorder" id="participantesCheckEdit">
+              
+              </fieldset>
+            </div>
+          </div>
+          <div class='form-group col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div class="bodyNewProject ">
+              <textarea type='text' id='editTaskDescription' rows="5" class='form-control md-textarea'>Descrição da tarefa</textarea>
+            </div>
+          </div>
+          <input placeholder="Data de entrega" style="text-indent: 30px !important;" type="hidden" id="editTaskHiddenDate" class="form-control datepicker">
+          <input placeholder="Horário de entrega" style="text-indent: 30px !important;" type="hidden" id="editTaskHiddenTime" class="form-control timepicker">
+          <input placeholder="Data de entrega" style="text-indent: 30px !important;" type="hidden" id="editSaveTaskDateIn" class="form-control datepicker">
+          <input type='hidden' class='form-control' id='idTarefa'>
+        </form>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer">
+        <div class="switchBody">
+          
+        </div>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar Janela</button>
+        <button ng-click="editarTarefa()" type="button" class="btn btn-primary">Editar Tarefa</button>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!-- /.Live preview-->

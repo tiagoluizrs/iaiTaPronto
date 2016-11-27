@@ -25,6 +25,16 @@ angular.module('app').config(['$routeProvider', '$locationProvider', function($r
       templateUrl: 'views/user/confirmarEmail.html',
       controller: 'mainController'
     })
+    .when('/inexistentProject', {
+      title : 'Projeto Inexistente',
+      templateUrl: 'views/user/inexistentProject.html',
+      controller: 'mainController'
+    })
+    .when('/inexistentParticipantProject', {
+      title : 'Projeto que participo Inexistente',
+      templateUrl: 'views/user/inexistentParticipantProject.html',
+      controller: 'mainController'
+    })
     .when('/editProfile', {
       title : 'Editar Perfil',
       templateUrl: 'views/user/editProfile.html',
@@ -107,7 +117,7 @@ angular.module('app').config(['$routeProvider', '$locationProvider', function($r
     })
     .when('/support/:id', {
       title : 'Suporte',
-      templateUrl: 'views/support/suporte.html',
+      templateUrl: 'views/support/suporteId.html',
       controller: 'supController'
     })
     .when('/editSupport', {

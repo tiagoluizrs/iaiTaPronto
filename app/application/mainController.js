@@ -1,7 +1,21 @@
-angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 'verifyDate3', 'convertReportData', 'convertData', '$rootScope', '$routeParams', '$route', '$window', 'setBackground', 'loadUser', '$location', 'verificarLogin', 'logout', '$http', '$timeout', '$cookies', 'verificarRegras', 'createNewProject', 'createNewTask', 'editProject', 'formatDate', 'verifyDateProjectStatus', 'formatDate2', 'formatTime', 'convertReportDataCircle', 'verifyDate', 'verifyDate2', '$interval', 'verificarSolicitacao', 'verifyDate4', function($scope, ChatFactory, verifyDate3, convertReportData, convertData, $rootScope, $routeParams, $route, $window, setBackground, loadUser, $location, verificarLogin, logout, $http, $timeout, $cookies, verificarRegras, createNewProject, createNewTask, editProject, formatDate, verifyDateProjectStatus, formatDate2, formatTime, convertReportDataCircle, verifyDate, verifyDate2, $interval, verificarSolicitacao, verifyDate4){
-
-  var url = "http://localhost/iaiTaPronto/system/";
-  var urlFront = "http://localhost/iaiTaPronto/app/#/";
+angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 'verifyDate3', 'convertReportData', 'convertData', '$rootScope', '$routeParams', '$route', '$window', 'setBackground', 'loadUser', '$location', 'verificarLogin', 'logout', '$http', '$timeout', '$cookies', 'verificarRegras', 'createNewProject', 'createNewTask', 'editProject', 'formatDate', 'verifyDateProjectStatus', 'formatDate2', 'formatTime', 'convertReportDataCircle', 'verifyDate', 'verifyDate2', '$interval', 'verificarSolicitacao', 'verifyDate4', 'formatDateOnlyNew', function($scope, ChatFactory, verifyDate3, convertReportData, convertData, $rootScope, $routeParams, $route, $window, setBackground, loadUser, $location, verificarLogin, logout, $http, $timeout, $cookies, verificarRegras, createNewProject, createNewTask, editProject, formatDate, verifyDateProjectStatus, formatDate2, formatTime, convertReportDataCircle, verifyDate, verifyDate2, $interval, verificarSolicitacao, verifyDate4, formatDateOnlyNew){
+	$scope.verificarConexao = function(){
+		$scope.$watch('online', function(newStatus) {
+			if(!newStatus){
+				toastr.error('No momento você está sem conexão.', 'Reconectando...');
+				if(newStatus){
+					toastr.success('', 'Reconectado');
+				}
+			}
+		});
+		$timeout($scope.verificarConexao(), 3000);
+	}
+	
+																							 
+  var url = "http://tiagoluizweb.com.br/tcc/system/";
+// 		var url = "http://localhost/iaiTaPronto/system/";
+  var urlFront = "http://tiagoluizweb.com.br/tcc/app/#/";
+//   var urlFront = "http://localhost/iaiTaPronto/app/#/";
   var hashName = $location.path().split('/');
 
 	var verDados = verificarLogin.verificarLogin();
@@ -10,9 +24,19 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 		if($scope.user.acesso <= 1){
 			$('.modalTutorial').modal('show');
 		}
+		if($scope.user.estado){
+			$('.desativado').addClass('hide-element');
+		}else{
+			$('.desativado').removeClass('hide-element');
+		}
 	}
+	
+	
 	$scope.sync = function(){
-		location.reload();
+		$('.sincronizando').removeClass('hide-element');
+		setTimeout(function(){
+			location.reload();
+		}, 4000)
 	};
 	$scope.menu = [
 		{
@@ -107,8 +131,9 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 			$('.btn-scroll').addClass('hide');
 		}
 	});
-
-	$('#qnimateCliente').removeClass('popup-box-on');
+	
+	
+		
 	$("#buttonChat").click(function () {
 		$('#qnimateCliente').addClass('popup-box-on');
 		$('.btn-scroll').addClass('hide');
@@ -121,10 +146,10 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
                 
       $('.button-collapse').sideNav('hide');
       $('.buttonSaveProject').addClass('hide-element');
-      $("html, .body-table, .bodyParticipantsActives").niceScroll({
-          cursorwidth: 10,
-          cursorcolor: '#333'
-      });
+//       $("html, .body-table, .bodyParticipantsActives").niceScroll({
+//           cursorwidth: 10,
+//           cursorcolor: '#333'
+//       });
 			var doc = new jsPDF();
 			var specialElementHandlers = {
 				'#editor': function (element, renderer) {
@@ -137,6 +162,7 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 			datesElements('#editSchenduleDateIn','#editSchenduleTimeIn');
 			datesElements('#editSchenduleDateOut','#editSchenduleTimeOut');			
 			datesElements('#taskDate','#taskTime');
+			datesElements('#editTaskDate','#editTaskTime');
 			datesElements2('.reportDate');
 		
 			$('#projectStatus').change(function(){
@@ -154,6 +180,9 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
       if(hashName[1] == 'schendule'){
 				loadEvents();
       }
+			if(hashName[1] == 'otherProject'){
+				$('#taskButton').addClass('hide-element');
+      }
       $("input.inputTag").materialtags('items');
       $(".updateItem").removeClass('open');
 		
@@ -163,6 +192,70 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 			});
  });
 	
+	$scope.editarTarefa = function(){
+				var dataInicio = formatDate.formatDate($('#editTaskDate').val());
+				var timeInicio = formatTime.formatTime($('#editTaskTime').val());
+
+				var dataInicioOld = formatDate.formatDate($('#editTaskHiddenDate').val());
+				var timeInicioOld = formatTime.formatTime($('#editTaskHiddenTime').val());
+
+				var dataInicioSave = $('#editSaveTaskDateIn').val();
+
+				var dataInicioFinal, timeInicioFinal, dataTerminoFinal, timeTerminoFinal;
+
+				if(dataInicio == dataInicioOld){
+					dataInicioFinal = dataInicioSave;
+				}else{
+					dataInicioFinal = dataInicio;
+				}
+
+				if(timeInicio == timeInicioOld){
+					timeInicioFinal = timeInicioOld;
+				}else{
+					timeInicioFinal = formatTime.formatTime(timeInicio);
+				}
+
+				if($('#editTaskTitle').val() == '' || $('#editTaskDate').val() == '' || $('#editTaskTime').val() == '' || $('#editTaskDescription').val() == ''){
+						toastr.warning('Nenhum campo pode ficar em branco!', 'Campos Necessários!');
+				}
+				else{				
+					var projectUrl;
+					var hashName = $location.path().split('/');
+					if(hashName[2] == undefined){
+						projectUrl = 0;
+					}else{
+						projectUrl = hashName[2];
+					}
+					var participantesId = []
+					$("input[name='participantesEdit[]']:checked").each(function (){
+							participantesId.push(parseInt($(this).val()));
+					});
+					var data = {
+						tarefaId:$('#idTarefa').val(),
+						titulo:$('#editTaskTitle').val(),
+						dataEntrega: dataInicioFinal+' '+timeInicioFinal,
+						descricao: $('#editTaskDescription').val(),
+						participantsId: participantesId,
+						projectId: projectUrl
+					};
+					$http({
+							method : "POST",
+							headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+							url : url+'task/editarTarefa',
+							data : data,
+					}).then(function mySucces(response) {
+								var userResult = response.data;
+								if(userResult.auth){
+										toastr.success('Tarefa editada com sucesso!', 'Sucesso!');
+										setTimeout(function(){
+											$window.location.reload();
+										}, 3000);
+								}
+					}, function myError(response) {
+						console.log(response);
+					});
+				}
+			}
 	
   $scope.addParticipant = function(){
      var participantes = $(".inputTag").materialtags('items');
@@ -170,7 +263,7 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 
      var data = {
        participantes: participantes,
-       projetoId: projetoId
+       projetoId: projetoId,
      };
      $http({
          method : "POST",
@@ -241,7 +334,6 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 			}
 		})
 		.done(function(response) {
-			console.log(response);
 			var statusResult = JSON.parse(response);
 			if(statusResult.auth){
 			    toastr.success('Ativadação efetuada com sucesso! Efetue Login para prosseguir', 'Sucesso!');
@@ -349,7 +441,8 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 			});
 		}
 	}
-
+	
+	
 	$scope.editEvent = function(){
 		var dataInicio = formatDate.formatDate($('#editSchenduleDateIn').val());
 		var timeInicio = formatTime.formatTime($('#editSchenduleTimeIn').val());
@@ -462,6 +555,29 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 	    }
 	      return html;
 	  }
+		$scope.switchTarefaStatus = function(element, element2){
+	      var html = '';
+	      if(element == 0){
+	        html += '<div class="switch status">';
+	        html += '<label>';
+	        html += 'Andamento';
+	        html += '<input onchange="setStatusTarefa(this);" value="'+element2+'" type="checkbox" checked="checked">';
+	        html += '<span class="lever"></span>';
+	        html += 'Finalizado';
+	        html += '</label>';
+	        html += '</div>';
+	      }else{
+	        html += '<div class="switch status">';
+	        html += '<label>';
+	        html += 'Andamento';
+	        html += '<input onchange="setStatusTarefa(this);" value="'+element2+'" type="checkbox">';
+	        html += '<span class="lever"></span>';
+	        html += 'Andamento';
+	        html += '</label>';
+	        html += '</div>';
+	      }
+	        return html;
+	    }
 	  $scope.setFunction = function (element){
 	    if(element == 1){
 	      return 'Administrador';
@@ -605,16 +721,35 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 	      }
 	    return data;
 	  }
+		$("#projectClient").change(function() {
+			var selected = $(' #projectClient option:selected').val();
+			if(selected == 0){
+				$('#newClientHidden').removeClass('hide-element');
+			}else{
+				$('#newClientHidden').addClass('hide-element');
+			}
+		});
 	  $scope.createNewProject = function(){
 	    var date = formatDate.formatDate($('#projectDate').val());
 	    var time = formatTime.formatTime($('#projectTime').val());
-
+			var clientSelected;
+			var newCliente;
+			
+			if($('#projectClient').val() == 0){
+				clientSelected = $('#newClientHidden').val();
+				newCliente = 1;
+			}else{
+				clientSelected = $('#projectClient').val();
+				newCliente = 0;
+			}
+			
 	    var data = {
 	      userId:$('#userId').val(),
 	      projectTitle:$('#projectTitle').val(),
 	      projectDate:date+' '+time,
-	      projectClient:$('#projectClient').val(),
+	      projectClient:clientSelected,
 	      projectDescription:$('#projectDescription').val(),
+				newCliente: newCliente
 	    }
 	    var dateResult = verifyDate.verifyDate(date, time);
 
@@ -662,6 +797,64 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 	      }
 	    }
 	  }
+// 		$scope.createNewProject = function(){
+// 	    var date = formatDate.formatDate($('#projectDate').val());
+// 	    var time = formatTime.formatTime($('#projectTime').val());
+
+// 	    var data = {
+// 	      userId:$('#userId').val(),
+// 	      projectTitle:$('#projectTitle').val(),
+// 	      projectDate:date+' '+time,
+// 	      projectClient:$('#projectClient').val(),
+// 	      projectDescription:$('#projectDescription').val(),
+// 	    }
+			
+// 	    var dateResult = verifyDate.verifyDate(date, time);
+
+// 	    if(data.projectTitle == '' || data.date == '' || data.time == '' || data.projectClient == ''){
+// 	      $('#projectDate').addClass('inputRequired');
+// 	      $('#projectTime').addClass('inputRequired');
+// 	      $('#projectTitle').addClass('inputRequired');
+// 	      $('#projectClient').addClass('inputRequired');
+// 	      $('.fa-calendar').addClass('iconRequired');
+// 	      $('.fa-clock-o').addClass('iconRequired');
+
+// 	      toastr.error('Os campos em vermelho não podem ficar em branco', 'Campos Necessários!');
+// 	    }else{
+// 	      $('#projectDate').removeClass('inputRequired');
+// 	      $('#projectTime').removeClass('inputRequired');
+// 	      $('#projectTitle').removeClass('inputRequired');
+// 	      $('#projectClient').removeClass('inputRequired');
+// 	      $('.fa-calendar').removeClass('iconRequired');
+// 	      $('.fa-clock-o').removeClass('iconRequired');
+
+// 	      if(dateResult.auth){
+// 	        createNewProject.createNewProject(data);
+// 	      }else{
+// 	        switch(dateResult.error){
+// 	          case 1:
+// 	          toastr.error('O ano escolhido já passou. Selecione outro ano.', 'Erro!');
+// 	          break;
+
+// 	          case 2:
+// 	          toastr.error('O mês escolhido já passou. Selecione outro mês.', 'Erro!');
+// 	          break;
+
+// 	          case 3:
+// 	          toastr.error('O dia escolhido já passou. Selecione outro dia.', 'Erro!');
+// 	          break;
+
+// 	          case 4:
+// 	          toastr.error('O horário escolhido já passou ou acontecerá dentro de 1 hora, escolha algo de 1 horas em diante.', 'Erro!');
+// 	          break;
+
+// 	          case 5:
+// 	          toastr.error('Erro extra.', 'Erro!');
+// 	          break;
+// 	        }
+// 	      }
+// 	    }
+// 	  }
 	  $scope.manutencaoCliente = function(){
 			$http({
 	            method : "GET",
@@ -673,26 +866,67 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 				}else{
 					$('.manutencao').addClass('hide-element');
 				}
-      		});
+			});
 		}
 	  	
-	  	$scope.manutencaoCliente();
+		$scope.manutencaoCliente();
 		$scope.realClock();
 
 		$scope.salutation();
 		setBackground.setBackground();
 		verificarRegras.verificarRegras();
-	
-	  if($scope.user.funcao == 3){
-	  	$scope.vericarProjeto = function(){
-			$http({
-	            method : "GET",
-	            url : url+'project/verificarProjeto',
-	        }).then(function mySucces(response) {
-				console.log(response);
-	  		});
+		if($location.path() == '/panel'){
+			$scope.excluirConta = function(){
+				var confirm = window.confirm('Ao fazer isso você deleta permanentemente sua conta');
+				if(confirm){
+					$http({
+								method : "POST",
+								headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+								url : url+'user/desativarCliente',
+								data: {
+									id: $scope.user.id
+								}
+							}).then(function mySucces(response) {
+								if(response.data.auth){
+									var data = {
+										codigoConfirmacao: $scope.user.codigoConfirmacao,
+										codigoRecuperacao: $scope.user.codigoRecuperacao,
+										cpf: $scope.user.cpf,
+										dataCadastro: $scope.user.dataCadastro,
+										email: $scope.user.email,
+										estado: 0,
+										funcao: $scope.user.funcao,
+										id: $scope.user.id,
+										nome: $scope.user.nome,
+										nomeUsuario: $scope.user.nomeUsuario,
+										senha: $scope.user.senha,
+									};
+									$scope.saveCookie(data);
+									toastr.info('Para ativá-la novamente envie um e-mail para: suporte@iaitapronto.com.br', 'Conta desativada!');
+									$('.desativando').removeClass('hide-element');
+									$('.bodyDes').removeClass('hide-element');
+									$('.bodyDesHide').addClass('hide-element');
+									setTimeout(function(){
+										$('.bodyDesHide').removeClass('hide-element');
+										$('.bodyDes').addClass('hide-element');
+									},3000);
+								}
+							});
+					}
+				}
 		}
-		$scope.vericarProjeto();
+		if($location.path() == '/panel' || $location.path() == '/projects' || $location.path() == '/project'){
+			if($scope.user.funcao == 3){
+				$scope.vericarProjeto = function(){
+					$http({
+							method : "GET",
+							url : url+'project/verificarProjeto',
+					}).then(function mySucces(response) {
+						console.log(response);
+				});
+			}
+			$scope.vericarProjeto();
+			}
 	  }
 
 	  if($location.path() == '/reports'){
@@ -988,33 +1222,39 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 		        }).then(function mySucces(response) {
 					var manutencao = response.data.data[0];
 					if(manutencao.estado == 1){
-						$scope.desativarManutencao();
+						var confirm = window.confirm('Tem certeza que deseja desativar a manutenção do sistema?');
+						if(confirm){
+							$scope.desativarManutencao();
+						}
 					}else{
-						$scope.ativarManutencao();
+						var confirm = window.confirm('Tem certeza que deseja ativar a manutenção do sistema?');
+						if(confirm){
+							$scope.ativarManutencao();
+						}
 					}
-	      		});
+				});
 			}
 			$scope.desativarManutencao = function(){
 				$http({
 		            method : "GET",
 		            url : url+'maintenance/desativarManutencao',
 		        }).then(function mySucces(response) {
-		        	console.log(response);
+		        	
 					var auth = response.data.auth;
 					if(auth){
 	                  toastr["warning"]('Manutenção desativada');
 					}else{
 	                  toastr["error"]('Erro ao desativar manutenção');
 					}
-				    $('.manutencao').addClass('hide-element');	
-	      		});
+				$('.manutencao').addClass('hide-element');	
+				});
 			}
 			$scope.ativarManutencao = function(){
 				$http({
 		            method : "GET",
 		            url : url+'maintenance/ativarManutencao',
 		        }).then(function mySucces(response) {
-		        	console.log(response);
+		        	
 					var auth = response.data.auth;
 					if(auth){
 	                  toastr["success"]('Manutenção ativada');
@@ -1123,7 +1363,7 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 	          url : url+'chat/criarConversa',
 	          data : element,
 	        }).then(function mySucces(response) {
-	          console.log(response);
+	          
 	      }, function myError(response) {
 	          console.log(response);
 	      });
@@ -1237,71 +1477,6 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 			
 	    $scope.pesquisar();
 	  }
-		
-		if($location.path() == '/project/'+hashName[2]){
-			if(hashName[2] == undefined){
-				$scope.projectUrl = 0;
-			}else{
-				$scope.projectUrl = hashName[2];
-			}
-			if(verificarLogin2){
-				$scope.user = loadUser.loadUser();
-				if($scope.user != undefined){
-					$scope.usuario = {
-						nome: $scope.user.nome
-					};
-					$scope.solicitacaoCheck = verificarSolicitacao;
-					if(typeof $scope.solicitacaoCheck.assincVerificacao == 'function' && typeof 						$scope.solicitacaoCheck.assincConviteAceito == 'function'){
-					$scope.solicitacaoCheck.assincVerificacao();
-					$scope.solicitacaoCheck.verificarConviteAceito();
-					$scope.solicitacaoCheck.assincConviteAceito();
-					}else{
-							$scope.sync();
-					}
-				}
-			}
-			$scope.loadTask = function(){
-	      $http({
-						method : "GET",
-						url : url+'task/pesquisarTarefa?projetoId='+$scope.projectUrl,
-				}).then(function mySucces(response) {
-						$scope.tarefas = response.data.tarefa;
-				});
-	    }
-			$scope.participantesAtuais = function(){
-				$http({
-						method : "GET",
-						url : url+'participant/pesquisarParticipante?projectId='+$scope.projectUrl,
-				}).then(function mySucces(response) {
-						var html = '';
-						var userHtml = '';
-						if(response.data.auth){
-							var usuariosProjeto = response.data.dataAtivo;
-							for(var i = 0; i < usuariosProjeto.length; i++){
-								html += '<span>';
-								html += '<input value="'+usuariosProjeto[i].id+'" name="participantes[]" type="checkbox" id="checkbox_'+usuariosProjeto[i].id+'">';
-								html += '<label for="checkbox_'+usuariosProjeto[i].id+'">'+usuariosProjeto[i].nomeUsuario+'</label>';
-								html += '</span>';
-							}
-							userHtml += '<span style="display:none">';
-							userHtml += '<input value="'+$scope.user.id+'" name="participantes[]" type="checkbox" id="checkbox_user_'+$scope.user.id+'" checked>';
-							userHtml += '<label for="checkbox_user_'+$scope.user.id+'">'+$scope.user.nomeUsuario+'</label>';
-							userHtml += '</span>';
-							$('#areaCheck').html(html+userHtml);
-						}else{
-							userHtml += '<span style="display:none">';
-							userHtml += '<input value="'+$scope.user.id+'" name="participantes[]" type="checkbox" id="checkbox_user_'+$scope.user.id+'" checked>';
-							userHtml += '<label for="checkbox_user_'+$scope.user.id+'">'+$scope.user.nomeUsuario+'</label>';
-							userHtml += '</span>';
-							$('#areaCheck').html(userHtml);
-						}
-				});
-			}
-			$timeout(function() {
-        $scope.participantesAtuais()
-    	}, 1000);
-			$scope.loadTask();
-		}
 	  if($location.path() == '/projects'){
 	    $scope.loadProjectUser = function(){
 	      var projectSearch = $('#projectSearch').val();
@@ -1323,21 +1498,14 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 	    $scope.loadProjectsUser();
 	  }
     if($location.path() == '/otherProjects'){
-      $scope.loadOtherProjectUser = function(){
-	      var projectSearch = $('#projectSearch').val();
-	      $http({
-	            method : "GET",
-	            url : url+'project/pesquisarOutroProjeto?userId='+$scope.user.id+'&data='+projectSearch,
-	        }).then(function mySucces(response) {
-	            $scope.projetos = response.data.data;
-	        });
-	    }
 	    $scope.loadOtherProjectsUser = function(){
 	      $http({
 	            method : "GET",
 	            url : url+'project/pesquisarOutroProjeto?userId='+$scope.user.id,
 	        }).then(function mySucces(response) {
-	            $scope.projetos = response.data.data;
+							if(response.data.auth){
+	            	$scope.projetos = response.data.data;
+							}
 	        });
 	    }
 	    $scope.loadOtherProjectsUser();
@@ -1417,21 +1585,60 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 	          method : "GET",
 	          url : url+'project/pesquisarOutroProjeto?userId='+$scope.user.id+'&data='+$routeParams.id,
 	      }).then(function mySucces(response) {
-	          $scope.projeto = response.data.data[0];
-	          var timer = $scope.projeto.dataEntrega;
-	          var dateTime = $scope.formatDateView(timer);
-	          $scope.dateFormated = {
-	            date: dateTime.date,
-	            time: dateTime.time
-	          }
+					console.log(response);
+						if(response.data.auth){
+							$scope.projeto = response.data.data[0];
+							var timer = $scope.projeto.dataEntrega;
+							var dateTime = $scope.formatDateView(timer);
+							$scope.dateFormated = {
+								date: dateTime.date,
+								time: dateTime.time
+							}
+							$scope.carregarTarefas();
+							$scope.loadStatus();
+
+						}else{
+							$location.path('/inexistentParticipantProject');
+						}
 	      });
 	    }
+			$scope.loadOtherProjectUser();
+			$scope.carregarTarefas = function(){
+				$http({
+						method : "GET",
+						url : url+'task/carregarTarefas?usuarioId='+$scope.user.id+'&projetoId='+hashName[2],
+				}).then(function mySucces(response) {
+						$scope.tarefas = response.data.tarefas;
+				});
+			}	
+			$scope.pesquisarTarefa = function(element){
+				$http({
+						method : "GET",
+						url : url+'task/pesquisarOutroProjetoTarefa?tarefaId='+element,
+				}).then(function mySucces(response) {
+						$('#viewTaskTitle').val(response.data.tarefa[0].titulo);
+						$('#viewTaskDate').val(formatDateOnlyNew.formatDateOnlyNew(response.data.tarefa[0].dEntrega, 1));
+						$('#viewTaskTime').val(formatDateOnlyNew.formatDateOnlyNew(response.data.tarefa[0].dEntrega, 2));
+						$('#viewTaskDescription').val(response.data.tarefa[0].titulo);
+						var html = '';
+					
+						for(var i = 0 ; i < response.data.tarefa.length ; i++){
+							html += '<span>';
+							html += '<input disabled type="checkbox" id="checkbox_'+response.data.tarefa[i].id+'">';
+							html += '<label class="disabled" for="checkbox_'+response.data.tarefa[i].id+'">'+response.data.tarefa[i].nomeUsuario+'</label>';
+							html += '</span>';
+							
+						}
+						$('#participantesCheck').html(html);
+						var switchEstadoTarefa = $scope.switchTarefaStatus(response.data.tarefa[0].t_estado, response.data.tarefa[0].tarefa_id);
+						$('.switchBody').html(switchEstadoTarefa);
+				});
+			}	
 			$scope.loadStatus = function(){
 	      $http({
 	          method : "GET",
 	          url : url+'project/pesquisarOutroProjeto?userId='+$scope.user.id+'&data='+$routeParams.id,
 	      }).then(function mySucces(response) {
-					console.log(response);
 	          $scope.projeto2 = response.data.data[0];
 	          var estado = $scope.projeto2.estado;
 	          switch (estado) {
@@ -1457,11 +1664,175 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 
 	          }
 	      });
-	    }
-			$scope.loadOtherProjectUser();
-	    $scope.loadStatus();
+			}
+			
 		}
 	  if($location.path() == '/project/'+$routeParams.id){
+			
+			$scope.projectExist = function(){
+	      $http({
+						method : "GET",
+						url : url+'project/pesquisarProjeto?userId='+$scope.user.id+'&data='+hashName[2],
+				}).then(function mySucces(response) {
+					console.log(response);
+						var auth = response.data.auth;
+					if(auth == 0){
+						$location.path('/inexistentProject');
+					}
+				});
+	    }
+			$scope.projectExist();
+			
+			if(hashName[2] == undefined){
+				$scope.projectUrl = 0;
+			}else{
+				$scope.projectUrl = hashName[2];
+			}
+			if(verificarLogin2){
+				$scope.user = loadUser.loadUser();
+				if($scope.user != undefined){
+					$scope.usuario = {
+						nome: $scope.user.nome
+					};
+					$scope.solicitacaoCheck = verificarSolicitacao;
+					if(typeof $scope.solicitacaoCheck.assincVerificacao == 'function' && typeof 						$scope.solicitacaoCheck.assincConviteAceito == 'function'){
+					$scope.solicitacaoCheck.assincVerificacao();
+					$scope.solicitacaoCheck.verificarConviteAceito();
+					$scope.solicitacaoCheck.assincConviteAceito();
+					}else{
+							$scope.sync();
+					}
+				}
+			}
+			$scope.loadTask = function(){
+	      $http({
+						method : "GET",
+						url : url+'task/pesquisarTarefas?projetoId='+$scope.projectUrl,
+				}).then(function mySucces(response) {
+						$scope.tarefas = response.data.tarefa;
+				});
+	    }
+			$scope.participantesAtuais = function(){
+				$http({
+						method : "GET",
+						url : url+'participant/pesquisarParticipante?projectId='+$scope.projectUrl,
+				}).then(function mySucces(response) {
+						var html = '';
+						var userHtml = '';
+						if(response.data.auth){
+							var usuariosProjeto = response.data.dataAtivo;
+							for(var i = 0; i < usuariosProjeto.length; i++){
+								html += '<span>';
+								html += '<input value="'+usuariosProjeto[i].id+'" name="participantes[]" type="checkbox" id="checkbox_'+usuariosProjeto[i].id+'">';
+								html += '<label for="checkbox_'+usuariosProjeto[i].id+'">'+usuariosProjeto[i].nomeUsuario+'</label>';
+								html += '</span>';
+							}
+							userHtml += '<span style="display:none">';
+							userHtml += '<input value="'+$scope.user.id+'" name="participantes[]" type="checkbox" id="checkbox_user_'+$scope.user.id+'" checked>';
+							userHtml += '<label for="checkbox_user_'+$scope.user.id+'">'+$scope.user.nomeUsuario+'</label>';
+							userHtml += '</span>';
+							$('#areaCheck').html(html+userHtml);
+						}else{
+							userHtml += '<span style="display:none">';
+							userHtml += '<input value="'+$scope.user.id+'" name="participantes[]" type="checkbox" id="checkbox_user_'+$scope.user.id+'" checked>';
+							userHtml += '<label for="checkbox_user_'+$scope.user.id+'">'+$scope.user.nomeUsuario+'</label>';
+							userHtml += '</span>';
+							$('#areaCheck').html(userHtml);
+						}
+				});
+			}
+			
+			$timeout(function() {
+        $scope.participantesAtuais()
+    	}, 1000);
+			$scope.loadTask();
+			
+			$scope.loadOtherProjectUser = function(){
+	      $http({
+	          method : "GET",
+	          url : url+'project/pesquisarOutroProjeto?userId='+$scope.user.id+'&data='+$routeParams.id,
+	      }).then(function mySucces(response) {
+	          $scope.projeto = response.data.data[0];
+	          var timer = $scope.projeto.dataEntrega;
+	          var dateTime = $scope.formatDateView(timer);
+	          $scope.dateFormated = {
+	            date: dateTime.date,
+	            time: dateTime.time
+	          }
+	      });
+	    }
+			$scope.loadStatus = function(){
+	      $http({
+	          method : "GET",
+	          url : url+'project/pesquisarOutroProjeto?userId='+$scope.user.id+'&data='+$routeParams.id,
+	      }).then(function mySucces(response) {
+	          $scope.projeto2 = response.data.data[0];
+	          var estado = $scope.projeto2.estado;
+	          switch (estado) {
+	            case '1':
+	            $('.statusProject').text(' Em Andamento');
+	            break;
+
+	            case '2':
+	            $('.statusProject').text(' Análise de Testes');
+	            break;
+
+	            case '3':
+	            $('.statusProject').text(' Entregue');
+	            break;
+
+	            case '4':
+	            $('.statusProject').text(' Cancelado');
+	            break;
+
+	            case '5':
+	            $('.statusProject').text(' Atrasado');
+	            break;
+
+	          }
+	      });
+			}
+			$scope.pesquisarProjetoTarefa = function(element){
+				$http({
+						method : "GET",
+						url : url+'task/pesquisarProjetoTarefa?tarefaId='+element,
+				}).then(function mySucces(response) {
+						$('#editTaskTitle').val(response.data.tarefa[0].titulo);
+						$('#idTarefa').val(response.data.tarefa[0].tarefa_id);
+						$('#editTaskDescription').val(response.data.tarefa[0].descricao);
+						$('#editTaskDate').val(formatDateOnlyNew.formatDateOnlyNew(response.data.tarefa[0].dEntrega, 1));
+						$('#editTaskTime').val(formatDateOnlyNew.formatDateOnlyNew(response.data.tarefa[0].dEntrega, 2));												$('#editTaskHiddenDate').val(formatDateOnlyNew.formatDateOnlyNew(response.data.tarefa[0].dEntrega, 1));
+						$('#editTaskHiddenTime').val(formatDateOnlyNew.formatDateOnlyNew(response.data.tarefa[0].dEntrega, 2));
+						$('#editSaveTaskDateIn').val(formatDateOnlyNew.formatDateOnlyNew(response.data.tarefa[0].dEntrega, 3));
+					
+					
+						var html = '';
+					
+						for(var i = 0 ; i < response.data.participantes.length ; i++){
+							html += '<span>';
+							html += '<input value="'+response.data.participantes[i].id+'" name="participantesEdit[]" type="checkbox" id="checkbox_editUser_'+response.data.participantes[i].id+'" class="checkboxEdit">';
+							html += '<label style="padding-left: 20px;margin-right: 10px;" class="" for="checkbox_editUser_'+response.data.participantes[i].id+'">'+response.data.participantes[i].nomeUsuario+'</label>';
+							html += '</span>';
+						}
+							var userHtml = '';
+							userHtml += '<span style="display:none">';
+							userHtml += '<input value="'+$scope.user.id+'" class="checkboxEdit" name="participantesEdit[]" type="checkbox" id="checkbox_editUser_'+$scope.user.id+'" checked>';
+							userHtml += '<label for="checkbox_editUser_'+$scope.user.id+'">'+$scope.user.nomeUsuario+'</label>';
+							userHtml += '</span>';
+							$('#participantesCheckEdit').html(html+userHtml);
+					
+						var switchEstadoTarefa = $scope.switchTarefaStatus(response.data.tarefa[0].t_estado, response.data.tarefa[0].tarefa_id);
+						$('.switchBody').html(switchEstadoTarefa);
+						$('.checkboxEdit').each(function(){
+							var value = $(this).val();
+							for(var i = 0 ; i < response.data.participantesTarefas.length ; i++){
+								if(value == response.data.participantesTarefas[i].id){
+									$(this).attr('checked', 'checked');
+								}
+							}
+						});
+				});
+			}	
 	    $scope.loadProjectUser = function(){
 	      $http({
 	          method : "GET",
@@ -1771,7 +2142,7 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 	      }
 	        return html;
 	    }
-
+			
 	    $scope.openCreateClient = function(){
 	      $('.formNewClient').toggle();
 	    }
@@ -1820,6 +2191,7 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 	        editEmailClient:$('#editEmailClient').val(),
 	        editTelefoneClient:$("#editTelefoneClient").val(),
 	        idClient:$("#idClient").val(),
+	        idUser: $scope.user.id,
 	      }
 	      if(data.editNameClient == '' || data.editEmailClient == ''){
 	        $('.inputRequired').addClass('blankElement');
@@ -1841,10 +2213,16 @@ angular.module('app').controller('mainController', ['$scope', 'ChatFactory', 've
 	           $('.body-table .table-users tbody tr').show();
 	           $('.preloaderBody').addClass('hide-element');
 	            var userResult = response.data;
-	              if(userResult.auth){
-                    toastr.success('Cliente editado com sucesso!', 'Successo');
-                    // $route.reload();
-	              }
+              if(userResult.auth){
+                toastr.success('Cliente editado com sucesso!', 'Successo');
+							 	location.reload();
+              }else{
+								if(userResult.error == 1){
+									toastr.warning('Uma empresa com o mesmo nome já existe!!', 'Ops!');
+								}else{
+									toastr.warning('Uma empresa com o mesmo email já existe!!', 'Ops!');
+								}
+              }
 	      }, function myError(response) {
             toastr.danger('Erro ao editar cliente!', 'Erro');
 	      });

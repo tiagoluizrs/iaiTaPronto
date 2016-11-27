@@ -38,11 +38,17 @@
           <div class='form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 areaRelative'>
             <div class="bodyNewProject ">
 	            <select id="projectClient">
-	            	<option class='form-control' id='projectClient' disabled value="0">Selecione um cliente</option>
+	            	<option class='form-control' disabled value="" selected>Selecione um cliente</option>
+	            	<option class='form-control' value="0">Criar novo usuário</option>
 	            	<option ng-repeat='client in clients' class='form-control' id='projectClient' value='{{client.id}}'>{{client.nome}}</option>
 	            </select>
             </div>
           </div>
+					<div class='form-group col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div class="bodyNewProject ">
+							<input type='text' class='hide-element form-control' id='newClientHidden' placeholder='Novo Cliente'>
+						</div>
+					</div>
           <div class='form-group col-xs-12 col-sm-12 col-md-12 col-lg-12'>
             <div class="bodyNewProject ">
               <textarea onclick="clearClientList();" type='text' id='projectDescription' rows="5" class='form-control md-textarea'>Descrição do Projeto</textarea>

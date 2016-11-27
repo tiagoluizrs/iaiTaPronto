@@ -1,3 +1,11 @@
+ <div class="desativado hide-element">
+    <span class="body-preloader-desativado">
+      <div class="bodyDesativadoHide">
+        <h3>Conta desativada</h3>
+        <button ng-click="logout();" class="btn btn-info logoutSistema">Sair do sistema</button>
+      </div>
+    </span>
+  </div>
 <div class="sideMenu">
 	<ul class="nav">
 	   <li ng-repeat="item in menu">
@@ -118,7 +126,7 @@
 			<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
 				<h3>Tarefas</h3>
 				<div class="bodyTasks">
-						<div class="col-xs-12 col-md-6" ng-repeat="tarefa in  tarefas">
+						<div class="col-xs-12 col-md-6" ng-repeat="tarefa in tarefas">
 
                 <!--Card-->
                 <div class="card cardNoPadding">
@@ -135,7 +143,7 @@
 												</div>
 												 -->
 												<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-												<button type="button" value="{{tarefa.tarefa_id}}" class="buttonLarge btn btn-primary waves-effect waves-light">Editar Tarefa</button>				
+												<button type="button" ng-click="pesquisarTarefa(tarefa.tarefa_id)" class="buttonLarge btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#ViewTaskModal">Ver Tarefa</button>				
 												</div>
 											</div>
 									</div>

@@ -1,54 +1,62 @@
-<header class="container-fluid">
-  <div class="container login-area">
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 login-item">
-        <span class="body_logo">
-          <a href="#">
-            <img src="images/logo.png" alt="" width="100%"/>
-          </a>
-        </span>
-        <span class="body_login">
-            <h1>Cadastrar no Sistema</h1>
-            <form id="formRegisterUser">
-              <div class="input-group login-form inputRequired">
-                <span class="input-group-addon icon-form"><i class="fa fa-user"></i></span>
-                <input type="text" class="form-control" placeholder="Nome" id="newNameUser" aria-describedby="newNameUser">
-              </div>
-              <label class="blankLabel hide-element">Campo obrigatório</label>
-              <div class="input-group login-form inputRequired">
-                <span class="input-group-addon icon-form"><i class="fa fa-envelope"></i></span>
-                <input type="email" class="form-control" id='newEmailUser' placeholder="E-mail" aria-describedby="newEmailUser">
-              </div>
-              <label class="blankLabel hide-element">Campo obrigatório</label>
-            	<label class="useremailExistent hide-element">E-mail já em uso</label>
-              <div class="input-group login-form inputRequired">
-                <span class="input-group-addon icon-form"><i class="fa fa-user"></i></span>
-                <input type="text" class="form-control" placeholder="Nome de usuário" id="newUsuarioUser" aria-describedby="newUsuarioUser">
-              </div>
-              <label class="blankLabel hide-element">Campo obrigatório</label>
-            	<label class="usernameExistent hide-element">Nome de Usuário já em uso</label>
-      				<div class='input-group login-form inputRequired'>
-      				  <span class="input-group-addon icon-form"><i class="fa fa-book"></i></span>
-      					<input type='text' class='form-control cpfMask' id='newCpfUser' aria-describedby="newCpfUser" placeholder='CPF'>
-    					</div>
-    					<label class="blankLabel hide-element">Campo obrigatório</label>
-    					<label class="labelCpfValid hide-element">CPF Válido</label>
-    					<label class="labelCpfInvalid hide-element">CPF Inválido</label>
-    					<label class="cpfExistent hide-element">CPF já em uso</label>
-              <div class="input-group login-form inputRequired">
-                <span class="input-group-addon icon-form"><i class="fa fa-unlock-alt"></i></span>
-                <input type="password" class="form-control" id='newPasswordUser' placeholder="Senha" aria-describedby="newPasswordUser">
-                <input type='hidden' value="3" id='newRoleUser'>
-              </div>
-              <label class="blankLabel hide-element">Campo obrigatório</label>
-      				<button ng-click="novoUsuario();" class="btn btn-default button_default button_login waves-light waves-effect">Registrar</button>
-      				<!--<span class="or">ou</span>-->
-              <!--<button type="submit" class="btn btn-default button_default button_social_login facebook_button"><i class="icon_button fa fa-facebook-f"></i>Registrar</button>-->
-              <!--<button type="submit" class="btn btn-default button_default button_social_login google_button"><i class="icon_button fa fa-google-plus"></i>Registrar</button>-->
-              <span class="dont_account">Já é cadastrado? <a href="./">Entrar</a></span>
-            </form>
-        </span>
-      </div>
-    </div>
-  </div>
+ <div class="desativado hide-element">
+    <span class="body-preloader-desativado">
+      <div class="bodyDesativadoHide">
+        <h3>Conta desativada</h3>
+        <button ng-click="logout();" class="btn btn-info logoutSistema">Sair do sistema</button>
+      </div>
+    </span>
+  </div>
+<header class="container-fluid">
+  <div class="container login-area">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 login-item">
+        <span class="body_logo">
+          <a href="#">
+            <img src="images/logo.png" alt="" width="100%"/>
+          </a>
+        </span>
+        <span class="body_login">
+            <h1>Cadastrar no Sistema</h1>
+            <form id="formRegisterUser">
+              <div class="input-group login-form inputRequired">
+                <span class="input-group-addon icon-form"><i class="fa fa-user"></i></span>
+                <input type="text" class="form-control" placeholder="Nome" id="newNameUser" aria-describedby="newNameUser">
+              </div>
+              <label class="blankLabel hide-element">Campo obrigatório</label>
+              <div class="input-group login-form inputRequired">
+                <span class="input-group-addon icon-form"><i class="fa fa-envelope"></i></span>
+                <input type="email" class="form-control" id='newEmailUser' placeholder="E-mail" aria-describedby="newEmailUser">
+              </div>
+              <label class="blankLabel hide-element">Campo obrigatório</label>
+            	<label class="useremailExistent hide-element">E-mail já em uso</label>
+              <div class="input-group login-form inputRequired">
+                <span class="input-group-addon icon-form"><i class="fa fa-user"></i></span>
+                <input type="text" class="form-control" placeholder="Nome de usuário" id="newUsuarioUser" aria-describedby="newUsuarioUser">
+              </div>
+              <label class="blankLabel hide-element">Campo obrigatório</label>
+            	<label class="usernameExistent hide-element">Nome de Usuário já em uso</label>
+      				<div class='input-group login-form inputRequired'>
+      				  <span class="input-group-addon icon-form"><i class="fa fa-book"></i></span>
+      					<input type="tel" class='form-control cpfMask' id='newCpfUser' aria-describedby="newCpfUser" placeholder='CPF'>
+    					</div>
+    					<label class="blankLabel hide-element">Campo obrigatório</label>
+    					<label class="labelCpfValid hide-element">CPF Válido</label>
+    					<label class="labelCpfInvalid hide-element">CPF Inválido</label>
+    					<label class="cpfExistent hide-element">CPF já em uso</label>
+              <div class="input-group login-form inputRequired">
+                <span class="input-group-addon icon-form"><i class="fa fa-unlock-alt"></i></span>
+                <input type="password" class="form-control" id='newPasswordUser' placeholder="Senha" aria-describedby="newPasswordUser">
+                <input type='hidden' value="3" id='newRoleUser'>
+              </div>
+              <label class="blankLabel hide-element">Campo obrigatório</label>
+      				<button ng-click="novoUsuario();" class="btn btn-default button_default button_login waves-light waves-effect">Registrar</button>
+      				<!--<span class="or">ou</span>-->
+              <!--<button type="submit" class="btn btn-default button_default button_social_login facebook_button"><i class="icon_button fa fa-facebook-f"></i>Registrar</button>-->
+              <!--<button type="submit" class="btn btn-default button_default button_social_login google_button"><i class="icon_button fa fa-google-plus"></i>Registrar</button>-->
+              <span class="dont_account">Já é cadastrado? <a href="./">Entrar</a></span>
+            </form>
+        </span>
+      </div>
+    </div>
+  </div>
 </header>

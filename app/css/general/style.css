@@ -821,13 +821,24 @@ select{
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url(http://localhost/iaiTaPronto/app/fonts/google-icons/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: url(http://tiagoluizweb.com.br/tcc/app/fonts/google-icons/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url(http://tiagoluizweb.com.br/tcc/app/fonts/google-icons/MaterialIcons-Regular.woff2) format('woff2'),
+       url(http://tiagoluizweb.com.br/tcc/app/fonts/google-icons/MaterialIcons-Regular.woff) format('woff'),
+       url(http://tiagoluizweb.com.br/tcc/app/fonts/google-icons/MaterialIcons-Regular.ttf) format('truetype');
+}
+/* @font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(http://localhost/iaiTaPronto/app/fonts/google-icons/MaterialIcons-Regular.eot);
   src: local('Material Icons'),
        local('MaterialIcons-Regular'),
        url(http://localhost/iaiTaPronto/app/fonts/google-icons/MaterialIcons-Regular.woff2) format('woff2'),
        url(http://localhost/iaiTaPronto/app/fonts/google-icons/MaterialIcons-Regular.woff) format('woff'),
        url(http://localhost/iaiTaPronto/app/fonts/google-icons/MaterialIcons-Regular.ttf) format('truetype');
-}
+} */
 
 .material-icons {
   font-family: 'Material Icons';
@@ -904,6 +915,77 @@ li.list-group-item a {
   right: 10px;
   position: absolute;
   top: 7px;
+}
+span.body-preloader-sinc {
+    text-align: center;
+    color: #fff;
+    position: absolute;
+    left: 50%;
+    margin-left: -122.5px;
+    top: 50%;
+    margin-top: -62.5px;
+}
+span.body-preloader-des {
+    text-align: center;
+    color: #fff;
+    position: absolute;
+    left: 50%;
+    margin-left: -122.5px;
+    top: 50%;
+    margin-top: -62.5px;
+}
+span.body-preloader-desativado {
+    text-align: center;
+    color: #fff;
+    position: absolute;
+    left: 50%;
+    margin-left: -122.5px;
+    top: 50%;
+    margin-top: -62.5px;
+}
+.sincronizando {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    top: 0;
+    left: 0;
+}
+.desativando {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    top: 0;
+    left: 0;
+}
+.desativado {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    top: 0;
+    left: 0;
+}
+.excluirConta {
+    position: fixed;
+    right: -6px;
+    top: 44px;
+    border-radius: 0;
+}
+.status label input[type=checkbox]:checked + .lever {
+    background-color: #95bdde !important;
+}
+.status label input[type=checkbox]:checked + .lever:after {
+    background-color: #3f729b !important;
+}
+.switchBody{
+  display: inline-block;
+  float: left;
+  margin-left: 18px;
 }
 @media print {
     body * { visibility: hidden; }

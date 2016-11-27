@@ -1,0 +1,62 @@
+<!-- Modal -->
+<div ng-controller="mainController" class="modal fade" id="ViewTaskModal" tabindex="-1" role="dialog" aria-labelledby="ViewTaskModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="ViewTaskModalLabel">Tarefa</h4>
+      </div>
+      <!--Body-->
+      <div class="modal-body" style="min-height: 420px;">
+        <div class="modalPreloaderBody hide-element">
+          <div ng-include="'views/preloader.html'"></div>
+          <h3>Aguarde um instante...</h3>
+        </div>
+        <form class="formUser formNewTask">
+          <div class='form-group col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div class="bodyNewProject ">
+              <input onclick="clearClientList();" type='text' class='form-control disabled' id='viewTaskTitle' placeholder='Título do Projeto'>
+            </div>
+          </div>
+          <div class='form-group md-form col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+            <div class="bodyNewProject ">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <input onclick="clearClientList();" placeholder="Data de entrega" style="text-indent: 30px !important;" type="text" id="viewTaskDate" class="disabled form-control datepicker">
+            </div>
+          </div>
+          <div class='form-group md-form col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+            <div class="bodyNewProject ">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              <input onclick="clearClientList();" placeholder="Horário de entrega" style="text-indent: 30px !important;" type="text" id="viewTaskTime" class="disabled form-control timepicker">
+            </div>
+          </div>
+          <div class='form-group md-form col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+            <div class="bodyNewProject marginTop" style="border: 1px solid #cecece;" id="participantsId">
+              <fieldset class="form-group removeBorder" id="participantesCheck">
+              
+              </fieldset>
+            </div>
+          </div>
+          <div class='form-group col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div class="bodyNewProject ">
+              <textarea type='text' id='viewTaskDescription' rows="5" class='form-control md-textarea disabled'>Descrição da tarefa</textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer">
+        <div class="switchBody">
+          
+        </div>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar Janela</button>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!-- /.Live preview-->

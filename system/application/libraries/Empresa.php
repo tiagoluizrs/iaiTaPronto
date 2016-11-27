@@ -98,6 +98,9 @@ class Empresa{
 
   public function reativarEmpresa(){
     $query = $this->CI->db->query("UPDATE `data__empresa` SET estado = 1 WHERE id = $this->id;");
+    
+    $query = $this->CI->db->query("UPDATE `data__projeto` SET estado = 1 WHERE empresa_id = $this->id;");
+    
     if($this->CI->db->affected_rows() > 0){
       return $data = array('auth' => 1);
     }else{
@@ -106,6 +109,9 @@ class Empresa{
   }
   public function desativarEmpresa(){
     $query = $this->CI->db->query("UPDATE `data__empresa` SET estado = 0 WHERE id = $this->id;");
+    
+    $query = $this->CI->db->query("UPDATE `data__projeto` SET estado = 0 WHERE empresa_id = $this->id;");
+    
     if($this->CI->db->affected_rows() > 0){
       return $data = array('auth' => 1);
     }else{
@@ -114,48 +120,54 @@ class Empresa{
   }
 
   public function criarEmpresa(){
-    $query = $this->CI->db->query("SELECT * FROM `data__empresa` WHERE nome = '$this->nome' AND usuario_id = $this->usuarioId");
-    if($query->num_rows() > 0){
-      return $data = array(
-        'auth' => 0,
-        'error' => 1
-      );
-    }else{
-      $query = $this->CI->db->query("SELECT * FROM `data__empresa` WHERE email = '$this->email' AND usuario_id = $this->usuarioId");
+      $query = $this->CI->db->query("SELECT * FROM `data__empresa` WHERE nome = '$this->nome' AND usuario_id = $this->usuarioId");
       if($query->num_rows() > 0){
         return $data = array(
           'auth' => 0,
-          'error' => 2
+          'error' => 1
         );
       }else{
         $sql = "INSERT INTO `data__empresa`
-          (`id`, `nome`, `email`, `dataCadastro`, `estado`, `telefone`, `usuario_id`) 
-          VALUES (DEFAULT, '$this->nome', '$this->email', now(), $this->estado, '$this->telefone', '$this->usuarioId')";
-        
-        $query = $this->CI->db->query($sql);
-        if($query){
-          return $data = array(
-            'auth' => 1,
-            'id' => $this->CI->db->insert_id()
-            );
-        }else{
-          return $data = array('auth' => 0);
-        }
+            (`id`, `nome`, `email`, `dataCadastro`, `estado`, `telefone`, `usuario_id`) 
+            VALUES (DEFAULT, '$this->nome', '$this->email', now(), $this->estado, '$this->telefone', '$this->usuarioId')";
+
+          $query = $this->CI->db->query($sql);
+          if($query){
+            return $data = array(
+              'auth' => 1,
+              'id' => $this->CI->db->insert_id()
+              );
+          }else{
+            return $data = array('auth' => 0);
+          }
       }
-    }
   }
 
   public function editarEmpresa(){
+    $query = $this->CI->db->query("SELECT * FROM `data__empresa` WHERE (nome = '$this->nome' AND usuario_id = $this->usuarioId) AND (id NOT IN ($this->id))");
+      if($query->num_rows() > 0){
+        return $data = array(
+          'auth' => 0,
+          'error' => 1
+        );
+      }else{
+        $query = $this->CI->db->query("SELECT * FROM `data__empresa` WHERE (email = '$this->email' AND usuario_id = $this->usuarioId) AND (id NOT IN ($this->id))");
+        if($query->num_rows() > 0){
+          return $data = array(
+            'auth' => 0,
+            'error' => 2
+          );
+        }else{
+          $sql = "UPDATE `data__empresa` SET nome = '$this->nome', email = '$this->email', telefone = '$this->telefone' WHERE id = $this->id";
     
-    $sql = "UPDATE `data__empresa` SET nome = '$this->nome', email = '$this->email', telefone = '$this->telefone' WHERE id = $this->id";
-    
-    $query = $this->CI->db->query($sql);
-    if($query){
-      return $data = array('auth' => 1);
-    }else{
-      return $data = array('auth' => 0);
-    }
-    return $sql;
+          $query = $this->CI->db->query($sql);
+          if($query){
+            return $data = array('auth' => 1);
+          }else{
+            return $data = array('auth' => 0);
+          }
+        }
+      }
   }
 }
 ?>

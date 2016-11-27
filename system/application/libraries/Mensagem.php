@@ -75,7 +75,8 @@ class Mensagem{
     $queryConversa = $this->CI->db->query($sql);
     if($queryConversa){
       return $data = array(
-        'auth' => 1
+        'auth' => 1,
+        'conversa_id' => $resultadoUsuario[0]->conversa_id
       );
     }else{
       return $data = array(

@@ -6,7 +6,17 @@ class Autenticacao{
 
   public function __construct(){
     $this->CI =& get_instance();
-    $this->CI->load->library('email');
+    $config = array (
+      'smtp_user' => 'seu@email',
+      'smtp_pass' => 'suasenha',
+      'mailtype'  => 'html', 
+      'charset'   => 'utf-8',
+      'protocol' => 'smtp',
+      'smtp_host' => 'ssl://smtp.googlemail.com',
+      'smtp_port' => 465,
+     );
+    $this->CI->load->library('email', $config);
+    $this->CI->email->set_newline("\r\n");
   }
 
   // Encapsulamentos
@@ -46,35 +56,45 @@ class Autenticacao{
     }
   }
 
-  public function recuperarSenha(){
-    $query = $this->CI->db->query("SELECT * FROM `data__usuario` WHERE email = '$this->email'");
-    $userData = $query->result();
-    $path;
-    if($userData[0]->funcao == 1){
-      $path = 'edit';
-    }else if($userData[0]->funcao == 2){
-      $path = 'editSupport';
-    }
-    else{
-      $path = 'editProfile';
-    }
-    $this->CI->email->from('tcc@tiagoluizweb.com.br', 'Tiago Luiz - ' . $userData[0]->nome);
-    $this->CI->email->to($this->email);
+  public function recuperarSenha($tipo, $html, $dataUsuario){
+    if($tipo == 0){
+      $query = $this->CI->db->query("SELECT * FROM `data__usuario` WHERE email = '$this->email'");
+      $result = $query->result();
+      $funcao = $result[0]->funcao;
+      $path;
+      if($funcao == 1){
+        $path = 'edit';
+      }else if($funcao == 2){
+        $path = 'editSupport';
+      }
+      else if($funcao == 3){
+        $path = 'editProfile';
+      }
+      return $data = array(
+        'auth' => 1,
+        'data' => $result[0],
+        'path' => $path
+      );
+    }else if($tipo == 1){
+      $dataUsuario = $dataUsuario['data'];
+      $this->CI->email->set_mailtype("html");
+      $this->CI->email->from('tiago@tiagoluizweb.com.br', 'Tiago Luiz - ' . $dataUsuario->nome);
+      $this->CI->email->to($this->email);
+      $this->CI->email->subject('Recuração de Senha - ' . date("d-m-Y H:i:s"));
+      $this->CI->email->message($html);
 
-    $this->CI->email->subject('Recuração de Senha');
-    $this->CI->email->message('Olá querido usuário '.$userData[0]->nome.'. Para prosseguir e mudar su senha clique no link ao lado '.base_url().'app/#/'.$path.'/' . $userData[0]->codigoRecuperacao);
-
-    $this->CI->email->send();
-    if(!$this->CI->email->send()) {
-        return $data = array(
-          'auth' => 0,
-          'error' => 'ocorreu um erro durante o envio: ',
-        );
-    }else {
-        return $data = array(
-          'auth' => 1,
-          'error' => 'Mensagem enviada com sucesso!',
-        );
+      $this->CI->email->send();
+      if(!$this->CI->email->send()) {
+          return $data = array(
+            'auth' => 0,
+            'error' => 'ocorreu um erro durante o envio: ',
+          );
+      }else {
+          return $data = array(
+            'auth' => 1,
+            'error' => 'Mensagem enviada com sucesso!',
+          );
+      }
     }
   }
 

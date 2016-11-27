@@ -43,8 +43,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position: relative;"><i class="fa fa-globe" aria-hidden="true"></i><h6 style="position: absolute; top: -2px; left: -3px;"><!--span class="tag red">1</span--></h6>
 </a>
-                    <div class="dropdown-menu dropdown-primary dd-right totalRight" aria-labelledby="dropdownMenu1" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                        <a class="dropdown-item" href="#/support" class="waves-effect arrow-r">Nova mensagem enviada do usuário Tiago</a>
+                    <div class="dropdown-menu dropdown-primary dd-right totalRight menuNot" id="menuNot" aria-labelledby="dropdownMenu1" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                        <a href="http://tiagoluizweb.com.br/tcc/app/#/support/{{notificacao.codigoConfirmacao}}" ng-repeat="notificacao in chatSuporte.listarNotificacao()" class="dropdown-item" href="#/support" class="waves-effect arrow-r">Nova mensagem de {{notificacao.nomeUsuario}} | {{notificacao.count}}</a>
                     </div>
                 </li>
 							<li class="nav-item dropdown">
@@ -115,7 +115,7 @@
 				<ul class="bodyUsuariosChat list-group">
 					<li ng-repeat="usuarioResult in solicitacaoCheck.listarUsuariosChat()" class="list-group-item">
 						{{usuarioResult.nomeUsuario}}
-						<a href="http://localhost/iaiTaPronto/app/#/support/{{usuarioResult.codigoConfirmacao}}" class="tag btn-info btn waves-effect label-pill pull-xs-right">
+						<a href="http://tiagoluizweb.com.br/tcc/app/#/support/{{usuarioResult.codigoConfirmacao}}" class="tag btn-info btn waves-effect label-pill pull-xs-right">
 						<i class="fa fa-commenting" aria-hidden="true"></i></a>
 					</li>
 				</ul>

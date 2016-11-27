@@ -1,12 +1,21 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Usuario{
-
   private $CI, $id, $nome, $email, $nomeUsuario, $senha, $dataCadastro, $cpf, $funcao, $estado, $codigoConfirmacao, $codigoRecuperacao, $tipoRelatorio;
 
   public function __construct(){
     $this->CI =& get_instance();
-    $this->CI->load->library('email');
+    $config = array (
+      'smtp_user' => 'seu@email',
+      'smtp_pass' => 'suasenha',
+      'mailtype'  => 'html', 
+      'charset'   => 'utf-8',
+      'protocol' => 'smtp',
+      'smtp_host' => 'ssl://smtp.googlemail.com',
+      'smtp_port' => 465,
+     );
+    $this->CI->load->library('email', $config);
+    $this->CI->email->set_newline("\r\n");
   }
 
   public function setId($id){
@@ -310,26 +319,32 @@ class Usuario{
         return $data = array('auth' => 1);
     }
   }
-  public function verificarEmail($hash){
-    $query = $this->CI->db->query("SELECT * FROM `data__usuario` WHERE id = $hash");
-    $userData = $query->result();
+  public function verificarEmail($tipo, $id, $html){
+    if($tipo == 0){
+      $query = $this->CI->db->query("SELECT * FROM `data__usuario` WHERE id = $id");
+      $userData[0] = $query->result();
+      return $data = array(
+        'data' => $userData[0],
+      );
+    }else if($tipo == 1){
+      $this->CI->email->set_mailtype("html");
+      $this->CI->email->from('tiago@tiagoluizweb.com.br', 'Tiago Luiz - ' . $this->nome);
+      $this->CI->email->to($this->email);
 
-    $this->CI->email->from('tcc@tiagoluizweb.com.br', 'Tiago Luiz - ' . $this->nome);
-    $this->CI->email->to($this->email);
-
-    $this->CI->email->subject('Confirmação de E-mail');
-    $this->CI->email->message('Olá querido usuário '.$userData[0]->nome.'. Seja Bem Vindo ao nosso serviço, para conseguir logar no sistema é preciso confirmar seu e-mail, clique no link ao lado para prossseguir com essa etapa '.base_url().'app/#/confirmarEmail/' . $userData[0]->codigoConfirmacao);
-    $this->CI->email->send();
-    if(!$this->CI->email->send()) {
-        return $data = array(
-          'auth' => 0,
-          'error' => 'ocorreu um erro durante o envio: ',
-        );
-    }else {
-        return $data = array(
-          'auth' => 1,
-          'error' => 'Mensagem enviada com sucesso!',
-        );
+      $this->CI->email->subject('Confirmação de E-mail - ' . date("d-m-Y H:i:s"));
+      $this->CI->email->message($html);
+      $this->CI->email->send();
+      if(!$this->CI->email->send()) {
+          return $data = array(
+            'auth' => 0,
+            'error' => 'ocorreu um erro durante o envio: ',
+          );
+      }else {
+          return $data = array(
+            'auth' => 1,
+            'error' => 'Mensagem enviada com sucesso!',
+          );
+      }
     }
   }
   function buscarRelatorio($tipo, $dataInicio, $dataFinal, $periodo){

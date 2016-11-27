@@ -55,7 +55,7 @@ class Company extends CI_Controller {
 		$this->empresa->setTelefone($data->newTelefoneClient);
 		$this->empresa->setEstado($data->statusClient);
 		
-		$data = $this->empresa->criarEmpresa();
+		$data = $this->empresa->criarEmpresa(1);
 		
 		echo json_encode($data);
 	}
@@ -68,6 +68,7 @@ class Company extends CI_Controller {
 		$this->empresa->setNome($data->editNameClient);
 		$this->empresa->setEmail($data->editEmailClient);
 		$this->empresa->setTelefone($data->editTelefoneClient);
+		$this->empresa->setUsuarioId($data->idUser);
 		
 		$data = $this->empresa->editarEmpresa();
 		

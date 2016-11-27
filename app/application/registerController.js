@@ -1,12 +1,24 @@
 angular.module('app').controller('registerController',  ['$location', '$scope', '$http', '$timeout', '$cookies', 'setBackground', 'verificarRegras', 'verificarLogin', function($location, $scope, $http, $timeout, $cookies, setBackground, verificarRegras, verificarLogin){
-
-    var url = "http://localhost/iaiTaPronto/system/";
+    
+    var url = "http://tiagoluizweb.com.br/tcc/system/";
+// 		var url = "http://localhost/iaiTaPronto/system/";
     var controllerName = $location.path();
     var hashName = $location.path().split('/');
   	$scope.ready = function(){
   		$('body').addClass('bodyLogin');
   	}
+    var verDados = verificarLogin.verificarLogin();
+    if(verDados){
+//       if($scope.user.funcao <= 1){
+//         $location.path('/admin')
+//       }else if($scope.user.funcao <= 1){
+//         $location.path('/support')
+//       }else{
+//         $location.path('/panel')
+//       }
+    }
     angular.element(document).ready(function () {
+      $('.manutencao').addClass('hide-element');	
       if(controllerName == '/register/'+ hashName[2]){
         $scope.novoUsuario = function(){
           var data = {
@@ -51,7 +63,7 @@ angular.module('app').controller('registerController',  ['$location', '$scope', 
                     $('#newCpfUser').addClass('cpfInvalid');
                   }
             }, function myError(response) {
-              //   alert('erro');
+              console.log(response);
             });
           }
         }
@@ -99,7 +111,7 @@ angular.module('app').controller('registerController',  ['$location', '$scope', 
                     $('#newCpfUser').addClass('cpfInvalid');
                   }
                 }, function myError(response) {
-              //   alert('erro');
+              console.log(response);
             });
           }
         }
@@ -113,10 +125,8 @@ angular.module('app').controller('registerController',  ['$location', '$scope', 
           url : url+'user/criarUsuarioRegister',
           data : element,
           }).then(function mySucces(response) {
-          		// 	$('.body-table .table-users tbody tr').show();
-          		// 	$('.preloaderBody').addClass('hide-element');
+                console.log(response);
               	var userResult = response.data;
-                console.log(userResult);
                   if(userResult.auth){
                       $('.cpfExistent').addClass('hide-element');
                       $('.usernameExistent').addClass('hide-element');
@@ -177,7 +187,6 @@ angular.module('app').controller('registerController',  ['$location', '$scope', 
                     }
                   }
           }, function myError(response) {
-              toastr["danger"]('Erro ao criar usuário!');
               console.log(response);
           });
         }

@@ -51,7 +51,14 @@ class User extends CI_Controller {
 
 		echo json_encode($data);
 	}
+	public function desativarCliente(){
+		$data = json_decode(file_get_contents("php://input"));
+		$this->load->library('usuario');
+		$this->usuario->setId($data->id);
+		$data = $this->usuario->desativarUsuario();
 
+		echo json_encode($data);
+	}
 	public function verificarCpf(){
 		$data = json_decode(file_get_contents("php://input"));
 		$this->load->library('usuario');
@@ -71,7 +78,6 @@ class User extends CI_Controller {
 		$this->usuario->setCpf($data->newCpfUser);
 		$this->usuario->setFuncao($data->newRoleUser);
 		$this->usuario->setEstado($data->statusUser);
-
 		$dataResult = $this->usuario->criarUsuario();
 		echo json_encode($dataResult);		
 	}
@@ -89,8 +95,12 @@ class User extends CI_Controller {
 		$this->usuario->setEstado($data->statusUser);
 
 		$dataResult = $this->usuario->criarUsuario();
+		$dataUsuario;
 		if($dataResult['auth'] == 1){
-			$verData = $this->usuario->verificarEmail($dataResult['id']);
+			$dataUsuario = $this->usuario->verificarEmail(0, $dataResult['id'], '');
+			$html = $this->load->view('verificarEmail', $dataUsuario, true);
+			$dataUsuario = $this->usuario->verificarEmail(1, '', $html);
+			
 			if($data->newRoleUser == 3){
 				$this->load->library('conversa');
 				$this->conversa->setTitulo(md5(date('Y-m-d H:i:s')));
@@ -357,12 +367,12 @@ class User extends CI_Controller {
 		$pdfFilePath = "relatorio_".$relType.".pdf";
 		
 		$pdf = $this->usuario->gerarRelatorio();
-
+		date_default_timezone_set('America/Sao_Paulo');
 		$paragrafo = "<body style='background-image: url($imageBg);background-position: center; background-size: 100% 100%;'>
 										<p style=\"text-align:justify;line-height:150%\">
 											<div style='text-align: center;'><img style='max-width: 300px; width: 100%; text-align:center' src='".base_url()."app/images/logo.png'></div>
 											<span style='font-size: 12pt;line-height: 150%;font-family: Verdana, sans-serif;color: windowtext;text-align: center;width: 100%;float: left;'>
-												Relatorio de $title - " . date("d/m/Y") . ' - ' . (date("H")) . date(":i:s") ."
+												Relatorio de $title - " . date("d/m/Y") . ' - ' . date("H:i:s") ."
 											</span>
 										</p>
 									 <table style=' display: table; border-collapse: separate;border-spacing: 2px;border-color: grey; font-family: arial, sans-serif; border-collapse: collapse; width: 100%;'>

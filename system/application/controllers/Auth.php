@@ -25,8 +25,11 @@ class Auth extends CI_Controller {
 		$data = json_decode(file_get_contents("php://input"));
 		
 		$this->load->library('autenticacao');
-		$data = $this->autenticacao->setEmail($data->email);
-		$data = $this->autenticacao->recuperarSenha();
+		$this->autenticacao->setEmail($data->email);
+		$data = $this->autenticacao->recuperarSenha(0, '', '');
+		$html = $this->load->view('recuperarSenha', $data, true);
+		$data = $this->autenticacao->recuperarSenha(1, $html, $data);
+		
 		echo json_encode($data);
 	}
 	

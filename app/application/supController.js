@@ -1,7 +1,8 @@
 angular.module('app').controller('supController', ['$scope', 'ChatSupportFactory', 'verifyDate3', 'convertReportData', 'convertData', '$rootScope', '$routeParams', '$route', '$window', 'setBackground', 'loadUser', '$location', 'verificarLogin', 'logout', '$http', '$timeout', '$cookies', 'verificarRegras', 'createNewProject', 'createNewTask', 'editProject', 'formatDate', 'verifyDateProjectStatus', 'formatDate2', 'formatTime', 'convertReportDataCircle', 'verifyDate', 'verifyDate2', '$interval', 'verificarSolicitacao', 'verifyDate4', function($scope, ChatSupportFactory, verifyDate3, convertReportData, convertData, $rootScope, $routeParams, $route, $window, setBackground, loadUser, $location, verificarLogin, logout, $http, $timeout, $cookies, verificarRegras, createNewProject, createNewTask, editProject, formatDate, verifyDateProjectStatus, formatDate2, formatTime, convertReportDataCircle, verifyDate, verifyDate2, $interval, verificarSolicitacao, verifyDate4){
 
 	
-  var url = "http://localhost/iaiTaPronto/system/";
+  var url = "http://tiagoluizweb.com.br/tcc/system/";
+// 		var url = "http://localhost/iaiTaPronto/system/";
   var hashName = $location.path().split('/');
 
 	var verDados = verificarLogin.verificarLogin();
@@ -15,7 +16,6 @@ angular.module('app').controller('supController', ['$scope', 'ChatSupportFactory
 		location.reload();
 	};
 	if($location.path() == '/support/' + hashName[2]){
-		console.log('entrou');
 		if(verDados){
 			$scope.user = loadUser.loadUser();
 			if($scope.user.nome != undefined){
@@ -24,8 +24,9 @@ angular.module('app').controller('supController', ['$scope', 'ChatSupportFactory
 				};
 				if($scope.user.funcao == 2 || $scope.user.funcao == 3){
 					$scope.chatSuporte = ChatSupportFactory;
-					if(typeof $scope.chatSuporte.entrar == 'function'){
+					if(typeof $scope.chatSuporte.entrar == 'function' || typeof $scope.chatSuporte.entrarNotificacao == 'function'){
 						$scope.chatSuporte.entrar();
+						$scope.chatSuporte.entrarNotificacao();
 						$scope.verifyChat = function(id){
 							if(id == $scope.user.id){
 								return true;
@@ -53,29 +54,31 @@ angular.module('app').controller('supController', ['$scope', 'ChatSupportFactory
 		}
 	}
 	
-	$scope.carregarUsuariosChat = function(){
-		var userChat;
-		$http({
-         method : "GET",
-         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-         url : url+'chat/usuariosConversa?usuarioId=' + $scope.user.id,
-     }).then(function mySucces(response) {
-				if(response.data.auth){
-					return JSON.stringify(response.data.data);
-					console.log(userChat);
-				}
-     });
-	}
-	$scope.carregarUsuariosChat();
-	$scope.abrirChat = function(element){
-		 var usuarioId = element;
-     $http({
-         method : "GET",
-         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-         url : url+'message/carregarMensagemSuporte?usuarioId=' + usuarioId,
-     }).then(function mySucces(response) {
-           console.log(response);
-     });
+	if($location.path() == '/support'){
+		$scope.carregarUsuariosChat = function(){
+			var userChat;
+			$http({
+					 method : "GET",
+					 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+					 url : url+'chat/usuariosConversa?usuarioId=' + $scope.user.id,
+			 }).then(function mySucces(response) {
+					if(response.data.auth){
+						return JSON.stringify(response.data.data);
+						console.log(userChat);
+					}
+			 });
+		}
+		$scope.carregarUsuariosChat();
+		$scope.abrirChat = function(element){
+			 var usuarioId = element;
+			 $http({
+					 method : "GET",
+					 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+					 url : url+'message/carregarMensagemSuporte?usuarioId=' + usuarioId,
+			 }).then(function mySucces(response) {
+						 console.log(response);
+			 });
+		}
 	}
   angular.element(document).ready(function () {
 		$('#popup-messagesBody').scroll(function (event) {

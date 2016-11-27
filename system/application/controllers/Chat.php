@@ -33,4 +33,19 @@ class Chat extends CI_Controller {
 		$data = $this->conversa->usuariosConversa();
 		echo json_encode($data);
 	}
+	public function carregarNotificacao(){
+		$this->load->library('notificacao');
+		
+		$this->notificacao->setUsuarioId($_GET['usuarioId']);
+		$data = $this->notificacao->carregarNotificacao();
+		echo json_encode($data);
+	}
+	public function alterarEstadoNotificacao(){
+		$this->load->library('notificacao');
+		$data = json_decode(file_get_contents("php://input"));
+	 	$usuarioChat = $data->usuarioChat;	
+		$this->notificacao->setUsuarioId($usuarioChat);
+		$result = $this->notificacao->alterarEstado();
+		echo json_encode($result);
+	}
 }

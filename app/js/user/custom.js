@@ -1,4 +1,4 @@
-var url = "http://localhost/iaiTaPronto/system/";
+var url = "http://tiagoluizweb.com.br/tcc/system/";
 $(window).load(function(){
 });
 
@@ -118,6 +118,59 @@ function setStatusClient(element){
                   toastr["warning"]('Cliente desativado com sucesso!');
               }else{
                   toastr["danger"]('Erro ao desativar cliente!');
+              }
+          });
+      }
+    }else{
+      location.reload();
+    } 
+    //
+}
+
+function setStatusTarefa(element){
+    var selectedStatus = $(element).is(":checked");
+    var id = $(element).val();
+    
+    var confirm;
+    if(selectedStatus){
+       confirm = window.confirm("Deseja mesmo Finalizar a tarefa?");
+    }else{
+       confirm = window.confirm("Deseja mesmo colocar a tarefa em andamento?");
+    }
+  
+    if(confirm){
+      if(selectedStatus){
+        $.ajax({
+          method: "POST",
+          url : url+'task/alterarEstado',
+          data:{
+              id: id,
+              estado: 1
+          }
+        })
+        .done(function( response ) {
+            var statusResult = JSON.parse(response);
+            if(statusResult.auth){
+                toastr["success"]('Alterado com sucesso!');
+            }else{
+                toastr["danger"]('Erro ao alterar!');
+            }
+        });
+      }else{
+          $.ajax({
+            method: "POST",
+            url : url+'task/alterarEstado',
+            data:{
+                id: id,
+                estado: 0
+            }
+          })
+          .done(function( response ) {
+              var statusResult = JSON.parse(response);
+              if(statusResult.auth){
+                toastr["success"]('Alterado com sucesso!');
+              }else{
+                  toastr["danger"]('Erro ao alterar!');
               }
           });
       }

@@ -56,16 +56,58 @@ class Project extends CI_Controller {
 	public function criarProjeto(){
 		$data = json_decode(file_get_contents("php://input"));
 		$this->load->library('projeto');
-		$this->projeto->setEmpresaId($data->data->projectClient);
-		$this->projeto->setUsuarioId($data->data->userId);
-		$this->projeto->setTitulo($data->data->projectTitle);
-		$this->projeto->setDataEntrega($data->data->projectDate);
-		$this->projeto->setDescricao($data->data->projectDescription);
+		$sucesso;
+		$userId = $data->data->userId;
+		$projectClient = $data->data->projectClient;
+		$newCliente = $data->data->newCliente;
+		$userId = $data->data->userId;
+		$projectTitle = $data->data->projectTitle;
+		$projectDate = $data->data->projectDate;
+		$projectDescription = $data->data->projectDescription;
+			
+		if($newCliente == 1){
+			$this->load->library('empresa');
+			$this->empresa->setUsuarioId($userId);
+			$this->empresa->setNome($projectClient);
+			$this->empresa->setEmail('');
+			$this->empresa->setTelefone('');
+			$this->empresa->setEstado(1);
+		
+			$data = $this->empresa->criarEmpresa();
+			$sucesso = $data['auth'];
+			if($sucesso){
+				$this->projeto->setEmpresaId($data['id']);
+			}
+		}else{
+			$this->projeto->setEmpresaId($projectClient);
+			$sucesso = 1;
+		}
+			
+		if($sucesso){
+			$this->projeto->setUsuarioId($userId);
+			$this->projeto->setTitulo($projectTitle);
+			$this->projeto->setDataEntrega($projectDate);
+			$this->projeto->setDescricao($projectDescription);
 
-		$data = $this->projeto->criarProjeto();
-
-		echo json_encode($data);
+			$data = $this->projeto->criarProjeto(0, '', '');
+			$html = $this->load->view('projetoCriado', $data, true);
+			$data = $this->projeto->criarProjeto(1, $html, $data);
+		}
+			echo json_encode($data);
 	}
+// 	public function criarProjeto(){
+// 		$data = json_decode(file_get_contents("php://input"));
+// 		$this->load->library('projeto');
+// 		$this->projeto->setEmpresaId($data->data->projectClient);
+// 		$this->projeto->setUsuarioId($data->data->userId);
+// 		$this->projeto->setTitulo($data->data->projectTitle);
+// 		$this->projeto->setDataEntrega($data->data->projectDate);
+// 		$this->projeto->setDescricao($data->data->projectDescription);
+
+// 		$data = $this->projeto->criarProjeto();
+
+// 		echo json_encode($data);
+// 	}
 	public function editarProjeto(){
 		$data = json_decode(file_get_contents("php://input"));
 		$this->load->library('projeto');
@@ -83,7 +125,9 @@ class Project extends CI_Controller {
 	}
 	public function verificarProjeto(){
 		$this->load->library('projeto');
-		$data = $this->projeto->verificarProjeto();
+		$html = $this->load->view('estadoProjetoAlterado', '', true);
+		$data = $this->projeto->verificarProjeto($html);
+		
 		echo json_encode($data);
 	}
 }

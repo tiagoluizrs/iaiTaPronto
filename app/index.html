@@ -42,14 +42,22 @@
     <div class="imagePreloader">
     </div>
   </div>
+  <div class="sincronizando hide-element">
+    <span class="body-preloader-sinc">
+      <i class="fa fa-spinner fa-pulse fa-5x fa-fw icon-peloader"></i>
+      <p>Sincronizando sua conta aguarde...</p>
+    </span>
+  </div>
+
   <!--/Double Navigation-->
   <ng-view></ng-view>
   <div ng-include="'views/modals/newProjectModal.html'"></div>
   <div ng-include="'views/modals/newTaskModal.html'"></div>
+  <div ng-include="'views/modals/viewTaskModal.html'"></div>
+  <div ng-include="'views/modals/editTaskModal.html'"></div>
   <div ng-include="'views/modals/newSchenduleModal.html'"></div>
   <div ng-include="'views/modals/editSchenduleModal.html'"></div>
   <div ng-include="'views/others/chat.html'"></div>
-  <div ng-include="'views/others/supportChat.html'"></div>
   <div ng-include="'views/others/tutorial.html'"></div>
   <div ng-include="'views/others/manutencao.html'"></div>
 

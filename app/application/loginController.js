@@ -1,11 +1,24 @@
 angular.module('app').controller('loginController', ['$scope', '$timeout', '$rootScope', 'verificarLogin', 'setBackground', '$http', '$location', '$cookies', 'verificarRegras', function($scope, $timeout, $rootScope, verificarLogin, setBackground, $http, $location, $cookies, verificarRegras){
 
-  var url = "http://localhost/iaiTaPronto/system/";
+  var url = "http://tiagoluizweb.com.br/tcc/system/";
+// 		var url = "http://localhost/iaiTaPronto/system/";
 
   	// Guardar dados do usuário em cookie
   	$rootScope.activetab = $location.path();
-
+	
+	var verDados = verificarLogin.verificarLogin();
+	if(verDados){
+// 		if($scope.user.funcao <= 1){
+// 			$location.path('/admin')
+// 		}else if($scope.user.funcao <= 1){
+// 			$location.path('/support')
+// 		}else{
+// 			$location.path('/panel')
+// 		}
+	}
+	
 	angular.element(document).ready(function () {
+		$('.desativando').addClass('hide-element');
 		$('.button-collapse').sideNav('hide');
 		$('.areaDesktop').addClass('removePadding');
 		$('.topBar').addClass('hide-element');
@@ -13,6 +26,7 @@ angular.module('app').controller('loginController', ['$scope', '$timeout', '$roo
 		$('.userTopBar').addClass('hide-element');
 		$('.bodyFloatButton').addClass('hide-element');
 		$('.clock ').addClass('hide-element');
+		$('.manutencao').addClass('hide-element');	
 	});
 	$scope.saveCookie = function(data){
 		$scope.userDatas = {

@@ -1,3 +1,11 @@
+ <div class="desativado hide-element">
+    <span class="body-preloader-desativado">
+      <div class="bodyDesativadoHide">
+        <h3>Conta desativada</h3>
+        <button ng-click="logout();" class="btn btn-info logoutSistema">Sair do sistema</button>
+      </div>
+    </span>
+  </div>
 <div class="sideMenu">
 	<ul class="nav">
 	   <li ng-repeat="item in menu">
@@ -147,7 +155,7 @@
 												</div>
 												 -->
 												<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-												<button type="button" value="{{tarefa.tarefa_id}}" class="buttonLarge btn btn-primary waves-effect waves-light">Editar Tarefa</button>				
+												<button type="button" ng-click="pesquisarProjetoTarefa(tarefa.tarefa_id)" class="buttonLarge btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#editTaskModal">Editar Tarefa</button>
 												</div>
 											</div>
 									</div>

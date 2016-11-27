@@ -1,3 +1,24 @@
+ <div class="desativando hide-element">
+    <span class="body-preloader-des">
+      <div class="bodyDes">
+        <i class="fa fa-spinner fa-pulse fa-5x fa-fw icon-peloader"></i>
+        <p>Desativando sua conta aguarde...</p>
+      </div>
+      <div class="bodyDesHide hide-element">
+        <h3>Conta desativada</h3>
+        <button ng-click="logout();" class="btn btn-info logoutSistema">Sair do sistema</button>
+      </div>
+    </span>
+  </div>
+ <div class="desativado hide-element">
+    <span class="body-preloader-desativado">
+      <div class="bodyDesativadoHide">
+        <h3>Conta desativada</h3>
+        <button ng-click="logout();" class="btn btn-info logoutSistema">Sair do sistema</button>
+      </div>
+    </span>
+  </div>
+<button class="excluirConta btn btn-danger" ng-click="excluirConta();"><i class="fa fa-trash-o" aria-hidden="true"></i></button></button>
 <div class="sideMenu">
 	<ul class="nav">
 	   <li ng-repeat="item in menu">

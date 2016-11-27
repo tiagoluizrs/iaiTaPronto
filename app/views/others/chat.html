@@ -1,4 +1,4 @@
-<div ng-controller="mainController" class="popup-box-on popup-box" id="qnimateCliente">
+<div ng-controller="mainController" class="popup-box" id="qnimateCliente">
   <div class="popup-head">
     <div class="popup-head-left pull-left">{{user.nomeUsuario}}</div>
     <div class="popup-head-right pull-right">
@@ -17,6 +17,11 @@
 		<i class="fa fa-angle-double-down" aria-hidden="true"></i></button>
   <div class="popup-messages" id="popup-messagesBody">
     <div class="direct-chat-messages">
+			<div class="alert alert-info" style="font-size: 0.8em" role="alert">
+				<i class="fa fa-info-circle" aria-hidden="true"></i>
+				<span class="sr-only">Bem-vindo!</span>
+				Seja Bem-vindo ao nosso serviço de chat. Tire suas dúvidas por aqui ou envie um E-mail para contato@iaitapronto.com.br
+			</div>
       <div class="direct-chat-msg doted-border" ng-repeat="mensagem in chat.listar()">
 <!-- 				<div class="chat-box-single-line" ng-if="verifyChat() ? 'colorUser' : 'colorSupport'" >
 					<abbr class="timestamp">{{mensagem.dataCadastro | configurarData: 'dia'}}</abbr>
